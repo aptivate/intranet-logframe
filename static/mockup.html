@@ -1,0 +1,399 @@
+<html>
+<head>
+<style>
+body {
+	font-family: sans-serif;
+}
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+.high {
+	position:relative;
+}
+td, th {
+	vertical-align: top;
+	border: 1px solid #eee;
+	padding: 0.2em;
+}
+th {
+	text-align: left;
+}
+h3 {
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+input[type=text] {
+	padding: 2px 4px;
+	border: 1px solid #dedede;
+}
+.padded-bottom {
+	padding-bottom: 2em;
+}
+.at-bottom {
+	position: absolute;
+	bottom: 0;
+}
+.heading {
+	padding: 0.2em;
+}
+.output {
+	color: white;
+	background: #007;
+}
+.indicator-cell {
+	width: 25%;
+}
+.indicator {
+	background: #eea;
+}
+.milestone-heading, .milestones-edit {
+	width: 16.6%;
+	font-size: 1em;
+	text-align: center;
+}
+.milestone-heading, .milestones-edit, .subindicator {
+	background: #9c9;
+}
+.source > td, .milestone-column.source {
+	background: #d0e1f4;
+	font-weight: bold;
+}
+.assumptions {
+	color: white;
+	background: #d88;
+}
+.subindicator-add, .subindicator-del {
+	display: inline-block;
+	padding: 0.2em;
+	background: #9c9;
+}
+.indicator-cell {
+	position: relative;
+}
+.indicator-del {
+	position: absolute;
+	bottom: 0.2em;
+	right: 0.2em;
+}
+.indicator-add-button, .indicator-del
+{
+	padding: 0.2em;
+	background: #eea;
+}
+.indicator-add {
+	margin: 0.2em;
+}
+.indicator-add-button {
+	display: inline-block;
+}
+.milestones-edit {
+	vertical-align: middle;
+}
+.milestone-heading.source span,
+.milestones-edit a {
+	display: block;
+	-moz-transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+	text-decoration: none;
+	color: black;
+}
+.milestone-heading.source span {
+	width: 1.4em;
+	overflow: hidden;
+	display: none;
+}
+.milestones-edit a:hover {
+	text-decoration: underline;
+}
+.milestone-heading.source {
+	width: 0;
+}
+.milestone-column input[type='text'],
+.milestone-column textarea {
+	width: 100%;
+}
+input[type='text'], textarea, .textarea-replacement {
+	margin: 0;
+	border: 0;
+	padding: 1px;
+	border: 0;
+	font: inherit;
+	display: block;
+}
+input:focus[type='text'],
+textarea:focus,
+.textarea-replacement:focus {
+	padding: 0;
+	border: 1px solid #ddd;
+	background: #ffd;
+}
+</style>
+</head>
+<body>
+<table class="high">
+	<tr>
+		<td class="high" width="16.6%">
+			<h3 class="output heading">Output 3</h3>
+			<div class="padded-bottom">
+				<textarea>
+					Adolescent girls and women with improved life skills 
+				</textarea>
+			</div>
+			<div class="at-bottom">Impact Weighting: <input type="text" value="20%" style="width: 5em;"/></div>
+		</td>
+		<td width="66.6%">
+			<table>
+				<tr>
+					<td class="indicator-cell">
+						<h3 class="indicator heading">Indicator 3.1</h3>
+						<div>
+							Number of social networks strengthened to challenge discriminatory social norms in V4C communities.
+						</div>
+						<div class="indicator-del">[X]</div>
+					</td>
+					<td>
+						<table class="editable">
+							<tr>
+								<th class="milestone-heading">Sub-indicator</th>
+								<th class="milestone-heading">Baseline <br />2013</th>
+								<th class="milestone-heading">Milestone 1<br />2014</th>
+								<th class="milestone-heading">Milestone 2<br />2015</th>
+								<th class="milestone-heading">Milestone 3<br />2016</th>
+								<th class="milestone-heading">Target<br />2017</th>
+								<th class="milestones-edit"><a href="#">Edit</a></th>
+							</tr>
+							<tr>
+								<th class="subindicator"></th>
+								<td class="milestone-column">0</td>
+								<td class="milestone-column">12</td>
+								<td class="milestone-column">42</td>
+								<td class="milestone-column">71</td>
+								<td class="milestone-column">100</td>
+								<td class="subindicator-del">[X]</td>
+							</tr>
+							<tr>
+								<td colspan="6"><div class="subindicator-add">[+]</div></td>
+							</tr>
+							<tr class="source">
+								<td colspan="6">Source</td>
+							</tr>
+							<tr>
+								<td colspan="6">V4C partners' quarterly reporting. <em>Clarification of measurable to be determined during deepening design phase.</em></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td class="indicator-cell">
+						<h3 class="indicator heading">Indicator 3.2</h3>
+						<div>
+							Number of men and boys who are in V4C male peer-to-peer group programme demonstrating:
+<ol>
+<li>Knowledge on the role of male socialisation, masculinity, power, privilege and control as root causes of gender inequality</li>
+<li>Communication skills – to listen to girls and women with attention and compassion, and without judgment, advice or interruptions</li>
+<li>Improved relationship skills  - involving girls and w in decision making</li>
+</ol>
+						</div>
+						<div class="indicator-del">[X]</div>
+					</td>
+					<td>
+						<table class="editable">
+							<tr>
+								<th class="milestone-heading">Sub-indicator</th>
+								<th class="milestone-heading">Baseline <br />2013</th>
+								<th class="milestone-heading">Milestone 1<br />2014</th>
+								<th class="milestone-heading">Milestone 2<br />2015</th>
+								<th class="milestone-heading">Milestone 3<br />2016</th>
+								<th class="milestone-heading">Target<br />2017</th>
+								<th class="milestones-edit"><a href="#">Edit</a></th>
+							</tr>
+							<tr>
+								<th class="subindicator"></th>
+								<td class="milestone-column">0</td>
+								<td class="milestone-column">1,800 with at least 2/3 skills (base on 3,000 participants)</td>
+								<td class="milestone-column">3,600 with at least 2/3 skills (base on 6,000 participants)</td>
+								<td class="milestone-column">5,400 with at least 2/3 skills (base on 9,000 participants)</td>
+								<td class="milestone-column">7,200 with at least 2/3 skills (base on 12,000 participants)</td>
+								<td class="subindicator-del">[X]</td>
+							</tr>
+							<tr>
+								<td colspan="6"><div class="subindicator-add">[+]</div></td>
+							</tr>
+							<tr class="source">
+								<td colspan="6">Source</td>
+							</tr>
+							<tr>
+								<td colspan="6">V4C partners' quarterly reporting.</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td class="indicator-cell">
+						<h3 class="indicator heading">Indicator I.1</h3>
+						<div>
+							An example of an indicator with more than one sub-indicator.
+						</div>
+						<div class="indicator-del">[X]</div>
+					</td>
+					<td>
+						<table class="editable">
+							<tr>
+								<th class="milestone-heading">Sub-indicator</th>
+								<th class="milestone-heading">Baseline <br />2013</th>
+								<th class="milestone-heading">Milestone 1<br />2014</th>
+								<th class="milestone-heading">Milestone 2<br />2015</th>
+								<th class="milestone-heading">Milestone 3<br />2016</th>
+								<th class="milestone-heading">Target<br />2017</th>
+								<th class="milestones-edit"><a href="#">Edit</a></th>
+								<th class="milestone-heading source"><span>Source</span></th>
+							</tr>
+							<tr>
+								<th class="subindicator">Enugu</th>
+								<td class="milestone-column">71.0</td>
+								<td class="milestone-column">71.6</td>
+								<td class="milestone-column">71.7</td>
+								<td class="milestone-column">71.8</td>
+								<td class="milestone-column">71.9</td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">1</th>
+							</tr>
+							<tr>
+								<th class="subindicator">Jigawa</th>
+								<td class="milestone-column">14.2</td>
+								<td class="milestone-column">14.8</td>
+								<td class="milestone-column">14.9</td>
+								<td class="milestone-column">15.0</td>
+								<td class="milestone-column">15.1</td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">1</th>
+							</tr>
+							<tr>
+								<th class="subindicator">Kano</th>
+								<td class="milestone-column">17.5</td>
+								<td class="milestone-column">18.1</td>
+								<td class="milestone-column">18.2</td>
+								<td class="milestone-column">18.3</td>
+								<td class="milestone-column">18.4</td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">2</th>
+							</tr>
+							<tr>
+								<th class="subindicator">Lagos</th>
+								<td class="milestone-column"><textarea rows="1">84.1</textarea></td>
+								<td class="milestone-column"><textarea rows="1">84.7</textarea></td>
+								<td class="milestone-column"><textarea rows="1">84.8</textarea></td>
+								<td class="milestone-column"><textarea rows="1">84.9</textarea></td>
+								<td class="milestone-column"><textarea rows="1">85.0</textarea></td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">1</th>
+							</tr>
+							<tr>
+								<th class="subindicator">Zamfara</th>
+								<td class="milestone-column"><textarea rows="1">14.4</textarea></td>
+								<td class="milestone-column"><textarea rows="1">14.0</textarea></td>
+								<td class="milestone-column"><textarea rows="1">14.1</textarea></td>
+								<td class="milestone-column"><textarea rows="1">14.2</textarea></td>
+								<td class="milestone-column"><textarea rows="1">14.3</textarea></td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">1</th>
+							</tr>
+							<tr>
+								<td colspan="6"><div class="subindicator-add">[+]</div></td>
+							</tr>
+							<tr class="source">
+								<td colspan="6">Source</td>
+							</tr>
+							<tr>
+								<td colspan="6">
+									<ol>
+										<li>V4C partners' quarterly reporting.</li>
+										<li>We made this one up.</li>
+									</ol>
+								</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+
+			<div class="indicator-add">
+				<span class="indicator-add-button">[+]</span>
+				<span class="indicator-add-label">Add indicator</span>
+			</div>
+		</td>
+		<td class="high">
+			<h3 class="assumptions heading">Assumptions</h3>
+			<div class="padded-bottom">
+				<p>
+				Stream level: <br>
+				Changes in the three Streams occur at rates that mean the effects are mutually reinforcing.
+				</p><p>
+				An increasing number of girls are reached as more SS IPs are mobilised and improve in their delivery of the CSAGE package. The 4th year marks the start of the winding down phase.
+				</p>
+			</div>
+			<div class="at-bottom">Risk Rating: Medium</div>
+		</td>
+	</tr>
+</table>
+</body>
+<!-- script src="jquip/dist/jquip.all.min.js"></script -->
+<script src="jquery-1.10.2.js"></script>
+<script>
+(function () {
+	// $(".milestone-column").bind("click", function (e) {
+	// $("textarea").live("click", function (e) {
+	// $(".editable").on("click", "textarea", function (e) {
+	$("textarea").each(function (index, textarea) {
+		// var textarea = e.target;
+		// alert($(this).html());
+		var replacement = $("<div class='textarea-replacement'></div>");
+		replacement.attr('contentEditable', true);
+		replacement.html(textarea.value);
+
+		/*
+		// http://www.quirksmode.org/dom/range_intro.html
+		function getRangeObject(selectionObject) {
+			if (selectionObject.getRangeAt)
+				return selectionObject.getRangeAt(0);
+			else { // Safari!
+				var range = document.createRange();
+				range.setStart(selectionObject.anchorNode,selectionObject.anchorOffset);
+				range.setEnd(selectionObject.focusNode,selectionObject.focusOffset);
+				return range;
+			}
+		}
+
+		var selectionOrRange;
+		if (window.getSelection) { // Microsoft way
+			selectionOrRange = window.getSelection();
+		}
+		else if (document.selection) { // should come last; Opera!
+			selectionOrRange = document.selection.createRange();
+		}
+
+		var oldRange;
+		oldRange = getRangeObject(selectionOrRange);
+		var newRange = document.createRange();
+		newRange.setStart(replacement[0], oldRange.startOffset);
+		newRange.setEnd  (replacement[0], oldRange.endOffset);
+
+		// TODO IE support!
+		selectionOrRange.removeAllRanges();
+		selectionOrRange.addRange(newRange);
+		*/
+
+		replacement.replaceAll(textarea);
+		// replacement.focus();
+	});
+})();
+</script>
+</html>
