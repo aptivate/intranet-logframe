@@ -1,0 +1,258 @@
+{% extends 'default_layout.dhtml' %}
+
+{% load i18n admin_modify %}
+
+{% block style %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/forms.css" />
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/logframe.css" />
+
+	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/getElementsBySelector.js"></script>
+	
+	<!-- http://groups.google.com/group/django-users/browse_thread/thread/2f529966472c479d -->
+	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/i18n.js"></script>
+
+	{{ profile_form.media }}	
+	
+	<script type="foo"></script>
+	
+	{{ block.super }}
+{% endblock %}
+
+{% block title %}
+	Logframe Output
+{% endblock %}
+
+{% block heading %}
+	Logframe Output
+{% endblock %}
+
+{% block body %}
+	<form method="post" enctype="multipart/form-data">
+		{% csrf_token %}
+		<div class="submit-row">
+			<input type="submit" name="save" value="Save" />
+			<input type="button" value="Cancel" onclick="window.history.back(); return false;" />
+		</div>
+
+<table class="high">
+	<tr>
+		<td class="high" width="16.6%">
+			<h3 class="output heading">Output 3</h3>
+			{{ form.description }}
+			<div class="at-bottom">Impact Weighting: {{ form.impact_weighting }}</div>
+		</td>
+		<td width="66.6%">
+			<table>
+				<tr>
+					<td class="indicator-cell">
+						<h3 class="indicator heading">Indicator 3.1</h3>
+						<textarea>
+							Number of social networks strengthened to challenge discriminatory social norms in V4C communities.
+						</textarea>
+						<div class="indicator-del">[X]</div>
+					</td>
+					<td>
+						<table class="editable">
+							<tr>
+								<th class="milestone-heading">Sub-indicator</th>
+								<th class="milestone-heading">Baseline <br />2013</th>
+								<th class="milestone-heading">Milestone 1<br />2014</th>
+								<th class="milestone-heading">Milestone 2<br />2015</th>
+								<th class="milestone-heading">Milestone 3<br />2016</th>
+								<th class="milestone-heading">Target<br />2017</th>
+								<th class="milestones-edit"><a href="#">Edit</a></th>
+							</tr>
+							<tr>
+								<th class="subindicator"></th>
+								<td class="milestone-column">0</td>
+								<td class="milestone-column">12</td>
+								<td class="milestone-column">42</td>
+								<td class="milestone-column">71</td>
+								<td class="milestone-column">100</td>
+								<td class="subindicator-del">[X]</td>
+							</tr>
+							<tr>
+								<td colspan="6"><div class="subindicator-add">[+]</div></td>
+							</tr>
+							<tr class="source">
+								<td colspan="6">Source</td>
+							</tr>
+							<tr>
+								<td colspan="6"><textarea>V4C partners' quarterly reporting. <em>Clarification of measurable to be determined during deepening design phase.</em></textarea></td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td class="indicator-cell">
+						<h3 class="indicator heading">Indicator 3.2</h3>
+						<textarea>
+							Number of men and boys who are in V4C male peer-to-peer group programme demonstrating:
+<ol>
+<li>Knowledge on the role of male socialisation, masculinity, power, privilege and control as root causes of gender inequality</li>
+<li>Communication skills – to listen to girls and women with attention and compassion, and without judgment, advice or interruptions</li>
+<li>Improved relationship skills  - involving girls and w in decision making</li>
+</ol>
+						</textarea>
+						<div class="indicator-del">[X]</div>
+					</td>
+					<td>
+						<table class="editable">
+							<tr>
+								<th class="milestone-heading">Sub-indicator</th>
+								<th class="milestone-heading">Baseline <br />2013</th>
+								<th class="milestone-heading">Milestone 1<br />2014</th>
+								<th class="milestone-heading">Milestone 2<br />2015</th>
+								<th class="milestone-heading">Milestone 3<br />2016</th>
+								<th class="milestone-heading">Target<br />2017</th>
+								<th class="milestones-edit"><a href="#">Edit</a></th>
+							</tr>
+							<tr>
+								<th class="subindicator"></th>
+								<td class="milestone-column">0</td>
+								<td class="milestone-column">1,800 with at least 2/3 skills (base on 3,000 participants)</td>
+								<td class="milestone-column">3,600 with at least 2/3 skills (base on 6,000 participants)</td>
+								<td class="milestone-column">5,400 with at least 2/3 skills (base on 9,000 participants)</td>
+								<td class="milestone-column">7,200 with at least 2/3 skills (base on 12,000 participants)</td>
+								<td class="subindicator-del">[X]</td>
+							</tr>
+							<tr>
+								<td colspan="6"><div class="subindicator-add">[+]</div></td>
+							</tr>
+							<tr class="source">
+								<td colspan="6">Source</td>
+							</tr>
+							<tr>
+								<td colspan="6"><textarea>V4C partners' quarterly reporting.</textarea></td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+			<table>
+				<tr>
+					<td class="indicator-cell">
+						<h3 class="indicator heading">Indicator I.1</h3>
+						<textarea>
+							An example of an indicator with more than one sub-indicator.
+						</textarea>
+						<div class="indicator-del">[X]</div>
+					</td>
+					<td>
+						<table class="editable">
+							<tr>
+								<th class="milestone-heading">Sub-indicator</th>
+								<th class="milestone-heading">Baseline <br />2013</th>
+								<th class="milestone-heading">Milestone 1<br />2014</th>
+								<th class="milestone-heading">Milestone 2<br />2015</th>
+								<th class="milestone-heading">Milestone 3<br />2016</th>
+								<th class="milestone-heading">Target<br />2017</th>
+								<th class="milestones-edit"><a href="#">Edit</a></th>
+								<th class="milestone-heading source"><span>Source</span></th>
+							</tr>
+							<tr>
+								<th class="subindicator">Enugu</th>
+								<td class="milestone-column">71.0</td>
+								<td class="milestone-column">71.6</td>
+								<td class="milestone-column">71.7</td>
+								<td class="milestone-column">71.8</td>
+								<td class="milestone-column">71.9</td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">1</th>
+							</tr>
+							<tr>
+								<th class="subindicator">Jigawa</th>
+								<td class="milestone-column">14.2</td>
+								<td class="milestone-column">14.8</td>
+								<td class="milestone-column">14.9</td>
+								<td class="milestone-column">15.0</td>
+								<td class="milestone-column">15.1</td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">1</th>
+							</tr>
+							<tr>
+								<th class="subindicator">Kano</th>
+								<td class="milestone-column">17.5</td>
+								<td class="milestone-column">18.1</td>
+								<td class="milestone-column">18.2</td>
+								<td class="milestone-column">18.3</td>
+								<td class="milestone-column">18.4</td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">2</th>
+							</tr>
+							<tr>
+								<th class="subindicator">Lagos</th>
+								<td class="milestone-column"><textarea rows="1">84.1</textarea></td>
+								<td class="milestone-column"><textarea rows="1">84.7</textarea></td>
+								<td class="milestone-column"><textarea rows="1">84.8</textarea></td>
+								<td class="milestone-column"><textarea rows="1">84.9</textarea></td>
+								<td class="milestone-column"><textarea rows="1">85.0</textarea></td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">1</th>
+							</tr>
+							<tr>
+								<th class="subindicator">Zamfara</th>
+								<td class="milestone-column"><textarea rows="1">14.4</textarea></td>
+								<td class="milestone-column"><textarea rows="1">14.0</textarea></td>
+								<td class="milestone-column"><textarea rows="1">14.1</textarea></td>
+								<td class="milestone-column"><textarea rows="1">14.2</textarea></td>
+								<td class="milestone-column"><textarea rows="1">14.3</textarea></td>
+								<td class="subindicator-del">[X]</td>
+								<th class="milestone-column source">1</th>
+							</tr>
+							<tr>
+								<td colspan="6"><div class="subindicator-add">[+]</div></td>
+							</tr>
+							<tr class="source">
+								<td colspan="6">Source</td>
+							</tr>
+							<tr>
+								<td colspan="6">
+									<textarea>
+										<ol>
+											<li>V4C partners' quarterly reporting.</li>
+											<li>We made this one up.</li>
+										</ol>
+									</textarea>
+								</td>
+							</tr>
+						</table>
+
+					</td>
+				</tr>
+			</table>
+
+			<div class="indicator-add">
+				<span class="indicator-add-button">[+]</span>
+				<span class="indicator-add-label">Add indicator</span>
+			</div>
+		</td>
+		<td class="high">
+			<h3 class="assumptions heading">Assumptions</h3>
+			<textarea class="padded-bottom">
+				<p>
+				Stream level: <br>
+				Changes in the three Streams occur at rates that mean the effects are mutually reinforcing.
+				</p><p>
+				An increasing number of girls are reached as more SS IPs are mobilised and improve in their delivery of the CSAGE package. The 4th year marks the start of the winding down phase.
+				</p>
+			</textarea>
+			<div class="at-bottom">Risk Rating: Medium</div>
+		</td>
+	</tr>
+</table>
+
+		
+		<div class="submit-row">
+			<input type="submit" name="save" value="Save" />
+			<input type="button" value="Cancel" onclick="window.history.back(); return false;" />
+		</div>
+	</form>
+
+<script src="{{ STATIC_URL }}/jquery-1.10.2.js"></script>
+<script src="{{ STATIC_URL }}/js/logframe.js"></script>
+{% endblock %}

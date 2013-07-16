@@ -6,4 +6,5 @@ class OutputCreate(CreateView):
     context_object_name = 'output'
     queryset = Output.objects.all()
     form_class = OutputForm
+    template_name = 'logframe/output_edit_form.html'
 

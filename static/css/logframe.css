@@ -1,0 +1,138 @@
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+.high {
+	position:relative;
+}
+td, th {
+	vertical-align: top;
+	border: 1px solid #eee;
+	padding: 0.2em;
+}
+th {
+	text-align: left;
+}
+.content h3.heading {
+	font-size: 2em;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+input[type=text] {
+	padding: 2px 4px;
+	border: 1px solid #dedede;
+}
+p {
+	margin: 0 0 1em;
+}
+.padded-bottom, #id_description {
+	padding-bottom: 2em;
+}
+.at-bottom {
+	position: absolute;
+	bottom: 0;
+}
+.heading {
+	padding: 0.2em;
+}
+.output {
+	color: white;
+	background: #007;
+}
+.indicator-cell {
+	width: 25%;
+}
+.indicator {
+	background: #eea;
+}
+.milestone-heading, .milestones-edit {
+	width: 16.6%;
+	font-size: 1em;
+	text-align: center;
+}
+.milestone-heading, .milestones-edit, .subindicator {
+	background: #9c9;
+}
+.source > td, .milestone-column.source {
+	background: #d0e1f4;
+	font-weight: bold;
+}
+.assumptions {
+	color: white;
+	background: #d88;
+}
+.subindicator-add, .subindicator-del {
+	display: inline-block;
+	padding: 0.2em;
+	background: #9c9;
+}
+.indicator-cell {
+	position: relative;
+}
+.indicator-del {
+	position: absolute;
+	bottom: 0.2em;
+	right: 0.2em;
+}
+.indicator-add-button, .indicator-del
+{
+	padding: 0.2em;
+	background: #eea;
+}
+.indicator-add {
+	margin: 0.2em;
+}
+.indicator-add-button {
+	display: inline-block;
+}
+.milestones-edit {
+	vertical-align: middle;
+}
+.milestone-heading.source span,
+.milestones-edit a:link {
+	display: block;
+	-moz-transform: rotate(-90deg);
+	-webkit-transform: rotate(-90deg);
+	text-decoration: none;
+	color: black;
+}
+.milestone-heading.source span {
+	width: 1.4em;
+	overflow: hidden;
+	display: none;
+}
+.milestones-edit a:hover {
+	text-decoration: underline;
+}
+.milestone-heading.source {
+	width: 0;
+}
+.milestone-column input[type='text'],
+.milestone-column textarea {
+	width: 100%;
+}
+input[type='text'], textarea, .textarea-replacement {
+	margin: 0;
+	border: 0;
+	padding: 1px;
+	border: 0;
+	font: inherit;
+	display: block;
+}
+input:focus[type='text'],
+textarea:focus,
+.textarea-replacement:focus {
+	padding: 0;
+	border: 1px solid #ddd;
+	background: #ffd;
+}
+input:hover[type='text'],
+textarea:hover,
+.textarea-replacement:hover {
+	padding: 0;
+	border: 1px solid #eee;
+	background: #ffd;
+}
+input[type='number'], #id_impact_weighting {
+	width: 4em;
+}
