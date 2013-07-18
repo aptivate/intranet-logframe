@@ -139,7 +139,9 @@ textarea:hover,
 input[type='number'], #id_impact_weighting {
 	width: 4em;
 }
-.indicator.heading input {
+.indicator.heading input,
+.output.heading input {
 	width: 100%;
 	background: inherit;
+	color: inherit;
 }

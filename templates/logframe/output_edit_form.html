@@ -35,10 +35,13 @@
 			<input type="button" value="Cancel" onclick="window.history.back(); return false;" />
 		</div>
 
+		{{ form.errors }}
+		{{ form.log_frame.as_hidden }}
+
 <table class="high">
 	<tr>
 		<td class="high" width="16.6%">
-			<h3 class="output heading">Output 3</h3>
+			<h3 class="output heading">{{ form.name }}</h3>
 			{{ form.description }}
 			<div class="at-bottom">Impact Weighting: {{ form.impact_weighting }}</div>
 		</td>
@@ -251,6 +254,6 @@
 		</div>
 	</form>
 
-<script src="{{ STATIC_URL }}/jquery-1.10.2.js"></script>
-<script src="{{ STATIC_URL }}/js/logframe.js"></script>
+<script src="{{ STATIC_URL }}jquery-1.10.2.js"></script>
+<script src="{{ STATIC_URL }}js/logframe.js"></script>
 {% endblock %}

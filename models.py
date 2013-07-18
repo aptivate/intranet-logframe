@@ -35,13 +35,13 @@ class RiskRating(models.Model):
 
 class Output(models.Model):
     name = models.CharField(max_length=255, unique=True)
-    description = models.TextField()
+    description = models.TextField(blank=True)
     order = models.IntegerField()
     # fk to stream
-    impact_weighting = models.SmallIntegerField()
+    impact_weighting = models.SmallIntegerField(blank=True, null=True)
     # fk to outcome
-    assumptions = models.TextField()
-    risk_rating = models.ForeignKey(RiskRating)
+    assumptions = models.TextField(blank=True)
+    risk_rating = models.ForeignKey(RiskRating, null=True, blank=True)
     log_frame = models.ForeignKey(LogFrame)
 
     @python_2_unicode_compatible

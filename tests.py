@@ -69,3 +69,36 @@ class LogframeTest(AptivateEnhancedTestCase):
             subindicator.targets.prefix, "Each subindicator targets formset "
             "must use a unique prefix to avoid them colliding in the page")
 
+    def test_submit_output_form_creates_output(self):
+        log_frame = G(LogFrame)
+        url = reverse('logframe-output-create')
+        response = self.client.post(url, {
+            'name': 'Print',
+            'description': 'hello world',
+            'log_frame': log_frame.id,
+        })
+        self.assertEquals(302, response.status_code, "Expected the object "
+            "to be saved and to be redirected to its edit page, but this "
+            "happened instead: %s" % 
+            (response.content if response.status_code is 302 else None))
+
+        from .models import Output
+        output = Output.objects.first()
+        edit_url = reverse('logframe-output-update',
+            kwargs={'pk': output.pk})
+        self.assertRedirectedWithoutFollowing(response, edit_url)
+
+        response = self.client.get(edit_url)
+        form = self.assertInDict('form', response.context,
+            "Where are we? should be rendering the same page again, "
+            "but got this instead: %s" % response.content)
+
+        self.assertEquals('Print', output.name,
+            "The POST values should have been saved in the database")
+        self.assertEquals('hello world', output.description,
+            "The POST values should have been saved in the database")
+        self.assertEquals(log_frame, output.log_frame,
+            "The POST values should have been saved in the database")
+        self.assertEquals(1, output.order, "The first Output for a given "
+            "LogFrame should have order set to 1")
+
