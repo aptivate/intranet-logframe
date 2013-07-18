@@ -20,9 +20,9 @@
 		hidden.insertAfter(replacement);
 		replacement[0].hiddenField = hidden[0];
 	});
-	$('input[type="submit"]').on('submit', function() {
-		$("textarea").each(function (index, textarea) {
-			textarea.hiddenField.value = textarea.innerHTML;
+	$('form[name="output"]').on('submit', function() {
+		$('.textarea-replacement').each(function (index, div) {
+			div.hiddenField.value = div.innerHTML;
 		});
 		return true;
 	});
