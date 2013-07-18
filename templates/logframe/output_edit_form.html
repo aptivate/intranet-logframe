@@ -44,34 +44,35 @@
 		</td>
 		<td width="66.6%">
 			<table>
+				{% for indicator in indicators %}
 				<tr>
 					<td class="indicator-cell">
-						<h3 class="indicator heading">Indicator 3.1</h3>
-						<textarea>
-							Number of social networks strengthened to challenge discriminatory social norms in V4C communities.
-						</textarea>
+						<h3 class="indicator heading">{{ indicator.name }}</h3>
+						{{ indicator.description }}
 						<div class="indicator-del">[X]</div>
 					</td>
 					<td>
 						<table class="editable">
 							<tr>
+								{% if indicator.subindicators|length > 1 %}
 								<th class="milestone-heading">Sub-indicator</th>
-								<th class="milestone-heading">Baseline <br />2013</th>
-								<th class="milestone-heading">Milestone 1<br />2014</th>
-								<th class="milestone-heading">Milestone 2<br />2015</th>
-								<th class="milestone-heading">Milestone 3<br />2016</th>
-								<th class="milestone-heading">Target<br />2017</th>
+								{% endif %}
+								{% for milestone in milestones %}
+								<th class="milestone-heading">{{ milestone.name }}</th>
+								{% endfor %}{# milestone #}
 								<th class="milestones-edit"><a href="#">Edit</a></th>
 							</tr>
+							{% for subindicator in indicator.subindicators %}
 							<tr>
-								<th class="subindicator"></th>
-								<td class="milestone-column">0</td>
-								<td class="milestone-column">12</td>
-								<td class="milestone-column">42</td>
-								<td class="milestone-column">71</td>
-								<td class="milestone-column">100</td>
+								{% if indicator.subindicators|length > 1 %}
+								<th class="subindicator">{{ subindicator.name }}</th>
+								{% endif %}
+								{% for target in subindicator.targets %}
+								<td class="milestone-column">{{ target.value }}</td>
+								{% endfor %}
 								<td class="subindicator-del">[X]</td>
 							</tr>
+							{% endfor %}{# subindicator #}
 							<tr>
 								<td colspan="6"><div class="subindicator-add">[+]</div></td>
 							</tr>
@@ -84,8 +85,7 @@
 						</table>
 					</td>
 				</tr>
-			</table>
-			<table>
+				{% endfor %}{# indicators #}
 				<tr>
 					<td class="indicator-cell">
 						<h3 class="indicator heading">Indicator 3.2</h3>
@@ -132,8 +132,6 @@
 
 					</td>
 				</tr>
-			</table>
-			<table>
 				<tr>
 					<td class="indicator-cell">
 						<h3 class="indicator heading">Indicator I.1</h3>
@@ -235,7 +233,7 @@
 			<h3 class="assumptions heading">Assumptions</h3>
 			<textarea class="padded-bottom">
 				<p>
-				Stream level: <br>
+				Stream level: <br />
 				Changes in the three Streams occur at rates that mean the effects are mutually reinforcing.
 				</p><p>
 				An increasing number of girls are reached as more SS IPs are mobilised and improve in their delivery of the CSAGE package. The 4th year marks the start of the winding down phase.

@@ -45,6 +45,9 @@ p {
 .indicator {
 	background: #eea;
 }
+.milestone-heading {
+	white-space: pre-wrap;
+}
 .milestone-heading, .milestones-edit {
 	width: 16.6%;
 	font-size: 1em;
@@ -135,4 +138,8 @@ textarea:hover,
 }
 input[type='number'], #id_impact_weighting {
 	width: 4em;
+}
+.indicator.heading input {
+	width: 100%;
+	background: inherit;
 }

@@ -8,6 +8,20 @@ class Migration(SchemaMigration):
 
     def forwards(self, orm):
         
+        # Adding model 'LogFrame'
+        db.create_table(u'logframe_logframe', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+        ))
+        db.send_create_signal(u'logframe', ['LogFrame'])
+
+        # Adding model 'Milestone'
+        db.create_table(u'logframe_milestone', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('log_frame', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logframe.LogFrame'])),
+        ))
+        db.send_create_signal(u'logframe', ['Milestone'])
+
         # Adding model 'RiskRating'
         db.create_table(u'logframe_riskrating', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -24,6 +38,7 @@ class Migration(SchemaMigration):
             ('impact_weighting', self.gf('django.db.models.fields.SmallIntegerField')()),
             ('assumptions', self.gf('django.db.models.fields.TextField')()),
             ('risk_rating', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logframe.RiskRating'])),
+            ('log_frame', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logframe.LogFrame'])),
         ))
         db.send_create_signal(u'logframe', ['Output'])
 
@@ -37,12 +52,29 @@ class Migration(SchemaMigration):
         # Adding model 'Indicator'
         db.create_table(u'logframe_indicator', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
-            ('name', self.gf('django.db.models.fields.CharField')(unique=True, max_length=255)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
             ('description', self.gf('django.db.models.fields.TextField')()),
-            ('source', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logframe.Source'])),
             ('output', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logframe.Output'], null=True)),
         ))
         db.send_create_signal(u'logframe', ['Indicator'])
+
+        # Adding model 'SubIndicator'
+        db.create_table(u'logframe_subindicator', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('name', self.gf('django.db.models.fields.CharField')(max_length=255)),
+            ('source', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logframe.Source'])),
+            ('indicator', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logframe.Indicator'])),
+        ))
+        db.send_create_signal(u'logframe', ['SubIndicator'])
+
+        # Adding model 'Target'
+        db.create_table(u'logframe_target', (
+            (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
+            ('sub_indicator', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logframe.SubIndicator'])),
+            ('milestone', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['logframe.Milestone'])),
+            ('value', self.gf('django.db.models.fields.TextField')()),
+        ))
+        db.send_create_signal(u'logframe', ['Target'])
 
         # Adding model 'Donor'
         db.create_table(u'logframe_donor', (
@@ -80,6 +112,12 @@ class Migration(SchemaMigration):
 
     def backwards(self, orm):
         
+        # Deleting model 'LogFrame'
+        db.delete_table(u'logframe_logframe')
+
+        # Deleting model 'Milestone'
+        db.delete_table(u'logframe_milestone')
+
         # Deleting model 'RiskRating'
         db.delete_table(u'logframe_riskrating')
 
@@ -91,6 +129,12 @@ class Migration(SchemaMigration):
 
         # Deleting model 'Indicator'
         db.delete_table(u'logframe_indicator')
+
+        # Deleting model 'SubIndicator'
+        db.delete_table(u'logframe_subindicator')
+
+        # Deleting model 'Target'
+        db.delete_table(u'logframe_target')
 
         # Deleting model 'Donor'
         db.delete_table(u'logframe_donor')
@@ -115,9 +159,8 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Indicator'},
             'description': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
-            'output': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.Output']", 'null': 'True'}),
-            'source': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.Source']"})
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'output': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.Output']", 'null': 'True'})
         },
         u'logframe.input': {
             'Meta': {'object_name': 'Input'},
@@ -139,12 +182,23 @@ class Migration(SchemaMigration):
             'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
             'units': ('django.db.models.fields.CharField', [], {'max_length': '255'})
         },
+        u'logframe.logframe': {
+            'Meta': {'object_name': 'LogFrame'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'})
+        },
+        u'logframe.milestone': {
+            'Meta': {'object_name': 'Milestone'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'log_frame': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.LogFrame']"}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'})
+        },
         u'logframe.output': {
             'Meta': {'object_name': 'Output'},
             'assumptions': ('django.db.models.fields.TextField', [], {}),
             'description': ('django.db.models.fields.TextField', [], {}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'impact_weighting': ('django.db.models.fields.SmallIntegerField', [], {}),
+            'log_frame': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.LogFrame']"}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'}),
             'order': ('django.db.models.fields.IntegerField', [], {}),
             'risk_rating': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.RiskRating']"})
@@ -158,6 +212,20 @@ class Migration(SchemaMigration):
             'Meta': {'object_name': 'Source'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'name': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '255'})
+        },
+        u'logframe.subindicator': {
+            'Meta': {'object_name': 'SubIndicator'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'indicator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.Indicator']"}),
+            'name': ('django.db.models.fields.CharField', [], {'max_length': '255'}),
+            'source': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.Source']"})
+        },
+        u'logframe.target': {
+            'Meta': {'object_name': 'Target'},
+            u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'milestone': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.Milestone']"}),
+            'sub_indicator': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['logframe.SubIndicator']"}),
+            'value': ('django.db.models.fields.TextField', [], {})
         }
     }
 
