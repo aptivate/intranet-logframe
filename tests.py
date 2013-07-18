@@ -12,6 +12,15 @@ from binder.test_utils import AptivateEnhancedTestCase
 from .models import LogFrame, Milestone
 
 class LogframeTest(AptivateEnhancedTestCase):
+    def assert_get_management_form(self):
+        total = self.get_page_element('.//' + self.xhtml('input') + '[@id="id_indicator_set-TOTAL_FORMS"]')
+        initial = self.get_page_element('.//' + self.xhtml('input') + '[@id="id_indicator_set-INITIAL_FORMS"]')
+        max_num = self.get_page_element('.//' + self.xhtml('input') + '[@id="id_indicator_set-MAX_NUM_FORMS"]')
+        return {
+            element.get('name'): element.get('value')
+            for element in [total, initial, max_num]
+        }
+
     def test_create_view_formsets(self):
         log_frame = G(LogFrame)
         milestones = [
@@ -31,11 +40,17 @@ class LogframeTest(AptivateEnhancedTestCase):
         from .forms import IndicatorFormSet
         self.assertIsInstance(indicators, IndicatorFormSet)
 
+        # there should be a management form in the page for the indicator formset
+        self.assert_get_management_form()
+
         indicator = indicators[0]
         from django.forms.models import ModelForm
         self.assertIsInstance(indicator, ModelForm)
         from .models import Indicator
         self.assertIsInstance(indicator.instance, Indicator)
+
+        # there should be a hidden ID field for this indicator form
+        self.get_page_element('.//' + self.xhtml('input') + '[@id="id_indicator_set-0-id"]')
 
         subindicators = indicator.subindicators
         # from .forms import SubIndicatorFormSet
@@ -71,16 +86,32 @@ class LogframeTest(AptivateEnhancedTestCase):
 
     def test_submit_output_form_creates_output(self):
         log_frame = G(LogFrame)
-        url = reverse('logframe-output-create')
-        response = self.client.post(url, {
+        form_values = {
             'name': 'Print',
             'description': 'hello world',
             'log_frame': log_frame.id,
-        })
+        }
+
+        # we have to do a GET to find the management form values
+        url = reverse('logframe-output-create')
+        response = self.client.get(url)
+        form_values.update(self.assert_get_management_form())
+
+        # Copy all the formset form values from initial to the request dict,
+        # to ensure that the forms think they haven't been touched (all
+        # values still set to initial) and therefore don't try to validate
+        # themselves, which would fail because we haven't provided values.
+        for indicator_form in response.context['indicators']:
+            for name, field in indicator_form.fields.items():
+                prefixed_name = indicator_form.add_prefix(name)
+                if name in indicator_form.initial:
+                    form_values[prefixed_name] = indicator_form.initial[name]
+
+        response = self.client.post(url, form_values)
         self.assertEquals(302, response.status_code, "Expected the object "
             "to be saved and to be redirected to its edit page, but this "
             "happened instead: %s" % 
-            (response.content if response.status_code is 302 else None))
+            (None if response.status_code is 302 else response.content))
 
         from .models import Output
         output = Output.objects.first()

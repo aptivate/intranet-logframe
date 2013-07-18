@@ -14,8 +14,15 @@ class OutputBase(object):
     def get_context_data(self, **kwargs):
         context = super(OutputBase, self).get_context_data(**kwargs)
         context['milestones'] = self.log_frame.milestone_set.all()
-        output = Output(log_frame=self.log_frame)
-        indicators = context['indicators'] = IndicatorFormSet(instance=output,
+        context['indicators'] = self.create_indicator_formset()
+        return context
+
+    def create_indicator_formset(self):
+        output = self.get_object()
+
+        indicator_formset = IndicatorFormSet(
+            data=(self.request.POST if self.request.method == 'POST' else None),
+            instance=output,
             initial=[
                 {'name': 'Indicator I.1',
                  'description': '',
@@ -25,7 +32,7 @@ class OutputBase(object):
                 }
             ])
 
-        for form in indicators:
+        for form in indicator_formset:
             indicator = form.instance
             indicator.output = output
 
@@ -57,13 +64,18 @@ class OutputBase(object):
                     queryset=subindicator.targets_fake_queryset,
                     instance=subindicator,
                     prefix="subindicator_%s_targets" % subindicator.pk)
-        return context
+
+        return indicator_formset
 
     def get_success_url(self):
         from django.core.urlresolvers import reverse
         return reverse('logframe-output-update', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
+        indicator_formset = self.create_indicator_formset()
+        if not indicator_formset.is_valid():
+            return self.form_invalid(form)
+
         if form.instance.order is None:
             from django.db.models import Max
             max_order = Output.objects.filter(log_frame=self.log_frame).aggregate(Max('order'))['order__max']
@@ -72,13 +84,21 @@ class OutputBase(object):
             else:
                 new_order = max_order + 1
             form.instance.order = new_order
-        return super(OutputBase, self).form_valid(form)
+
+        # save the Output object before its dependents:
+        response = super(OutputBase, self).form_valid(form)
+        indicator_formset.save()
+        return response
 
 class OutputCreate(OutputBase, CreateView):
     def get_form_kwargs(self):
         kwargs = super(OutputCreate, self).get_form_kwargs()
-        kwargs['instance'] = Output(log_frame = self.log_frame)
+        kwargs['instance'] = self.get_object()
         return kwargs
+
+    def get_object(self):
+        return Output(log_frame=self.log_frame)
 
 class OutputUpdate(OutputBase, UpdateView):
     pass
+
