@@ -77,10 +77,10 @@ class SubIndicator(models.Model):
     def targets(self):
         milestones = self.milestones
         targets = self.target_set.all()
-        targets_by_milestone = {
-            target.milestone.id: target
+        targets_by_milestone = dict([
+            (target.milestone.id, target)
             for target in targets
-        }
+        ])
         targets_out = [
             targets_by_milestone.get(milestone.id,
                 Target(milestone=milestone, sub_indicator=self))
