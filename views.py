@@ -5,15 +5,14 @@ from .models import Output, LogFrame, Indicator, SubIndicator
 from .forms import OutputForm, IndicatorFormSet
 
 class OutputBase(object):
-    context_object_name = 'output'
-    queryset = Output.objects.all()
+    model = Output
     form_class = OutputForm
+    context_object_name = 'output'
     template_name = 'logframe/output_edit_form.html'
-    log_frame = LogFrame.objects.first()
 
     def get_context_data(self, **kwargs):
         context = super(OutputBase, self).get_context_data(**kwargs)
-        context['milestones'] = self.log_frame.milestone_set.all()
+        context['milestones'] = self.get_object().log_frame.milestone_set.all()
         context['indicators'] = self.create_indicator_formset()
         return context
 
@@ -78,7 +77,7 @@ class OutputBase(object):
 
         if form.instance.order is None:
             from django.db.models import Max
-            max_order = Output.objects.filter(log_frame=self.log_frame).aggregate(Max('order'))['order__max']
+            max_order = form.instance.log_frame.output_set.aggregate(Max('order'))['order__max']
             if max_order is None:
                 new_order = 1
             else:
@@ -91,13 +90,20 @@ class OutputBase(object):
         return response
 
 class OutputCreate(OutputBase, CreateView):
+    # We should really create the Output object in the database, with a
+    # foreign key back to its own LogFrame before we start editing it; or
+    # else find a way to pass the correct LogFrame ID into this view and
+    # validate it here (same owner etc.) This is a stopgap until we have
+    # real support for creating LogFrames in the web interface.
+    default_log_frame = LogFrame.objects.first()
+
     def get_form_kwargs(self):
         kwargs = super(OutputCreate, self).get_form_kwargs()
         kwargs['instance'] = self.get_object()
         return kwargs
 
     def get_object(self):
-        return Output(log_frame=self.log_frame)
+        return Output(log_frame=self.default_log_frame)
 
 class OutputUpdate(OutputBase, UpdateView):
     pass

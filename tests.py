@@ -9,7 +9,7 @@ UserModel = get_user_model()
 from django_dynamic_fixture import G
 
 from binder.test_utils import AptivateEnhancedTestCase
-from .models import LogFrame, Milestone
+from .models import LogFrame, Milestone, Output
 
 class LogframeTest(AptivateEnhancedTestCase):
     def assert_get_management_form(self):
@@ -84,16 +84,26 @@ class LogframeTest(AptivateEnhancedTestCase):
             subindicator.targets.prefix, "Each subindicator targets formset "
             "must use a unique prefix to avoid them colliding in the page")
 
-    def test_submit_output_form_creates_output(self):
-        log_frame = G(LogFrame)
-        form_values = {
+    def assert_submit_output_form(self, output_to_update_if_any=None,
+        override_form_values={}):
+
+        default_form_values = {
             'name': 'Print',
             'description': 'hello world',
-            'log_frame': log_frame.id,
+            'log_frame': LogFrame.objects.first().pk,
         }
 
+        form_values = dict()
+        form_values.update(default_form_values)
+        form_values.update(override_form_values)
+
         # we have to do a GET to find the management form values
-        url = reverse('logframe-output-create')
+        if output_to_update_if_any:
+            url = reverse('logframe-output-update',
+                wargs={pk: output_to_update_if_any.pk})
+        else:
+            url = reverse('logframe-output-create')
+
         response = self.client.get(url)
         form_values.update(self.assert_get_management_form())
 
@@ -108,15 +118,36 @@ class LogframeTest(AptivateEnhancedTestCase):
                     form_values[prefixed_name] = indicator_form.initial[name]
 
         response = self.client.post(url, form_values)
+        if response.status_code != 302:
+            # try to diagnose the error better
+            output_form = response.context.get('form', None)
+            if output_form is not None:
+                self.assertEquals({}, output_form.errors,
+                    "Expected the object to be saved and to be redirected "
+                    "to its edit page, but the form didn't validate, so "
+                    "that didn't happen")
+
+            indicator_formset = response.context.get('indicators', None)
+            if indicator_formset is not None:
+                self.assertEquals({}, indicator_formset.errors,
+                    "Expected the object to be saved and to be redirected "
+                    "to its edit page, but the form didn't validate, so "
+                    "that didn't happen")
+
         self.assertEquals(302, response.status_code, "Expected the object "
             "to be saved and to be redirected to its edit page, but this "
             "happened instead: %s" % 
             (None if response.status_code is 302 else response.content))
 
-        from .models import Output
-        output = Output.objects.first()
-        edit_url = reverse('logframe-output-update',
-            kwargs={'pk': output.pk})
+        if output_to_update_if_any:
+            output = output_to_update_if_any
+            edit_url = url
+        else:
+            from .models import Output
+            output = Output.objects.last()
+            edit_url = reverse('logframe-output-update',
+                kwargs={'pk': output.pk})
+
         self.assertRedirectedWithoutFollowing(response, edit_url)
 
         response = self.client.get(edit_url)
@@ -124,12 +155,28 @@ class LogframeTest(AptivateEnhancedTestCase):
             "Where are we? should be rendering the same page again, "
             "but got this instead: %s" % response.content)
 
-        self.assertEquals('Print', output.name,
+        return response, form_values, output
+
+    def test_submit_output_form_creates_output(self):
+        log_frame = G(LogFrame)
+        response, form_values, output = self.assert_submit_output_form()
+
+        self.assertEquals(form_values['name'], output.name,
             "The POST values should have been saved in the database")
-        self.assertEquals('hello world', output.description,
+        self.assertEquals(form_values['description'], output.description,
             "The POST values should have been saved in the database")
-        self.assertEquals(log_frame, output.log_frame,
+        self.assertEquals(form_values['log_frame'], output.log_frame.pk,
             "The POST values should have been saved in the database")
         self.assertEquals(1, output.order, "The first Output for a given "
             "LogFrame should have order set to 1")
+
+    def test_second_output_has_higher_order(self):
+        log_frame = G(LogFrame)
+        output = G(Output, log_frame=log_frame)
+
+        response, form_values, output2 = self.assert_submit_output_form()
+        self.assertNotEquals(output, output2,
+            "POST should have created a new Output with a different PK")
+        self.assertEquals(2, output2.order, "The second Output for a given "
+            "LogFrame should have order set to 2")
 
