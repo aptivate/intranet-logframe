@@ -16,8 +16,9 @@ class OutputBase(object):
         context['indicators'] = self.create_indicator_formset()
         return context
 
-    def create_indicator_formset(self):
-        output = self.get_object()
+    def create_indicator_formset(self, output=None):
+        if output is None:
+            output = self.get_object()
 
         indicator_formset = IndicatorFormSet(
             data=(self.request.POST if self.request.method == 'POST' else None),
@@ -44,6 +45,7 @@ class OutputBase(object):
                     model = SubIndicator
                 def __init__(self, instance=None, **kwargs):
                     if instance is None:
+                        # import pdb; pdb.set_trace()
                         instance = SubIndicator(indicator=indicator)
                     super(CustomSubIndicatorForm, self).__init__(
                         instance=instance, **kwargs)
@@ -58,6 +60,7 @@ class OutputBase(object):
                 ])
             for sif in form.subindicators:
                 subindicator = sif.instance
+                # import pdb; pdb.set_trace()
                 from .forms import TargetFormSet
                 sif.targets = TargetFormSet(
                     queryset=subindicator.targets_fake_queryset,
@@ -86,6 +89,11 @@ class OutputBase(object):
 
         # save the Output object before its dependents:
         response = super(OutputBase, self).form_valid(form)
+        # recreate the formset now that the Output has a PK to attach to
+        indicator_formset = self.create_indicator_formset(self.object)
+        if not indicator_formset.is_valid():
+            # we validated all the parameters earlier!
+            raise AssertionError('The formset was valid but no longer is')
         indicator_formset.save()
         return response
 
@@ -95,7 +103,9 @@ class OutputCreate(OutputBase, CreateView):
     # else find a way to pass the correct LogFrame ID into this view and
     # validate it here (same owner etc.) This is a stopgap until we have
     # real support for creating LogFrames in the web interface.
-    default_log_frame = LogFrame.objects.first()
+    def __init__(self, **kwargs):
+        super(OutputCreate, self).__init__(**kwargs)
+        self.default_log_frame = LogFrame.objects.first()
 
     def get_form_kwargs(self):
         kwargs = super(OutputCreate, self).get_form_kwargs()

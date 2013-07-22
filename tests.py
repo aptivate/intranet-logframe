@@ -23,6 +23,14 @@ class LogframeTest(AptivateEnhancedTestCase):
 
     def test_create_view_formsets(self):
         log_frame = G(LogFrame)
+
+        # While the OutputCreate view attaches the new Output to the first
+        # LogFrame it can find, we must have just one in the database for
+        # tests to pass.
+        self.assertEquals([log_frame], list(LogFrame.objects.all()),
+            "There should be no other LogFrame objects in the database "
+            "at the beginning of the test, otherwise it may fail!")
+
         milestones = [
             G(Milestone, log_frame=log_frame, name="Baseline 2013"),
             G(Milestone, log_frame=log_frame, name="Milestone 1 2014"),
@@ -95,12 +103,11 @@ class LogframeTest(AptivateEnhancedTestCase):
 
         form_values = dict()
         form_values.update(default_form_values)
-        form_values.update(override_form_values)
 
         # we have to do a GET to find the management form values
         if output_to_update_if_any:
             url = reverse('logframe-output-update',
-                wargs={pk: output_to_update_if_any.pk})
+                kwargs={pk: output_to_update_if_any.pk})
         else:
             url = reverse('logframe-output-create')
 
@@ -116,6 +123,8 @@ class LogframeTest(AptivateEnhancedTestCase):
                 prefixed_name = indicator_form.add_prefix(name)
                 if name in indicator_form.initial:
                     form_values[prefixed_name] = indicator_form.initial[name]
+
+        form_values.update(override_form_values)
 
         response = self.client.post(url, form_values)
         if response.status_code != 302:
@@ -179,4 +188,27 @@ class LogframeTest(AptivateEnhancedTestCase):
             "POST should have created a new Output with a different PK")
         self.assertEquals(2, output2.order, "The second Output for a given "
             "LogFrame should have order set to 2")
+
+    def test_create_output_with_indicator_already_populated(self):
+        log_frame = G(LogFrame)
+
+        from django.forms import formsets
+        override_form_values = {
+            'indicator_set-0-name': 'Left Indicator',
+            'indicator_set-0-description': 'Used when going left',
+            'indicator_set-0-' + formsets.DELETION_FIELD_NAME: '',
+        }
+
+        response, form_values, output = self.assert_submit_output_form(
+            override_form_values=override_form_values)
+        self.assertEquals(1, output.indicator_set.count(),
+            "An indicator should have been created to go with the new "
+            "Output object.")
+
+        from .models import Indicator
+        indicator = Indicator.objects.first()
+        self.assertEquals(override_form_values['indicator_set-0-name'],
+            indicator.name)
+        self.assertEquals(override_form_values['indicator_set-0-description'],
+            indicator.description)
 
