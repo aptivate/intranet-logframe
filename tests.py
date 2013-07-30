@@ -21,7 +21,7 @@ class LogframeTest(AptivateEnhancedTestCase):
             for element in [total, initial, max_num]
         }
 
-    def test_create_view_formsets(self):
+    def test_create_view_context_contains_the_correct_formsets(self):
         log_frame = G(LogFrame)
 
         # While the OutputCreate view attaches the new Output to the first
@@ -50,6 +50,19 @@ class LogframeTest(AptivateEnhancedTestCase):
 
         # there should be a management form in the page for the indicator formset
         self.assert_get_management_form()
+
+        self.assertEquals(2, len(indicators),
+            "There should be one empty form to use as a template")
+        self.assertTrue(indicators[0].empty_permitted,
+            "The first form should be allowed to be empty")
+        self.assertFalse(indicators[0].empty,
+            "The first form should not be marked as the special empty form")
+        self.assertTrue(indicators[1].empty,
+            "The second form should be marked as the special empty form")
+        empty_form_row = self.get_page_element('.//' + self.xhtml('tr') + 
+            '[@id="id_indicator_set-__prefix__"]')
+        self.assertEquals("display: none;", empty_form_row.get('style'),
+            "The empty form should be hidden (not displayed)")
 
         indicator = indicators[0]
         from django.forms.models import ModelForm
@@ -210,5 +223,39 @@ class LogframeTest(AptivateEnhancedTestCase):
         self.assertEquals(override_form_values['indicator_set-0-name'],
             indicator.name)
         self.assertEquals(override_form_values['indicator_set-0-description'],
+            indicator.description)
+
+    def test_create_output_with_indicator_added_using_javascript(self):
+        log_frame = G(LogFrame)
+
+        from django.forms import formsets
+        override_form_values = {
+            'indicator_set-0-name': 'Left Indicator',
+            'indicator_set-0-description': 'Used when going left',
+            'indicator_set-0-' + formsets.DELETION_FIELD_NAME: '',
+            'indicator_set-1-name': 'Speedometer',
+            'indicator_set-1-description': "Used to check that you won't "
+                "get a speeding fine",
+            'indicator_set-1-' + formsets.DELETION_FIELD_NAME: '',
+            'indicator_set-TOTAL_FORMS': 2,
+        }
+
+        response, form_values, output = self.assert_submit_output_form(
+            override_form_values=override_form_values)
+        self.assertEquals(2, output.indicator_set.count(),
+            "Two indicators should have been created to go with the new "
+            "Output object.")
+
+        from .models import Indicator
+        indicator = Indicator.objects.all()[0]
+        self.assertEquals(override_form_values['indicator_set-0-name'],
+            indicator.name)
+        self.assertEquals(override_form_values['indicator_set-0-description'],
+            indicator.description)
+
+        indicator = Indicator.objects.all()[1]
+        self.assertEquals(override_form_values['indicator_set-1-name'],
+            indicator.name)
+        self.assertEquals(override_form_values['indicator_set-1-description'],
             indicator.description)
 

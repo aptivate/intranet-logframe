@@ -35,12 +35,15 @@
 			<input type="button" value="Cancel" onclick="window.history.back(); return false;" />
 		</div>
 
+		<div class="form errors box">
 		{{ form.errors }}
+		</div>
+
 		{{ form.log_frame.as_hidden }}
 
-		{{ indicators.errors }}
+		<!-- {{ indicators.errors }} -->
 
-<table class="high">
+<table class="high output table">
 	<tr>
 		<td class="high" width="16.6%">
 			<h3 class="output heading">{{ form.name }}</h3>
@@ -49,9 +52,10 @@
 		</td>
 		<td width="66.6%">
 			{{ indicators.management_form }}
-			<table>
+			<table id="id_indicators" class="indicators">
 				{% for indicator in indicators %}
-				<tr>
+				<tr id="id_{{ indicator.prefix }}" class="indicator-row"
+					style="{% if indicator.empty %}display: none;{% endif %}">
 					<td class="indicator-cell">
 						<h3 class="indicator heading">{{ indicator.name }}</h3>
 						{{ indicator.description }}
@@ -93,142 +97,6 @@
 					</td>
 				</tr>
 				{% endfor %}{# indicators #}
-				<tr>
-					<td class="indicator-cell">
-						<h3 class="indicator heading">Indicator 3.2</h3>
-						<textarea>
-							Number of men and boys who are in V4C male peer-to-peer group programme demonstrating:
-<ol>
-<li>Knowledge on the role of male socialisation, masculinity, power, privilege and control as root causes of gender inequality</li>
-<li>Communication skills – to listen to girls and women with attention and compassion, and without judgment, advice or interruptions</li>
-<li>Improved relationship skills  - involving girls and w in decision making</li>
-</ol>
-						</textarea>
-						<div class="indicator-del">[X]</div>
-					</td>
-					<td>
-						<table class="editable">
-							<tr>
-								<th class="milestone-heading">Sub-indicator</th>
-								<th class="milestone-heading">Baseline <br />2013</th>
-								<th class="milestone-heading">Milestone 1<br />2014</th>
-								<th class="milestone-heading">Milestone 2<br />2015</th>
-								<th class="milestone-heading">Milestone 3<br />2016</th>
-								<th class="milestone-heading">Target<br />2017</th>
-								<th class="milestones-edit"><a href="#">Edit</a></th>
-							</tr>
-							<tr>
-								<th class="subindicator"></th>
-								<td class="milestone-column">0</td>
-								<td class="milestone-column">1,800 with at least 2/3 skills (base on 3,000 participants)</td>
-								<td class="milestone-column">3,600 with at least 2/3 skills (base on 6,000 participants)</td>
-								<td class="milestone-column">5,400 with at least 2/3 skills (base on 9,000 participants)</td>
-								<td class="milestone-column">7,200 with at least 2/3 skills (base on 12,000 participants)</td>
-								<td class="subindicator-del">[X]</td>
-							</tr>
-							<tr>
-								<td colspan="6"><div class="subindicator-add">[+]</div></td>
-							</tr>
-							<tr class="source">
-								<td colspan="6">Source</td>
-							</tr>
-							<tr>
-								<td colspan="6"><textarea>V4C partners' quarterly reporting.</textarea></td>
-							</tr>
-						</table>
-
-					</td>
-				</tr>
-				<tr>
-					<td class="indicator-cell">
-						<h3 class="indicator heading">Indicator I.1</h3>
-						<textarea>
-							An example of an indicator with more than one sub-indicator.
-						</textarea>
-						<div class="indicator-del">[X]</div>
-					</td>
-					<td>
-						<table class="editable">
-							<tr>
-								<th class="milestone-heading">Sub-indicator</th>
-								<th class="milestone-heading">Baseline <br />2013</th>
-								<th class="milestone-heading">Milestone 1<br />2014</th>
-								<th class="milestone-heading">Milestone 2<br />2015</th>
-								<th class="milestone-heading">Milestone 3<br />2016</th>
-								<th class="milestone-heading">Target<br />2017</th>
-								<th class="milestones-edit"><a href="#">Edit</a></th>
-								<th class="milestone-heading source"><span>Source</span></th>
-							</tr>
-							<tr>
-								<th class="subindicator">Enugu</th>
-								<td class="milestone-column">71.0</td>
-								<td class="milestone-column">71.6</td>
-								<td class="milestone-column">71.7</td>
-								<td class="milestone-column">71.8</td>
-								<td class="milestone-column">71.9</td>
-								<td class="subindicator-del">[X]</td>
-								<th class="milestone-column source">1</th>
-							</tr>
-							<tr>
-								<th class="subindicator">Jigawa</th>
-								<td class="milestone-column">14.2</td>
-								<td class="milestone-column">14.8</td>
-								<td class="milestone-column">14.9</td>
-								<td class="milestone-column">15.0</td>
-								<td class="milestone-column">15.1</td>
-								<td class="subindicator-del">[X]</td>
-								<th class="milestone-column source">1</th>
-							</tr>
-							<tr>
-								<th class="subindicator">Kano</th>
-								<td class="milestone-column">17.5</td>
-								<td class="milestone-column">18.1</td>
-								<td class="milestone-column">18.2</td>
-								<td class="milestone-column">18.3</td>
-								<td class="milestone-column">18.4</td>
-								<td class="subindicator-del">[X]</td>
-								<th class="milestone-column source">2</th>
-							</tr>
-							<tr>
-								<th class="subindicator">Lagos</th>
-								<td class="milestone-column"><textarea rows="1">84.1</textarea></td>
-								<td class="milestone-column"><textarea rows="1">84.7</textarea></td>
-								<td class="milestone-column"><textarea rows="1">84.8</textarea></td>
-								<td class="milestone-column"><textarea rows="1">84.9</textarea></td>
-								<td class="milestone-column"><textarea rows="1">85.0</textarea></td>
-								<td class="subindicator-del">[X]</td>
-								<th class="milestone-column source">1</th>
-							</tr>
-							<tr>
-								<th class="subindicator">Zamfara</th>
-								<td class="milestone-column"><textarea rows="1">14.4</textarea></td>
-								<td class="milestone-column"><textarea rows="1">14.0</textarea></td>
-								<td class="milestone-column"><textarea rows="1">14.1</textarea></td>
-								<td class="milestone-column"><textarea rows="1">14.2</textarea></td>
-								<td class="milestone-column"><textarea rows="1">14.3</textarea></td>
-								<td class="subindicator-del">[X]</td>
-								<th class="milestone-column source">1</th>
-							</tr>
-							<tr>
-								<td colspan="6"><div class="subindicator-add">[+]</div></td>
-							</tr>
-							<tr class="source">
-								<td colspan="6">Source</td>
-							</tr>
-							<tr>
-								<td colspan="6">
-									<textarea>
-										<ol>
-											<li>V4C partners' quarterly reporting.</li>
-											<li>We made this one up.</li>
-										</ol>
-									</textarea>
-								</td>
-							</tr>
-						</table>
-
-					</td>
-				</tr>
 			</table>
 
 			<div class="indicator-add">

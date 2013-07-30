@@ -35,7 +35,7 @@ p {
 .heading {
 	padding: 0.2em;
 }
-.output {
+.output.heading {
 	color: white;
 	background: #007;
 }
@@ -87,6 +87,7 @@ p {
 }
 .indicator-add-button {
 	display: inline-block;
+	cursor: pointer;
 }
 .milestones-edit {
 	vertical-align: middle;
@@ -144,4 +145,12 @@ input[type='number'], #id_impact_weighting {
 	width: 100%;
 	background: inherit;
 	color: inherit;
+}
+.output.table td {
+	padding: 0;
+}
+.errorlist .errorlist {
+	border: none;
+	background: none;
+	padding: 0;
 }
