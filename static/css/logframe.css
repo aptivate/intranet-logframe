@@ -2,7 +2,7 @@ table {
 	border-collapse: collapse;
 	width: 100%;
 }
-.high {
+.tall {
 	position:relative;
 }
 td, th {
@@ -77,7 +77,8 @@ p {
 	bottom: 0.2em;
 	right: 0.2em;
 }
-.indicator-add-button, .indicator-del
+.indicator-add-button,
+.indicator-del
 {
 	padding: 0.2em;
 	background: #eea;
@@ -85,7 +86,8 @@ p {
 .indicator-add {
 	margin: 0.2em;
 }
-.indicator-add-button {
+.indicator-add-button,
+.indicator-del-button {
 	display: inline-block;
 	cursor: pointer;
 }

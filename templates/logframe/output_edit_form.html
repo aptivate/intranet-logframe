@@ -43,9 +43,9 @@
 
 		<!-- {{ indicators.errors }} -->
 
-<table class="high output table">
+<table class="tall output table">
 	<tr>
-		<td class="high" width="16.6%">
+		<td class="tall" width="16.6%">
 			<h3 class="output heading">{{ form.name }}</h3>
 			{{ form.description }}
 			<div class="at-bottom">Impact Weighting: {{ form.impact_weighting }}</div>
@@ -59,7 +59,7 @@
 					<td class="indicator-cell">
 						<h3 class="indicator heading">{{ indicator.name }}</h3>
 						{{ indicator.description }}
-						<div class="indicator-del">[X]</div>
+						<div class="indicator-del indicator-del-button">[X]</div>
 						{{ indicator.id }}
 					</td>
 					<td>
@@ -104,7 +104,7 @@
 				<span class="indicator-add-label">Add indicator</span>
 			</div>
 		</td>
-		<td class="high">
+		<td class="tall">
 			<h3 class="assumptions heading">Assumptions</h3>
 			<textarea class="padded-bottom">
 				<p>
