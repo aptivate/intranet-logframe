@@ -1,5 +1,4 @@
-import binder.models
-import django.dispatch
+from __future__ import unicode_literals
 
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
@@ -7,10 +6,13 @@ from django.utils.functional import cached_property
 
 # http://djangosnippets.org/snippets/1054/
 
+
 class LogFrame(models.Model):
+
     @cached_property
     def milestones(self):
         return self.milestone_set.all()
+
 
 class Milestone(models.Model):
     name = models.CharField(max_length=255)
@@ -26,12 +28,14 @@ class Milestone(models.Model):
     def __str__(self):
         return self.name
 
+
 class RiskRating(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
     @python_2_unicode_compatible
     def __str__(self):
         return self.name
+
 
 class Output(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -48,12 +52,14 @@ class Output(models.Model):
     def __str__(self):
         return self.name
 
+
 class Source(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
     @python_2_unicode_compatible
     def __str__(self):
         return self.name
+
 
 class Indicator(models.Model):
     name = models.CharField(max_length=255)
@@ -63,6 +69,7 @@ class Indicator(models.Model):
     @python_2_unicode_compatible
     def __str__(self):
         return self.name
+
 
 class SubIndicator(models.Model):
     name = models.CharField(max_length=255)
@@ -97,19 +104,21 @@ class SubIndicator(models.Model):
         return SubIndicator.FakeTargetQuerySet(self)
 
     class FakeTargetQuerySet(list):
+
         def __init__(self, subindicator):
             values = subindicator.targets
             super(SubIndicator.FakeTargetQuerySet, self).__init__(values)
             self.subindicator = subindicator
             self.db = self.subindicator.target_set.all().db
             self.ordered = True
+
         def none(self):
             """Normally we would return an empty QuerySet here, but
             BaseInlineFormSet calls none() whenever the parent object's
             pk is unset, which it will be for us whenever we're creating
             a new SubIndicator. In that case we still want to list all our
             empty Targets.
-            
+
             We could use BaseInlineQuerySet's extra (blank) forms to
             instantiate missing Targets instead, but if there's a mixture of
             existing and nonexistent Targets in a SubIndicator, how would we
@@ -118,17 +127,20 @@ class SubIndicator(models.Model):
             FakeTargetQuerySet does."""
             return self
 
+
 class Target(models.Model):
     sub_indicator = models.ForeignKey(SubIndicator)
     milestone = models.ForeignKey(Milestone)
     value = models.TextField()
-    
+
+
 class Donor(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
     @python_2_unicode_compatible
     def __str__(self):
         return self.name
+
 
 class InputType(models.Model):
     """Financial or human resources? (which row of inputs)"""
@@ -140,6 +152,7 @@ class InputType(models.Model):
     def __str__(self):
         return self.name
 
+
 class Input(models.Model):
     """Value of inputs on a particular Output and type"""
 
@@ -150,9 +163,9 @@ class Input(models.Model):
 
     @python_2_unicode_compatible
     def __str__(self):
-        return "%s, %s, %s" % (output, input_type, quantity)
+        return "%s, %s, %s" % (self.output, self.input_type, self.quantity)
+
 
 class InputShare(models.Model):
     input_type = models.ForeignKey(InputType)
     total = models.CharField(max_length=255)
-
