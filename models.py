@@ -8,10 +8,15 @@ from django.utils.functional import cached_property
 
 
 class LogFrame(models.Model):
+    name = models.CharField(max_length=255)
 
     @cached_property
     def milestones(self):
         return self.milestone_set.all()
+
+    @python_2_unicode_compatible
+    def __str__(self):
+        return self.name
 
 
 class Milestone(models.Model):
@@ -35,6 +40,14 @@ class RiskRating(models.Model):
     @python_2_unicode_compatible
     def __str__(self):
         return self.name
+
+
+class Result(models.Model):
+    """ abstract class to be used by Impact(/Goal), Outcome and Output """
+    name = models.CharField(max_length=255)
+
+    class Meta:
+        abstract = True
 
 
 class Output(models.Model):

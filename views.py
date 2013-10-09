@@ -1,8 +1,9 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, unicode_literals
 
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView
 from .models import Output, LogFrame, Indicator, SubIndicator
 from .forms import OutputForm, IndicatorFormSet
+
 
 class OutputBase(object):
     model = Output
@@ -24,11 +25,13 @@ class OutputBase(object):
             data=(self.request.POST if self.request.method == 'POST' else None),
             instance=output,
             initial=[
-                {'name': 'Indicator I.1',
-                 'description': '',
+                {
+                    'name': 'Indicator I.1',
+                    'description': '',
                 },
-                {'name': 'Indicator I.2',
-                 'description': '',
+                {
+                    'name': 'Indicator I.2',
+                    'description': '',
                 }
             ])
 
@@ -40,9 +43,12 @@ class OutputBase(object):
             # instances of SubIndicator with the correct Indicator, so that
             # they can get their Milestones.
             from django.forms.models import ModelForm
+
             class CustomSubIndicatorForm(ModelForm):
+
                 class Meta:
                     model = SubIndicator
+
                 def __init__(self, instance=None, **kwargs):
                     if instance is None:
                         # import pdb; pdb.set_trace()
@@ -97,6 +103,7 @@ class OutputBase(object):
         indicator_formset.save()
         return response
 
+
 class OutputCreate(OutputBase, CreateView):
     # We should really create the Output object in the database, with a
     # foreign key back to its own LogFrame before we start editing it; or
@@ -105,6 +112,7 @@ class OutputCreate(OutputBase, CreateView):
     # real support for creating LogFrames in the web interface.
     def __init__(self, **kwargs):
         super(OutputCreate, self).__init__(**kwargs)
+        # TODO: the logframe id should be an argument to the view
         self.default_log_frame = LogFrame.objects.first()
 
     def get_form_kwargs(self):
@@ -115,6 +123,6 @@ class OutputCreate(OutputBase, CreateView):
     def get_object(self):
         return Output(log_frame=self.default_log_frame)
 
+
 class OutputUpdate(OutputBase, UpdateView):
     pass
-
