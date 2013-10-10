@@ -15,7 +15,7 @@ class BaseIndicatorFormSet(BaseInlineFormSet):
         forms.append(empty)
         return forms
 
-IndicatorFormSet = inlineformset_factory(Output, Indicator, extra=1,
+IndicatorFormSet = inlineformset_factory(Output, Indicator, extra=0,
     formset=BaseIndicatorFormSet)
 TargetFormSet = inlineformset_factory(SubIndicator, Target, extra=0)
 

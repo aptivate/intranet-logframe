@@ -26,13 +26,9 @@ class OutputBase(object):
             instance=output,
             initial=[
                 {
-                    'name': 'Indicator I.1',
+                    'name': '',
                     'description': '',
                 },
-                {
-                    'name': 'Indicator I.2',
-                    'description': '',
-                }
             ])
 
         for form in indicator_formset:
