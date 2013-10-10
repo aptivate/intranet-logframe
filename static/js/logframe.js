@@ -1,38 +1,4 @@
 (function () {
-	// $(".milestone-column").bind("click", function (e) {
-	// $("textarea").live("click", function (e) {
-	// $(".editable").on("click", "textarea", function (e) {
-	$("textarea").each(function (index, textarea)
-	{
-		// var textarea = e.target;
-		// alert($(this).html());
-		var replacement = $("<div></div>",
-		{
-			class: 'textarea-replacement',
-			contentEditable: true,
-			id: textarea.name
-		})
-		.html(textarea.value);
-		replacement.replaceAll(textarea);
-
-		var hidden = $("<input>",
-		{
-			type: 'hidden',
-			name: textarea.name,
-			id:   textarea.id
-		});
-		hidden.insertAfter(replacement);
-		replacement[0].hiddenField = hidden[0];
-	});
-	$('form[name="output"]').on('submit', function()
-	{
-		$('.textarea-replacement').each(function (index, div)
-		{
-			div.hiddenField.value = div.innerHTML;
-		});
-		return true;
-	});
-
 	function renumberIndicatorRow(row, oldIndex, newIndex)
 	{
 		row.attr('id', row.attr('id').replace("set-" + oldIndex,
@@ -57,7 +23,14 @@
 			});
 	}
 
-	var totalFormsInput = $('#id_indicator_set-TOTAL_FORMS');
+	function clearFormValues(node)
+	{
+		node.find('input, textarea, div.textarea-replacement').each(
+			function(index, input)
+			{
+				input.value = "";
+			});
+	}
 
 	function recountIndicators()
 	{
@@ -66,29 +39,76 @@
 		return numForms;
 	}
 
-	// Bind dynamically to allow newly-added rows to be handled 
-	// without rebinding.
-	$('.output').on('click', '.indicator-add-button', null, function()
+	function addIndicatorFormset()
 	{
 		var newFormIndex = recountIndicators();
 		var table = $('#id_indicators');
 		var newRow = $('#id_indicator_set-__prefix__').clone();
 		newRow.attr('style', '');
 		renumberIndicatorRow(newRow, '__prefix__', newFormIndex);
+		clearFormValues(newRow);
+		textarea = newRow.find("textarea");
+		addHiddenInputAfterTextarea(Array(textarea), textarea);
 		table.append(newRow);
 		// There's now one more form than there was, so update the
 		// hidden field that tells Django how many forms are in the
 		// formset.
 		totalFormsInput.val(newFormIndex + 1);
+	}
+
+	function addHiddenInputAfterTextarea(replacement, textarea)
+	{
+		var hidden = $("<input>",
+		{
+			type: 'hidden',
+			name: textarea.name,
+			id:   textarea.id
+		});
+		hidden.insertAfter(replacement);
+		replacement[0].hiddenField = hidden[0];
+	}
+
+	// Above here are just function definitions, below here is the code
+	// that runs on page load.
+
+	$("textarea").each(function (index, textarea)
+	{
+		// var textarea = e.target;
+		// alert($(this).html());
+		var replacement = $("<div></div>",
+		{
+			class: 'textarea-replacement',
+			contentEditable: true,
+			id: textarea.name
+		})
+		.html(textarea.value);
+		replacement.replaceAll(textarea);
+
+		addHiddenInputAfterTextarea(replacement, textarea);
 	});
+
+	$('form[name="output"]').on('submit', function()
+	{
+		$('.textarea-replacement').each(function (index, div)
+		{
+			hiddenField = $('input[name="' + div.id + '"]');
+			hiddenField[0].value = div.innerHTML;
+		});
+		return true;
+	});
+
+	var totalFormsInput = $('#id_indicator_set-TOTAL_FORMS');
+
+	// Bind dynamically to allow newly-added rows to be handled 
+	// without rebinding.
+	$('.output').on('click', '.indicator-add-button', null, addIndicatorFormset);
 
 	var numForms = totalFormsInput.val();
 	// Hide the extra blank form if there's at least one form visible.
 	// Users can add more forms by clicking on the add button.
-	if (numForms > 1)
+	if (numForms == 0)
 	{
-		var spare_form_id = "id_indicator_set-" + (numForms - 1);
-		$('#' + spare_form_id).hide();
+		addIndicatorFormset();
 	}
 
 	// Bind dynamically to allow newly-added rows to be handled 
