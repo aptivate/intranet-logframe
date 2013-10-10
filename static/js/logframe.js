@@ -43,7 +43,7 @@
 			{
 				input.id = input.id.replace("-" + oldIndex + "-",
 					"-" + newIndex + "-");
-				if (input.hasOwnProperty('name'))
+				if (input.hasAttribute('name'))
 				{
 					input.name = input.name.replace(
 						"-" + oldIndex + "-",
