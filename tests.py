@@ -59,7 +59,7 @@ class LogframeTest(AptivateEnhancedTestCase):
             "The first form should not be marked as the special empty form")
         self.assertTrue(indicators[1].empty,
             "The second form should be marked as the special empty form")
-        empty_form_row = self.get_page_element('.//' + self.xhtml('tr') + 
+        empty_form_row = self.get_page_element('.//' + self.xhtml('tr') +
             '[@id="id_indicator_set-__prefix__"]')
         self.assertEquals("display: none;", empty_form_row.get('style'),
             "The empty form should be hidden (not displayed)")
@@ -158,7 +158,7 @@ class LogframeTest(AptivateEnhancedTestCase):
 
         self.assertEquals(302, response.status_code, "Expected the object "
             "to be saved and to be redirected to its edit page, but this "
-            "happened instead: %s" % 
+            "happened instead: %s" %
             (None if response.status_code is 302 else response.content))
 
         if output_to_update_if_any:
@@ -259,3 +259,19 @@ class LogframeTest(AptivateEnhancedTestCase):
         self.assertEquals(override_form_values['indicator_set-1-description'],
             indicator.description)
 
+    def test_indicator_saved_on_form_submission(self):
+        log_frame = G(LogFrame)
+
+        from django.forms import formsets
+        override_form_values = {
+            'indicator_set-0-name': 'Left Indicator',
+            'indicator_set-0-description': 'Used when going left',
+            'indicator_set-0-' + formsets.DELETION_FIELD_NAME: '',
+            'indicator_set-1-name': 'Speedometer',
+            'indicator_set-1-description': "Used to check that you won't "
+                "get a speeding fine",
+            'indicator_set-1-' + formsets.DELETION_FIELD_NAME: '',
+            'indicator_set-TOTAL_FORMS': 2,
+        }
+
+        pass
