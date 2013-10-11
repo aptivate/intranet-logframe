@@ -258,3 +258,13 @@ class LogframeTest(AptivateEnhancedTestCase):
             indicator.name)
         self.assertEquals(override_form_values['indicator_set-1-description'],
             indicator.description)
+
+    def test_output_impact_weighting_saved(self):
+        log_frame = G(LogFrame)
+
+        override_form_values = {
+                'impact_weighting': '1'
+                }
+        response, form_values, output = self.assert_submit_output_form(
+            override_form_values=override_form_values)
+        self.assertEqual(1, output.impact_weighting)
