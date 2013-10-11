@@ -28,7 +28,7 @@
 {% endblock %}
 
 {% block body %}
-	<form name="output" method="post" enctype="multipart/form-data">
+	<form name="output" method="post">
 		{% csrf_token %}
 		<div class="submit-row">
 			<input type="submit" name="save" value="Save" />
