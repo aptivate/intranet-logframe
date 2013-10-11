@@ -12,6 +12,7 @@ from binder.test_utils import AptivateEnhancedTestCase
 from .models import LogFrame, Milestone, Output
 
 class LogframeTest(AptivateEnhancedTestCase):
+
     def assert_get_management_form(self):
         total = self.get_page_element('.//' + self.xhtml('input') + '[@id="id_indicator_set-TOTAL_FORMS"]')
         initial = self.get_page_element('.//' + self.xhtml('input') + '[@id="id_indicator_set-INITIAL_FORMS"]')
@@ -51,13 +52,11 @@ class LogframeTest(AptivateEnhancedTestCase):
         # there should be a management form in the page for the indicator formset
         self.assert_get_management_form()
 
-        self.assertEquals(2, len(indicators),
+        self.assertEquals(1, len(indicators),
             "There should be one empty form to use as a template")
         self.assertTrue(indicators[0].empty_permitted,
             "The first form should be allowed to be empty")
-        self.assertFalse(indicators[0].empty,
-            "The first form should not be marked as the special empty form")
-        self.assertTrue(indicators[1].empty,
+        self.assertTrue(indicators[0].empty,
             "The second form should be marked as the special empty form")
         empty_form_row = self.get_page_element('.//' + self.xhtml('tr') +
             '[@id="id_indicator_set-__prefix__"]')
@@ -71,7 +70,7 @@ class LogframeTest(AptivateEnhancedTestCase):
         self.assertIsInstance(indicator.instance, Indicator)
 
         # there should be a hidden ID field for this indicator form
-        self.get_page_element('.//' + self.xhtml('input') + '[@id="id_indicator_set-0-id"]')
+        self.get_page_element('.//' + self.xhtml('input') + '[@id="id_indicator_set-__prefix__-id"]')
 
         subindicators = indicator.subindicators
         # from .forms import SubIndicatorFormSet
@@ -210,6 +209,7 @@ class LogframeTest(AptivateEnhancedTestCase):
             'indicator_set-0-name': 'Left Indicator',
             'indicator_set-0-description': 'Used when going left',
             'indicator_set-0-' + formsets.DELETION_FIELD_NAME: '',
+            'indicator_set-TOTAL_FORMS': 1,
         }
 
         response, form_values, output = self.assert_submit_output_form(
