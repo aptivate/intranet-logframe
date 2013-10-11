@@ -99,6 +99,7 @@ class OutputBase(object):
             raise AssertionError('The formset was valid but no longer is')
         indicator_formset.save()
         for form in indicator_formset:
+            # TODO: add stuff for when forms aren't valid
             if form.subindicators.is_valid():
                 form.subindicators.save()
                 for sif in form.subindicators:

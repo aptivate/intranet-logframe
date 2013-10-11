@@ -166,7 +166,7 @@ class LogframeTest(AptivateEnhancedTestCase):
             (None if response.status_code is 302 else response.content))
 
         if output_to_update_if_any:
-            output = output_to_update_if_any
+            output = Output.objects.get(id=output_to_update_if_any.id)
             edit_url = url
         else:
             output = Output.objects.last()
@@ -194,6 +194,18 @@ class LogframeTest(AptivateEnhancedTestCase):
             "The POST values should have been saved in the database")
         self.assertEquals(1, output.order, "The first Output for a given "
             "LogFrame should have order set to 1")
+
+    def test_output_can_be_updated(self):
+        output = G(Output, name="old name")
+
+        response, form_values, output2 = self.assert_submit_output_form(
+            output_to_update_if_any=output,
+            override_form_values={
+                'name': 'new name'
+            })
+
+        self.assertEqual(1, Output.objects.count())
+        self.assertEqual("new name", output2.name)
 
     def test_second_output_has_higher_order(self):
         output = G(Output, order=1)
@@ -311,3 +323,5 @@ class LogframeTest(AptivateEnhancedTestCase):
             override_form_values=override_form_values)
         self.assertEqual(1, indicator.subindicator_set.count())
         self.assertEqual('new sub', indicator.subindicator_set.first().name)
+
+    # TODO: create subindicator, indicator and output all in one big form POST
