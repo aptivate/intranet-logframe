@@ -1,15 +1,16 @@
 from __future__ import absolute_import
 
 from django.contrib.auth import get_user_model
-from django.conf import settings
+#from django.conf import settings
 from django.core.urlresolvers import reverse
-from django.template import Context
+#from django.template import Context
 UserModel = get_user_model()
 
 from django_dynamic_fixture import G
 
 from binder.test_utils import AptivateEnhancedTestCase
-from .models import LogFrame, Milestone, Output
+from .models import LogFrame, Milestone, Output, Indicator
+
 
 class LogframeTest(AptivateEnhancedTestCase):
 
@@ -66,7 +67,6 @@ class LogframeTest(AptivateEnhancedTestCase):
         indicator = indicators[0]
         from django.forms.models import ModelForm
         self.assertIsInstance(indicator, ModelForm)
-        from .models import Indicator
         self.assertIsInstance(indicator.instance, Indicator)
 
         # there should be a hidden ID field for this indicator form
@@ -105,7 +105,7 @@ class LogframeTest(AptivateEnhancedTestCase):
             "must use a unique prefix to avoid them colliding in the page")
 
     def assert_submit_output_form(self, output_to_update_if_any=None,
-        override_form_values={}):
+            override_form_values={}):
 
         default_form_values = {
             'name': 'Print',
@@ -119,7 +119,7 @@ class LogframeTest(AptivateEnhancedTestCase):
         # we have to do a GET to find the management form values
         if output_to_update_if_any:
             url = reverse('logframe-output-update',
-                kwargs={pk: output_to_update_if_any.pk})
+                kwargs={'pk': output_to_update_if_any.pk})
         else:
             url = reverse('logframe-output-create')
 
@@ -135,6 +135,12 @@ class LogframeTest(AptivateEnhancedTestCase):
                 prefixed_name = indicator_form.add_prefix(name)
                 if name in indicator_form.initial:
                     form_values[prefixed_name] = indicator_form.initial[name]
+
+            prefix = 'indicator_%s_subindicators-' % indicator_form.instance.id
+            form_values.update({
+                prefix + 'TOTAL_FORMS': '0',
+                prefix + 'INITIAL_FORMS': '0',
+            })
 
         form_values.update(override_form_values)
 
@@ -164,7 +170,6 @@ class LogframeTest(AptivateEnhancedTestCase):
             output = output_to_update_if_any
             edit_url = url
         else:
-            from .models import Output
             output = Output.objects.last()
             edit_url = reverse('logframe-output-update',
                 kwargs={'pk': output.pk})
@@ -172,14 +177,14 @@ class LogframeTest(AptivateEnhancedTestCase):
         self.assertRedirectedWithoutFollowing(response, edit_url)
 
         response = self.client.get(edit_url)
-        form = self.assertInDict('form', response.context,
+        self.assertInDict('form', response.context,
             "Where are we? should be rendering the same page again, "
             "but got this instead: %s" % response.content)
 
         return response, form_values, output
 
     def test_submit_output_form_creates_output(self):
-        log_frame = G(LogFrame)
+        G(LogFrame)
         response, form_values, output = self.assert_submit_output_form()
 
         self.assertEquals(form_values['name'], output.name,
@@ -192,8 +197,7 @@ class LogframeTest(AptivateEnhancedTestCase):
             "LogFrame should have order set to 1")
 
     def test_second_output_has_higher_order(self):
-        log_frame = G(LogFrame)
-        output = G(Output, log_frame=log_frame)
+        output = G(Output, order=1)
 
         response, form_values, output2 = self.assert_submit_output_form()
         self.assertNotEquals(output, output2,
@@ -202,7 +206,7 @@ class LogframeTest(AptivateEnhancedTestCase):
             "LogFrame should have order set to 2")
 
     def test_create_output_with_indicator_already_populated(self):
-        log_frame = G(LogFrame)
+        G(LogFrame)
 
         from django.forms import formsets
         override_form_values = {
@@ -226,7 +230,7 @@ class LogframeTest(AptivateEnhancedTestCase):
             indicator.description)
 
     def test_create_output_with_indicator_added_using_javascript(self):
-        log_frame = G(LogFrame)
+        G(LogFrame)
 
         from django.forms import formsets
         override_form_values = {
@@ -260,11 +264,34 @@ class LogframeTest(AptivateEnhancedTestCase):
             indicator.description)
 
     def test_output_impact_weighting_saved(self):
-        log_frame = G(LogFrame)
+        G(LogFrame)
 
         override_form_values = {
-                'impact_weighting': '1'
-                }
+            'impact_weighting': '1'
+        }
         response, form_values, output = self.assert_submit_output_form(
             override_form_values=override_form_values)
         self.assertEqual(1, output.impact_weighting)
+
+    def test_add_subindicator_to_existing_indicator(self):
+        indicator = G(Indicator)
+        prefix = 'indicator_%d_subindicators-' % indicator.id
+        noneprefix = 'indicator_None_subindicators-'
+
+        override_form_values = {
+            'indicator_set-0-id': indicator.id,
+            'indicator_set-0-name': indicator.name,
+            'indicator_set-0-description': indicator.description,
+            'indicator_set-TOTAL_FORMS': 1,
+            prefix + 'TOTAL_FORMS': '1',
+            prefix + 'INITIAL_FORMS': '0',
+            prefix + 'MAX_NUM_FORMS': '1000',
+            prefix + '0-name': 'new sub',
+            noneprefix + 'TOTAL_FORMS': '0',
+            noneprefix + 'INITIAL_FORMS': '0',
+        }
+        response, form_values, output = self.assert_submit_output_form(
+            output_to_update_if_any=indicator.output,
+            override_form_values=override_form_values)
+        self.assertEqual(1, indicator.subindicator_set.count())
+        self.assertEqual('new sub', indicator.subindicator_set.first().name)
