@@ -9,7 +9,7 @@ UserModel = get_user_model()
 from django_dynamic_fixture import G
 
 from binder.test_utils import AptivateEnhancedTestCase
-from .models import LogFrame, Milestone, Output, Indicator
+from .models import LogFrame, Milestone, Output, Indicator, SubIndicator
 
 
 class LogframeTest(AptivateEnhancedTestCase):
@@ -78,7 +78,6 @@ class LogframeTest(AptivateEnhancedTestCase):
 
         subindicator = subindicators[0]
         self.assertIsInstance(subindicator, ModelForm)
-        from .models import SubIndicator
         self.assertIsInstance(subindicator.instance, SubIndicator)
 
         self.assertEquals(milestones, list(response.context['milestones']),
@@ -276,7 +275,6 @@ class LogframeTest(AptivateEnhancedTestCase):
     def test_add_subindicator_to_existing_indicator(self):
         indicator = G(Indicator)
         prefix = 'indicator_%d_subindicators-' % indicator.id
-        noneprefix = 'indicator_None_subindicators-'
 
         override_form_values = {
             'indicator_set-0-id': indicator.id,
@@ -285,10 +283,28 @@ class LogframeTest(AptivateEnhancedTestCase):
             'indicator_set-TOTAL_FORMS': 1,
             prefix + 'TOTAL_FORMS': '1',
             prefix + 'INITIAL_FORMS': '0',
-            prefix + 'MAX_NUM_FORMS': '1000',
             prefix + '0-name': 'new sub',
-            noneprefix + 'TOTAL_FORMS': '0',
-            noneprefix + 'INITIAL_FORMS': '0',
+        }
+        response, form_values, output = self.assert_submit_output_form(
+            output_to_update_if_any=indicator.output,
+            override_form_values=override_form_values)
+        self.assertEqual(1, indicator.subindicator_set.count())
+        self.assertEqual('new sub', indicator.subindicator_set.first().name)
+
+    def test_update_existing_subindicator(self):
+        subindicator = G(SubIndicator, name='old sub')
+        indicator = subindicator.indicator
+        prefix = 'indicator_%s_subindicators-' % indicator.id
+
+        override_form_values = {
+            'indicator_set-0-id': indicator.id,
+            'indicator_set-0-name': indicator.name,
+            'indicator_set-0-description': indicator.description,
+            'indicator_set-TOTAL_FORMS': 1,
+            prefix + 'TOTAL_FORMS': '1',
+            prefix + 'INITIAL_FORMS': '1',
+            prefix + '0-id': str(subindicator.id),
+            prefix + '0-name': 'new sub',
         }
         response, form_values, output = self.assert_submit_output_form(
             output_to_update_if_any=indicator.output,
