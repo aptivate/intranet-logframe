@@ -258,20 +258,3 @@ class LogframeTest(AptivateEnhancedTestCase):
             indicator.name)
         self.assertEquals(override_form_values['indicator_set-1-description'],
             indicator.description)
-
-    def test_indicator_saved_on_form_submission(self):
-        log_frame = G(LogFrame)
-
-        from django.forms import formsets
-        override_form_values = {
-            'indicator_set-0-name': 'Left Indicator',
-            'indicator_set-0-description': 'Used when going left',
-            'indicator_set-0-' + formsets.DELETION_FIELD_NAME: '',
-            'indicator_set-1-name': 'Speedometer',
-            'indicator_set-1-description': "Used to check that you won't "
-                "get a speeding fine",
-            'indicator_set-1-' + formsets.DELETION_FIELD_NAME: '',
-            'indicator_set-TOTAL_FORMS': 2,
-        }
-
-        pass
