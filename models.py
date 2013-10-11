@@ -86,7 +86,7 @@ class Indicator(models.Model):
 
 class SubIndicator(models.Model):
     name = models.CharField(max_length=255)
-    source = models.ForeignKey(Source)
+    source = models.ForeignKey(Source, null=True, blank=True)
     indicator = models.ForeignKey(Indicator)
 
     @property
@@ -95,6 +95,10 @@ class SubIndicator(models.Model):
 
     @property
     def targets(self):
+        """ return a list of targets for this subindicator.  First get all
+        the already existing targets for this SI.  Then go through each
+        milestone, and if there isn't an existing target that matches, create
+        one. """
         milestones = self.milestones
         targets = self.target_set.all()
         targets_by_milestone = dict([
@@ -138,6 +142,10 @@ class SubIndicator(models.Model):
             BaseInlineFormSet to render them in the right order? It's better
             to completely control the list of instances, which is what this
             FakeTargetQuerySet does."""
+            return self
+
+        def filter(self, **kwargs):
+            """ We are already filtered, so just return ourself. """
             return self
 
 
