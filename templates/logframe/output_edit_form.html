@@ -37,7 +37,7 @@
 
 		<div class="form errors box">
 		{{ form.errors }}
-		<!-- <pre> {{ indicators.errors }} </pre> -->
+		<pre> {{ indicators.errors }} </pre>
 		</div>
 
 		{{ form.log_frame.as_hidden }}
@@ -66,9 +66,7 @@
 						{{ indicator.subindicators.management_form }}
 						<table class="editable">
 							<tr>
-								{% if indicator.subindicators|length > 1 %}
 								<th class="milestone-heading">Sub-indicator</th>
-								{% endif %}
 								{% for milestone in milestones %}
 								<th class="milestone-heading">{{ milestone.name }}</th>
 								{% endfor %}{# milestone #}
@@ -77,9 +75,7 @@
 							{% for subindicator in indicator.subindicators %}
 							<tr>
 								<td style="display:none;">{{ subindicator.id }}</td>
-								{% if indicator.subindicators|length > 1 %}
 								<td class="subindicator">{{ subindicator.name }}</td>
-								{% endif %}
 								{% for target in subindicator.targets %}
 								<td class="milestone-column">{{ target.value }}</td>
 								{% endfor %}

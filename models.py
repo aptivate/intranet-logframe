@@ -85,7 +85,7 @@ class Indicator(models.Model):
 
 
 class SubIndicator(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, blank=True)
     source = models.ForeignKey(Source, null=True, blank=True)
     indicator = models.ForeignKey(Indicator)
 
