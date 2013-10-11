@@ -47,7 +47,6 @@ class OutputBase(object):
 
                 def __init__(self, instance=None, **kwargs):
                     if instance is None:
-                        # import pdb; pdb.set_trace()
                         instance = SubIndicator(indicator=indicator)
                     super(CustomSubIndicatorForm, self).__init__(
                         instance=instance, **kwargs)
@@ -56,13 +55,15 @@ class OutputBase(object):
             SubIndicatorFormSet = inlineformset_factory(Indicator,
                 SubIndicator, extra=1, form=CustomSubIndicatorForm)
 
-            form.subindicators = SubIndicatorFormSet(instance=indicator,
+            form.subindicators = SubIndicatorFormSet(
+                data=(self.request.POST if self.request.method == 'POST' else None),
+                instance=indicator,
+                prefix="indicator_%s_subindicators" % indicator.pk,
                 initial=[
-                    {'indicator': indicator}
+                    {'indicator_id': indicator.id}
                 ])
             for sif in form.subindicators:
                 subindicator = sif.instance
-                # import pdb; pdb.set_trace()
                 from .forms import TargetFormSet
                 sif.targets = TargetFormSet(
                     queryset=subindicator.targets_fake_queryset,
@@ -97,6 +98,12 @@ class OutputBase(object):
             # we validated all the parameters earlier!
             raise AssertionError('The formset was valid but no longer is')
         indicator_formset.save()
+        for form in indicator_formset:
+            if form.subindicators.is_valid():
+                form.subindicators.save()
+                for sif in form.subindicators:
+                    if sif.targets.is_valid():
+                        sif.targets.save()
         return response
 
 
