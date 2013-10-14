@@ -28,7 +28,10 @@
 		node.find('input, textarea, div.textarea-replacement').each(
 			function(index, input)
 			{
-				input.value = "";
+                if (!input.name.match(/_FORMS$/))
+                {
+                    input.value = "";
+                }
 			});
 	}
 
@@ -46,7 +49,7 @@
 		var newRow = $('#id_indicator_set-__prefix__').clone();
 		newRow.attr('style', '');
 		renumberIndicatorRow(newRow, '__prefix__', newFormIndex);
-		clearFormValues(newRow);
+		// clearFormValues(newRow);
 		textarea = newRow.find("textarea");
 		addHiddenInputAfterTextarea(Array(textarea), textarea);
 		table.append(newRow);
@@ -54,6 +57,19 @@
 		// hidden field that tells Django how many forms are in the
 		// formset.
 		totalFormsInput.val(newFormIndex + 1);
+
+        // update subindicator formset
+		$(newRow).find('tr[class=subindicator-management] > input').each(
+			function(index, input)
+			{
+                var oldId = input.id;
+                var newId = oldId.replace('__prefix__', newFormIndex);
+                $(input).attr('id', newId);
+
+                var oldName = input.name;
+                var newName = oldName.replace('__prefix__', newFormIndex);
+                $(input).attr('name', newName);
+			});
 	}
 
 	function addHiddenInputAfterTextarea(replacement, textarea)

@@ -31,7 +31,7 @@ class OutputBase(object):
                 },
             ])
 
-        for form in indicator_formset:
+        for i, form in enumerate(indicator_formset):
             indicator = form.instance
             indicator.output = output
 
@@ -46,7 +46,7 @@ class OutputBase(object):
                     model = SubIndicator
 
                 def __init__(self, instance=None, **kwargs):
-                    if instance is None:
+                    if instance is None:                     
                         instance = SubIndicator(indicator=indicator)
                     super(CustomSubIndicatorForm, self).__init__(
                         instance=instance, **kwargs)
@@ -58,7 +58,7 @@ class OutputBase(object):
             form.subindicators = SubIndicatorFormSet(
                 data=(self.request.POST if self.request.method == 'POST' else None),
                 instance=indicator,
-                prefix="indicator_%s_subindicators" % indicator.pk,
+                prefix="indicator_%s_subindicators" % i,
                 initial=[
                     {'indicator_id': indicator.id}
                 ])

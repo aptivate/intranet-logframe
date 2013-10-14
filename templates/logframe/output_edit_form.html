@@ -63,8 +63,10 @@
 						{{ indicator.id }}
 					</td>
 					<td>
-						{{ indicator.subindicators.management_form }}
 						<table class="editable">
+                            <tr class="subindicator-management" style="display: none;">
+                                {{ indicator.subindicators.management_form }}
+                            </tr>
 							<tr>
 								<th class="milestone-heading">Sub-indicator</th>
 								{% for milestone in milestones %}
