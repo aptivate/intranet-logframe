@@ -59,7 +59,7 @@ class OutputBase(object):
             form.subindicators = SubIndicatorFormSet(
                 data=(self.request.POST if self.request.method == 'POST' else None),
                 instance=indicator,
-                prefix="indicator_%d_subindicators" % i,
+                prefix="indicator_%d_subindicator_set" % i,
                 initial=[
                     {'indicator_id': indicator.id}
                 ])

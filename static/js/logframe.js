@@ -46,10 +46,13 @@
 		return numForms;
 	}
 
-	function recountSubIndicators()
+	function recountSubIndicators(indicatorIndex)
 	{
-		var numForms = $('.subindicator-row').length - 1; // ignore the hidden template row
-		totalFormsInput.val(parseInt(numForms));
+		// ignore the hidden template row
+		var indicatorId = '#id_indicator_set-' + indicatorIndex
+		var numForms = $(indicatorId).find('.subindicator-row').length - 1;
+		// TODO: keep an array of numForms for the subindicators?
+		//totalFormsInput.val(parseInt(numForms));
 		return numForms;
 	}
 
@@ -99,6 +102,33 @@
 			});
 		delRow.remove();
 		recountIndicators();
+	}
+
+	// TODO: maybe need two versions - one which is attached to an element
+	// that can use $(this) and one which is passed the element/id to use
+	function addSubIndicatorFormset()
+	{
+		var addButtonRow = $(this).closest('tr');
+		var table = $(this).closest('table');
+		// extract the tr id, eg "indicator_set-0" and extract the number after the -
+		var indicatorId = table.closest('tr')[0].id
+		var indicatorIndex = indicatorId.substr(indicatorId.indexOf('-') + 1);
+		var newFormIndex = recountSubIndicators(indicatorIndex);
+		var subindicatorRowId = '#id_indicator_' + indicatorIndex + '_subindicator_set-__prefix__'
+		var newRow = table.find(subindicatorRowId).clone();
+		newRow.attr('style', '');
+		renumberIndicatorRow(newRow, '__prefix__', newFormIndex);
+		clearFormValues(newRow);
+		textarea = newRow.find("textarea");
+		addHiddenInputAfterTextarea(Array(textarea), textarea);
+		addButtonRow.before(newRow);
+		// TODO: update management form
+		//var totalFormsInput = $('#id_indicator_set-TOTAL_FORMS');
+	}
+
+	function removeSubIndicatorFormset()
+	{
+		// TODO:
 	}
 
 	function addHiddenInputAfterTextarea(replacement, textarea)
@@ -154,6 +184,8 @@
 		addIndicatorFormset();
 	}
 
+	// TODO: for each indicator, check for visible forms for the subindicator
+
 	/***************************************
 	 * Now we've set up, bind some functions
 	 ***************************************/
@@ -162,11 +194,19 @@
 	// hidden input element.
 	$('form[name="output"]').on('submit', copyTextareaReplacementToHidden);
 
-	// Bind dynamically to allow newly-added rows to be handled 
+	// Bind dynamically to allow newly-added rows to be handled
 	// without rebinding.
 	$('.output').on('click', '.indicator-add-button', null, addIndicatorFormset);
 
-	// Bind dynamically to allow newly-added rows to be handled 
+	// Bind dynamically to allow newly-added rows to be handled
 	// without rebinding.
 	$('.indicators').on('click', '.indicator-del-button', null, removeIndicatorFormset);
+
+	// Bind dynamically to allow newly-added rows to be handled
+	// without rebinding.
+	$('.output').on('click', '.subindicator-add-button', null, addSubIndicatorFormset);
+
+	// Bind dynamically to allow newly-added rows to be handled
+	// without rebinding.
+	$('.subindicators').on('click', '.subindicator-del-button', null, removeSubIndicatorFormset);
 })();
