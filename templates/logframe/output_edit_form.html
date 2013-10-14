@@ -37,7 +37,9 @@
 
 		<div class="form errors box">
 		{{ form.errors }}
+		{% if deploy_env == 'dev' %}
 		<pre> {{ indicators.errors }} </pre>
+		{% endif %}
 		</div>
 
 		{{ form.log_frame.as_hidden }}
