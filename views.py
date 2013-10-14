@@ -58,17 +58,17 @@ class OutputBase(object):
             form.subindicators = SubIndicatorFormSet(
                 data=(self.request.POST if self.request.method == 'POST' else None),
                 instance=indicator,
-                prefix="indicator_%s_subindicators" % i,
+                prefix="indicator_%d_subindicators" % i,
                 initial=[
                     {'indicator_id': indicator.id}
                 ])
-            for sif in form.subindicators:
+            for j, sif in enumerate(form.subindicators):
                 subindicator = sif.instance
                 from .forms import TargetFormSet
                 sif.targets = TargetFormSet(
                     queryset=subindicator.targets_fake_queryset,
                     instance=subindicator,
-                    prefix="subindicator_%s_targets" % subindicator.pk)
+                    prefix="subindicator_%d_%d_targets" % (i, j))
 
         return indicator_formset
 
