@@ -47,13 +47,14 @@ p {
 }
 .milestone-heading {
 	white-space: pre-wrap;
+	width: 16.6%;
+}
+th.milestones-edit {
+	width: 5%;
 }
 .milestone-heading, .milestones-edit {
-	width: 16.6%;
 	font-size: 1em;
 	text-align: center;
-}
-.milestone-heading, .milestones-edit, .subindicator {
 	background: #9c9;
 }
 .source > td, .milestone-column.source {
