@@ -32,7 +32,7 @@
 				 * ...-TOTAL_FORMS
 				 * ...-INITIAL_FORMS
 				 * etc */
-				if (!input.name.match(/_FORMS$/))
+				if ('name' in input && !input.name.match(/_FORMS$/))
 				{
 					input.value = "";
 				}
