@@ -46,7 +46,7 @@ class OutputBase(object):
                     model = SubIndicator
 
                 def __init__(self, instance=None, **kwargs):
-                    if instance is None:                     
+                    if instance is None:
                         instance = SubIndicator(indicator=indicator)
                     super(CustomSubIndicatorForm, self).__init__(
                         instance=instance, **kwargs)

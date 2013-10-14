@@ -28,10 +28,10 @@
 		node.find('input, textarea, div.textarea-replacement').each(
 			function(index, input)
 			{
-                if (!input.name.match(/_FORMS$/))
-                {
-                    input.value = "";
-                }
+				if (!input.name.match(/_FORMS$/))
+				{
+					input.value = "";
+				}
 			});
 	}
 
@@ -62,13 +62,13 @@
 		$(newRow).find('tr[class=subindicator-management] > input').each(
 			function(index, input)
 			{
-                var oldId = input.id;
-                var newId = oldId.replace('__prefix__', newFormIndex);
-                $(input).attr('id', newId);
+				var oldId = input.id;
+				var newId = oldId.replace('__prefix__', newFormIndex);
+				$(input).attr('id', newId);
 
-                var oldName = input.name;
-                var newName = oldName.replace('__prefix__', newFormIndex);
-                $(input).attr('name', newName);
+				var oldName = input.name;
+				var newName = oldName.replace('__prefix__', newFormIndex);
+				$(input).attr('name', newName);
 			});
 	}
 
