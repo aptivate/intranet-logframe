@@ -28,6 +28,10 @@
 		node.find('input, textarea, div.textarea-replacement').each(
 			function(index, input)
 			{
+				/* We don't want to clear the management form stuff:
+				 * ...-TOTAL_FORMS
+				 * ...-INITIAL_FORMS
+				 * etc */
 				if (!input.name.match(/_FORMS$/))
 				{
 					input.value = "";
@@ -42,6 +46,13 @@
 		return numForms;
 	}
 
+	function recountSubIndicators()
+	{
+		var numForms = $('.subindicator-row').length - 1; // ignore the hidden template row
+		totalFormsInput.val(parseInt(numForms));
+		return numForms;
+	}
+
 	function addIndicatorFormset()
 	{
 		var newFormIndex = recountIndicators();
@@ -49,7 +60,7 @@
 		var newRow = $('#id_indicator_set-__prefix__').clone();
 		newRow.attr('style', '');
 		renumberIndicatorRow(newRow, '__prefix__', newFormIndex);
-		// clearFormValues(newRow);
+		clearFormValues(newRow);
 		textarea = newRow.find("textarea");
 		addHiddenInputAfterTextarea(Array(textarea), textarea);
 		table.append(newRow);
@@ -58,7 +69,7 @@
 		// formset.
 		totalFormsInput.val(newFormIndex + 1);
 
-        // update subindicator formset
+		// update subindicator formset
 		$(newRow).find('tr[class=subindicator-management] > input').each(
 			function(index, input)
 			{
@@ -70,6 +81,24 @@
 				var newName = oldName.replace('__prefix__', newFormIndex);
 				$(input).attr('name', newName);
 			});
+	}
+
+	function removeIndicatorFormset()
+	{
+		// Shift all higher forms down by one
+		var delRow = $(this).parents('.indicator-row');
+		var delRowIndex = delRow.data('rowIndex');
+		$('.indicator-row').each(
+			function(i, rowElem)
+			{
+				var rowIndex = $.data(rowElem, 'rowIndex');
+				if (rowIndex > delRowIndex)
+				{
+					renumberIndicatorRow($(rowElem), rowIndex, rowIndex - 1);
+				}
+			});
+		delRow.remove();
+		recountIndicators();
 	}
 
 	function addHiddenInputAfterTextarea(replacement, textarea)
@@ -84,9 +113,22 @@
 		replacement[0].hiddenField = hidden[0];
 	}
 
-	// Above here are just function definitions, below here is the code
-	// that runs on page load.
+	function copyTextareaReplacementToHidden()
+	{
+		$('.textarea-replacement').each(function (index, div)
+		{
+			hiddenField = $('input[name="' + div.id + '"]');
+			hiddenField[0].value = div.innerHTML;
+		});
+		return true;
+	}
 
+	/***************************************
+	 * Above here are just function definitions, below here is the code
+	 * that runs on page load.
+	 ***************************************/
+
+	// Replace each text area with a contentEditable box and hidden input
 	$("textarea").each(function (index, textarea)
 	{
 		// var textarea = e.target;
@@ -103,49 +145,28 @@
 		addHiddenInputAfterTextarea(replacement, textarea);
 	});
 
-	$('form[name="output"]').on('submit', function()
-	{
-		$('.textarea-replacement').each(function (index, div)
-		{
-			hiddenField = $('input[name="' + div.id + '"]');
-			hiddenField[0].value = div.innerHTML;
-		});
-		return true;
-	});
-
-	var totalFormsInput = $('#id_indicator_set-TOTAL_FORMS');
-
-	// Bind dynamically to allow newly-added rows to be handled 
-	// without rebinding.
-	$('.output').on('click', '.indicator-add-button', null, addIndicatorFormset);
-
-	var numForms = totalFormsInput.val();
-	// Hide the extra blank form if there's at least one form visible.
+	// If there are no visible forms, create at least one
 	// Users can add more forms by clicking on the add button.
+	var totalFormsInput = $('#id_indicator_set-TOTAL_FORMS');
+	var numForms = totalFormsInput.val();
 	if (numForms == 0)
 	{
 		addIndicatorFormset();
 	}
 
+	/***************************************
+	 * Now we've set up, bind some functions
+	 ***************************************/
+
+	// on submit, we should the contents of the contentEditable div into the
+	// hidden input element.
+	$('form[name="output"]').on('submit', copyTextareaReplacementToHidden);
+
 	// Bind dynamically to allow newly-added rows to be handled 
 	// without rebinding.
-	$('.indicators').on('click', '.indicator-del-button', null, function()
-	{
-		// Shift all higher forms down by one
-		var delRow = $(this).parents('.indicator-row');
-		var delRowIndex = delRow.data('rowIndex');
-		$('.indicator-row').each(
-			function(i, rowElem)
-			{
-				var rowIndex = $.data(rowElem, 'rowIndex');
-				if (rowIndex > delRowIndex)
-				{
-					renumberIndicatorRow($(rowElem), 
-						rowIndex, rowIndex - 1);
-				}
-			});
-		delRow.remove();
-		recountIndicators();
-	});
-})();
+	$('.output').on('click', '.indicator-add-button', null, addIndicatorFormset);
 
+	// Bind dynamically to allow newly-added rows to be handled 
+	// without rebinding.
+	$('.indicators').on('click', '.indicator-del-button', null, removeIndicatorFormset);
+})();
