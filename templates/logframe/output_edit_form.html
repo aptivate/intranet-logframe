@@ -57,7 +57,7 @@
 			<table id="id_indicators" class="indicators">
 				{% for indicator in indicators %}
 				<tr id="id_{{ indicator.prefix }}" class="indicator-row"
-					style="{% if indicator.empty %}display: none;{% endif %}">
+					{% if indicator.empty %}style="display: none;"{% endif %}>
 					<td class="indicator-cell">
 						<h3 class="indicator heading">{{ indicator.name }}</h3>
 						{{ indicator.description }}
@@ -77,17 +77,18 @@
 								<th class="milestones-edit"><a href="/admin/logframe/milestone/">Edit</a></th>
 							</tr>
 							{% for subindicator in indicator.subindicators %}
-							<tr>
+							<tr id="id_{{ subindicator.prefix }}" class="subindicator-row"
+								{% if subindicator.empty %}style="display: none;"{% endif %}>
 								<td style="display:none;">{{ subindicator.id }}</td>
 								<td class="subindicator">{{ subindicator.name }}</td>
 								{% for target in subindicator.targets %}
 								<td class="milestone-column">{{ target.value }}</td>
 								{% endfor %}
-								<td class="subindicator-del">[X]</td>
+								<td class="subindicator-del subindicator-del-button">[X]</td>
 							</tr>
 							{% endfor %}{# subindicator #}
 							<tr>
-								<td colspan="6"><div class="subindicator-add">[+]</div></td>
+								<td colspan="6"><div class="subindicator-add subindicator-add-button">[+]</div></td>
 							</tr>
 							<tr class="source">
 								<td colspan="6">Source</td>

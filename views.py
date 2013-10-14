@@ -2,7 +2,7 @@ from __future__ import absolute_import, unicode_literals
 
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Output, LogFrame, Indicator, SubIndicator
-from .forms import OutputForm, IndicatorFormSet
+from .forms import OutputForm, IndicatorFormSet, BaseInlineFormSetWithEmpty
 
 
 class OutputBase(object):
@@ -52,8 +52,9 @@ class OutputBase(object):
                         instance=instance, **kwargs)
 
             from django.forms.models import inlineformset_factory
-            SubIndicatorFormSet = inlineformset_factory(Indicator,
-                SubIndicator, extra=1, form=CustomSubIndicatorForm)
+            SubIndicatorFormSet = inlineformset_factory(
+                Indicator, SubIndicator, extra=0, form=CustomSubIndicatorForm,
+                formset=BaseInlineFormSetWithEmpty)
 
             form.subindicators = SubIndicatorFormSet(
                 data=(self.request.POST if self.request.method == 'POST' else None),
