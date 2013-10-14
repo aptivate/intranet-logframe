@@ -95,7 +95,8 @@ p {
 	vertical-align: middle;
 }
 .milestone-heading.source span,
-.milestones-edit a:link {
+.milestones-edit a:link,
+.milestones-edit a:visited {
 	display: block;
 	-moz-transform: rotate(-90deg);
 	-webkit-transform: rotate(-90deg);
