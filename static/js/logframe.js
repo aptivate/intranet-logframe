@@ -1,19 +1,17 @@
 (function () {
-	function renumberIndicatorRow(row, oldIndex, newIndex)
+	function renumberRow(row, prefix, oldIndex, newIndex)
 	{
-		row.attr('id', row.attr('id').replace("set-" + oldIndex,
-			"set-" + newIndex));
+		oldIndex = prefix + oldIndex;
+		newIndex = prefix + newIndex;
+		row.attr('id', row.attr('id').replace(oldIndex, newIndex));
 		row.data('rowIndex', newIndex);
-		row.find('input, textarea, div.textarea-replacement').each(
+		row.find('input, textarea, tr, div.textarea-replacement').each(
 			function(index, input)
 			{
-				input.id = input.id.replace("-" + oldIndex + "-",
-					"-" + newIndex + "-");
+				input.id = input.id.replace(oldIndex, newIndex);
 				if (input.hasAttribute('name'))
 				{
-					input.name = input.name.replace(
-						"-" + oldIndex + "-",
-						"-" + newIndex + "-");
+					input.name = input.name.replace(oldIndex, newIndex);
 				}
 			});
 		row.find('div.textarea-replacement').each(
@@ -21,6 +19,16 @@
 			{
 				div.hiddenField = $('input[name="' + div.id + '"]')[0]
 			});
+	}
+
+	function renumberIndicatorRow(row, oldIndex, newIndex)
+	{
+		renumberRow(row, '_ind-', oldIndex, newIndex);
+	}
+
+	function renumberSubIndicatorRow(row, oldIndex, newIndex)
+	{
+		renumberRow(row, '_subind-', oldIndex, newIndex);
 	}
 
 	function clearFormValues(node)
@@ -49,7 +57,7 @@
 	function recountSubIndicators(indicatorIndex)
 	{
 		// ignore the hidden template row
-		var indicatorId = '#id_indicator_set-' + indicatorIndex
+		var indicatorId = '#id_indicator_set_ind-' + indicatorIndex
 		var numForms = $(indicatorId).find('.subindicator-row').length - 1;
 		// TODO: keep an array of numForms for the subindicators?
 		//totalFormsInput.val(parseInt(numForms));
@@ -60,7 +68,7 @@
 	{
 		var newFormIndex = recountIndicators();
 		var table = $('#id_indicators');
-		var newRow = $('#id_indicator_set-__prefix__').clone();
+		var newRow = $('#id_indicator_set_ind-__prefix__').clone();
 		newRow.attr('style', '');
 		renumberIndicatorRow(newRow, '__prefix__', newFormIndex);
 		clearFormValues(newRow);
@@ -106,18 +114,29 @@
 
 	// TODO: maybe need two versions - one which is attached to an element
 	// that can use $(this) and one which is passed the element/id to use
-	function addSubIndicatorFormset()
+	function addSubIndicatorFormset(indicatorRow)
 	{
-		var addButtonRow = $(this).closest('tr');
-		var table = $(this).closest('table');
-		// extract the tr id, eg "indicator_set-0" and extract the number after the -
+		var table;
+		// the first argument is an event when called from the button press
+		// or a jquery object if called during set up.  Distinguish by looking
+		// for the find() method.
+		if ('find' in indicatorRow)
+		{
+			table = indicatorRow.find('table');
+		}
+		else
+		{
+			table = $(this).closest('table');
+		}
+		var addButtonRow = table.find('.subindicator-add-row');
+		// extract the tr id, eg "indicator_set_ind-0" and extract the number after the -
 		var indicatorId = table.closest('tr')[0].id
 		var indicatorIndex = indicatorId.substr(indicatorId.indexOf('-') + 1);
 		var newFormIndex = recountSubIndicators(indicatorIndex);
-		var subindicatorRowId = '#id_indicator_' + indicatorIndex + '_subindicator_set-__prefix__'
+		var subindicatorRowId = '#id_ind-' + indicatorIndex + '_subindicator_set_subind-__prefix__';
 		var newRow = table.find(subindicatorRowId).clone();
 		newRow.attr('style', '');
-		renumberIndicatorRow(newRow, '__prefix__', newFormIndex);
+		renumberSubIndicatorRow(newRow, '__prefix__', newFormIndex);
 		clearFormValues(newRow);
 		textarea = newRow.find("textarea");
 		addHiddenInputAfterTextarea(Array(textarea), textarea);
@@ -153,6 +172,19 @@
 		return true;
 	}
 
+	function addSubIndicatorFormsToIndicators()
+	{
+		$('.indicator-row').each(
+			function (index, item) {
+				// There is always a template formset
+				if ($(item).find('.subindicator-row').length == 1)
+				{
+					addSubIndicatorFormset($(item));
+				}
+			}
+		);
+	}
+
 	/***************************************
 	 * Above here are just function definitions, below here is the code
 	 * that runs on page load.
@@ -177,14 +209,14 @@
 
 	// If there are no visible forms, create at least one
 	// Users can add more forms by clicking on the add button.
-	var totalFormsInput = $('#id_indicator_set-TOTAL_FORMS');
+	var totalFormsInput = $('#id_indicator_set_ind-TOTAL_FORMS');
 	var numForms = totalFormsInput.val();
 	if (numForms == 0)
 	{
 		addIndicatorFormset();
 	}
 
-	// TODO: for each indicator, check for visible forms for the subindicator
+	addSubIndicatorFormsToIndicators();
 
 	/***************************************
 	 * Now we've set up, bind some functions

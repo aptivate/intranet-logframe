@@ -24,6 +24,7 @@ class OutputBase(object):
         indicator_formset = IndicatorFormSet(
             data=(self.request.POST if self.request.method == 'POST' else None),
             instance=output,
+            prefix='indicator_set_ind',
             initial=[
                 {
                     'name': '',
@@ -56,10 +57,12 @@ class OutputBase(object):
                 Indicator, SubIndicator, extra=0, form=CustomSubIndicatorForm,
                 formset=BaseInlineFormSetWithEmpty)
 
+            if form.empty:
+                i = '__prefix__'
             form.subindicators = SubIndicatorFormSet(
                 data=(self.request.POST if self.request.method == 'POST' else None),
                 instance=indicator,
-                prefix="indicator_%d_subindicator_set" % i,
+                prefix="ind-%s_subindicator_set_subind" % i,
                 initial=[
                     {'indicator_id': indicator.id}
                 ])
@@ -69,7 +72,7 @@ class OutputBase(object):
                 sif.targets = TargetFormSet(
                     queryset=subindicator.targets_fake_queryset,
                     instance=subindicator,
-                    prefix="subindicator_%d_%d_targets" % (i, j))
+                    prefix="subindicator_%s_%d_targets" % (i, j))
 
         return indicator_formset
 
