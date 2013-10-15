@@ -86,10 +86,14 @@ th.milestones-edit {
 .indicator-add {
 	margin: 0.2em;
 }
-.indicator-add-button,
-.indicator-del-button {
+.table-button {
 	display: inline-block;
 	cursor: pointer;
+	background-color: #f5f5f5;
+}
+.indicator-del-button,
+.subindicator-del-button {
+	color: red;
 }
 .milestones-edit {
 	vertical-align: middle;
