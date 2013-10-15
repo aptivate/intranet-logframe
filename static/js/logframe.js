@@ -197,6 +197,16 @@
 		);
 	}
 
+	// also from http://stackoverflow.com/a/14531126/3189
+	function togglePlaceholderContent() {
+		if (this.textContent) {
+			this.dataset.divPlaceholderContent = 'true';
+		}
+		else {
+			delete(this.dataset.divPlaceholderContent);
+		}
+	}
+
 	/***************************************
 	 * Above here are just function definitions, below here is the code
 	 * that runs on page load.
@@ -221,16 +231,6 @@
 		replacement.replaceAll(textarea);
 
 		addHiddenInputAfterTextarea(replacement, textarea);
-	});
-
-	// also from http://stackoverflow.com/a/14531126/3189
-	$('div[data-placeholder]').on('keydown keypress input', function() {
-		if (this.textContent) {
-			this.dataset.divPlaceholderContent = 'true';
-		}
-		else {
-			delete(this.dataset.divPlaceholderContent);
-		}
 	});
 
 	// If there are no visible forms, create at least one
@@ -258,7 +258,7 @@
 
 	// Bind dynamically to allow newly-added rows to be handled
 	// without rebinding.
-	$('.indicators').on('click', '.indicator-del-button', null, removeIndicatorFormset);
+	$('.output').on('click', '.indicator-del-button', null, removeIndicatorFormset);
 
 	// Bind dynamically to allow newly-added rows to be handled
 	// without rebinding.
@@ -267,4 +267,7 @@
 	// Bind dynamically to allow newly-added rows to be handled
 	// without rebinding.
 	$('.output').on('click', '.subindicator-del-button', null, removeSubIndicatorFormset);
+
+	$('.output').on('keydown keypress input', 'div[data-placeholder]', null,
+				togglePlaceholderContent);
 })();
