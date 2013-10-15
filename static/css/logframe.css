@@ -137,6 +137,13 @@ textarea:focus,
 	border: 1px solid #ddd;
 	background: #ffd;
 }
+/* placeholder stuff from http://stackoverflow.com/a/14531126/3189 */
+div[data-placeholder]:not(:focus):not([data-div-placeholder-content]):before {
+    content: attr(data-placeholder);
+    float: left;
+    margin-left: 5px;
+    color: gray;
+}
 input:hover[type='text'],
 textarea:hover,
 .textarea-replacement:hover {

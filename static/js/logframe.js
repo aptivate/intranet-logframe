@@ -205,18 +205,32 @@
 	// Replace each text area with a contentEditable box and hidden input
 	$("textarea").each(function (index, textarea)
 	{
-		// var textarea = e.target;
-		// alert($(this).html());
+		// placeholder stuff from http://stackoverflow.com/a/14531126/3189
 		var replacement = $("<div></div>",
 		{
 			class: 'textarea-replacement',
 			contentEditable: true,
-			id: textarea.name
+			id: textarea.name,
+			"data-placeholder": textarea.placeholder,
 		})
 		.html(textarea.value);
+		if (textarea.value)
+		{
+			replacement[0].dataset.divPlaceholderContent = 'true';
+		}
 		replacement.replaceAll(textarea);
 
 		addHiddenInputAfterTextarea(replacement, textarea);
+	});
+
+	// also from http://stackoverflow.com/a/14531126/3189
+	$('div[data-placeholder]').on('keydown keypress input', function() {
+		if (this.textContent) {
+			this.dataset.divPlaceholderContent = 'true';
+		}
+		else {
+			delete(this.dataset.divPlaceholderContent);
+		}
 	});
 
 	// If there are no visible forms, create at least one
