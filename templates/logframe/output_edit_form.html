@@ -30,10 +30,12 @@
 {% block body %}
 	<form name="output" method="post">
 		{% csrf_token %}
+		{% if deploy_env == 'dev' %}
 		<div class="submit-row">
 			<input type="submit" name="save" value="Save" />
 			<input type="button" value="Cancel" onclick="window.history.back(); return false;" />
 		</div>
+		{% endif %}
 
 		<div class="form errors box">
 		{{ form.errors }}
@@ -122,11 +124,13 @@
 	</tr>
 </table>
 
-		
+
+		{% if deploy_env == 'dev' %}
 		<div class="submit-row">
 			<input type="submit" name="save" value="Save" />
 			<input type="button" value="Cancel" onclick="window.history.back(); return false;" />
 		</div>
+		{% endif %}
 	</form>
 
 <script src="{{ STATIC_URL }}jquery-1.10.2.js"></script>
