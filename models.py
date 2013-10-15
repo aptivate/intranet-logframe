@@ -37,6 +37,9 @@ class Milestone(models.Model):
 class RiskRating(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
+    class Meta:
+        ordering = ['id']
+
     @python_2_unicode_compatible
     def __str__(self):
         return self.name
