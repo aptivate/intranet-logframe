@@ -8,7 +8,7 @@ from django.utils.functional import cached_property
 
 
 class LogFrame(models.Model):
-    name = models.CharField(max_length=255)
+    name = models.CharField(max_length=255, unique=True)
 
     @cached_property
     def milestones(self):
@@ -54,7 +54,7 @@ class Result(models.Model):
 
 
 class Output(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     order = models.IntegerField()
     # fk to stream
@@ -69,17 +69,10 @@ class Output(models.Model):
         return self.name
 
 
-class Source(models.Model):
-    name = models.CharField(max_length=255, unique=True)
-
-    @python_2_unicode_compatible
-    def __str__(self):
-        return self.name
-
-
 class Indicator(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
+    source = models.TextField()
     output = models.ForeignKey(Output, null=True)
 
     @python_2_unicode_compatible
@@ -89,7 +82,6 @@ class Indicator(models.Model):
 
 class SubIndicator(models.Model):
     name = models.CharField(max_length=255, blank=True)
-    source = models.ForeignKey(Source, null=True, blank=True)
     indicator = models.ForeignKey(Indicator)
 
     @property
