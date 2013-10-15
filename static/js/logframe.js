@@ -112,8 +112,6 @@
 		recountIndicators();
 	}
 
-	// TODO: maybe need two versions - one which is attached to an element
-	// that can use $(this) and one which is passed the element/id to use
 	function addSubIndicatorFormset(indicatorRow)
 	{
 		var table;
@@ -148,6 +146,20 @@
 	function removeSubIndicatorFormset()
 	{
 		// TODO:
+		// Shift all higher forms down by one
+		var delRow = $(this).parents('.subindicator-row');
+		var delRowIndex = delRow.data('rowIndex');
+		$('.subindicator-row').each(
+			function(i, rowElem)
+			{
+				var rowIndex = $.data(rowElem, 'rowIndex');
+				if (rowIndex > delRowIndex)
+				{
+					renumberSubIndicatorRow($(rowElem), rowIndex, rowIndex - 1);
+				}
+			});
+		delRow.remove();
+		recountSubIndicators();
 	}
 
 	function addHiddenInputAfterTextarea(replacement, textarea)
@@ -240,5 +252,5 @@
 
 	// Bind dynamically to allow newly-added rows to be handled
 	// without rebinding.
-	$('.subindicators').on('click', '.subindicator-del-button', null, removeSubIndicatorFormset);
+	$('.output').on('click', '.subindicator-del-button', null, removeSubIndicatorFormset);
 })();
