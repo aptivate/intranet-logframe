@@ -16,15 +16,49 @@ class BaseInlineFormSetWithEmpty(BaseInlineFormSet):
         forms.append(empty)
         return forms
 
-IndicatorFormSet = inlineformset_factory(Output, Indicator, extra=0,
-    formset=BaseInlineFormSetWithEmpty)
-TargetFormSet = inlineformset_factory(SubIndicator, Target, extra=0)
-
 
 class OutputForm(forms.ModelForm):
     class Meta:
         model = Output
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Name'}),
+            'description': forms.Textarea(attrs={'placeholder': 'Output Description'}),
+            'assumptions': forms.Textarea(attrs={'placeholder': 'Assumptions'}),
+        }
 
     def __init__(self, **kwargs):
         super(OutputForm, self).__init__(**kwargs)
         self.fields['order'].required = False
+
+
+class IndicatorForm(forms.ModelForm):
+    class Meta:
+        model = Indicator
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Name'}),
+            'description': forms.Textarea(attrs={'placeholder': 'Indicator Description'}),
+            'source': forms.Textarea(attrs={'placeholder': 'Enter source for indicator data'}),
+        }
+
+
+class SubIndicatorForm(forms.ModelForm):
+    class Meta:
+        model = SubIndicator
+        widgets = {
+            'name': forms.TextInput(attrs={'placeholder': 'Name'}),
+        }
+
+
+class TargetForm(forms.ModelForm):
+    class Meta:
+        model = Target
+        widgets = {
+            'value': forms.TextInput(attrs={'placeholder': 'Enter value'}),
+        }
+
+IndicatorFormSet = inlineformset_factory(
+    Output, Indicator, extra=0,
+    form=IndicatorForm,
+    formset=BaseInlineFormSetWithEmpty)
+TargetFormSet = inlineformset_factory(
+        SubIndicator, Target, form=TargetForm, extra=0)

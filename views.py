@@ -2,7 +2,8 @@ from __future__ import absolute_import, unicode_literals
 
 from django.views.generic.edit import CreateView, UpdateView
 from .models import Output, LogFrame, Indicator, SubIndicator
-from .forms import OutputForm, IndicatorFormSet, BaseInlineFormSetWithEmpty
+from .forms import (OutputForm, IndicatorFormSet, SubIndicatorForm,
+                    BaseInlineFormSetWithEmpty)
 
 
 class OutputBase(object):
@@ -39,12 +40,7 @@ class OutputBase(object):
             # Subclass ModelForm for SubIndicator, to populate new (empty)
             # instances of SubIndicator with the correct Indicator, so that
             # they can get their Milestones.
-            from django.forms.models import ModelForm
-
-            class CustomSubIndicatorForm(ModelForm):
-
-                class Meta:
-                    model = SubIndicator
+            class CustomSubIndicatorForm(SubIndicatorForm):
 
                 def __init__(self, instance=None, **kwargs):
                     if instance is None:
