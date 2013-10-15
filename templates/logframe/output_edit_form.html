@@ -111,15 +111,8 @@
 		</td>
 		<td class="tall">
 			<h3 class="assumptions heading">Assumptions</h3>
-			<textarea class="padded-bottom">
-				<p>
-				Stream level: <br />
-				Changes in the three Streams occur at rates that mean the effects are mutually reinforcing.
-				</p><p>
-				An increasing number of girls are reached as more SS IPs are mobilised and improve in their delivery of the CSAGE package. The 4th year marks the start of the winding down phase.
-				</p>
-			</textarea>
-			<div class="at-bottom">Risk Rating: Medium</div>
+			{{ form.assumptions }}
+			<div class="at-bottom">Risk Rating: {{ form.risk_rating }}</div>
 		</td>
 	</tr>
 </table>
