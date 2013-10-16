@@ -72,10 +72,11 @@ th.milestones-edit {
 	padding-top: 0.25em;
 	padding-bottom: 0.25em;
 }
+.subindicator-del {
+	text-align: center;
+}
 .subindicator-add, .subindicator-del {
-	display: inline-block;
 	padding: 0.2em;
-	background: #9c9;
 }
 .indicator-cell {
 	position: relative;
