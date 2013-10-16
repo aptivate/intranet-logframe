@@ -1,6 +1,7 @@
 from __future__ import absolute_import, unicode_literals
 
 from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic import DetailView
 from .models import Output, LogFrame, Indicator, SubIndicator
 from .forms import (OutputForm, IndicatorFormSet, SubIndicatorForm,
                     BaseInlineFormSetWithEmpty)
@@ -130,3 +131,8 @@ class OutputCreate(OutputBase, CreateView):
 
 class OutputUpdate(OutputBase, UpdateView):
     pass
+
+
+class Overview(DetailView):
+    model = LogFrame
+    template_name = 'logframe/logframe_overview.html'

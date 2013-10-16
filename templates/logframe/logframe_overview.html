@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% load i18n admin_modify %}
+
+{% block style %}
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/forms.css" />
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/logframe.css" />
+
+	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/core.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/getElementsBySelector.js"></script>
+
+	<!-- http://groups.google.com/group/django-users/browse_thread/thread/2f529966472c479d -->
+	<script type="text/javascript" src="{{ STATIC_URL }}admin/js/i18n.js"></script>
+
+	{{ profile_form.media }}
+
+	{{ block.super }}
+{% endblock %}
+
+{% block title %}
+	Logframe Output
+{% endblock %}
+
+{% block heading %}
+	Logframe Overview
+{% endblock %}
+
+{% block body %}
+
+<div class="impact-overview result-overview">
+	<table>
+		<tbody>
+		<tr>
+			<td class="minmax">>
+			</td>
+			<td class="overview-title"><h2>Impact (Goal)</h2>
+			</td>
+			<td class="overview-target">Target
+			</td>
+			<td class="overview-description">AGW get improved access to health, education, economic, political opportunities and justice
+			</td>
+			<td class="overview-manage">
+				<a href="#">Edit</a><br />
+				<a href="#">Monitor</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+
+<script src="{{ STATIC_URL }}jquery-1.10.2.js"></script>
+<script src="{{ STATIC_URL }}js/logframe.js"></script>
+{% endblock %}
