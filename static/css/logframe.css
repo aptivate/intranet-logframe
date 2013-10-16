@@ -45,6 +45,9 @@ p {
 .indicator {
 	background: #eea;
 }
+.milestone-heading-row {
+	line-height: 1.6em;
+}
 .milestone-heading {
 	white-space: pre-wrap;
 }
@@ -63,6 +66,8 @@ th.milestones-edit {
 .assumptions {
 	color: white;
 	background: #d88;
+	padding-top: 0.25em;
+	padding-bottom: 0.25em;
 }
 .subindicator-add, .subindicator-del {
 	display: inline-block;
