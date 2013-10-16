@@ -21,7 +21,7 @@ class OutputForm(forms.ModelForm):
     class Meta:
         model = Output
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Name'}),
+            'name': forms.TextInput(attrs={'placeholder': 'Output'}),
             'description': forms.Textarea(attrs={'placeholder': 'Output Description'}),
             'assumptions': forms.Textarea(attrs={'placeholder': 'Assumptions'}),
         }
@@ -35,7 +35,7 @@ class IndicatorForm(forms.ModelForm):
     class Meta:
         model = Indicator
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Name'}),
+            'name': forms.TextInput(attrs={'placeholder': 'Indicator'}),
             'description': forms.Textarea(attrs={'placeholder': 'Indicator Description'}),
             'source': forms.Textarea(attrs={'placeholder': 'Enter source for indicator data'}),
         }
