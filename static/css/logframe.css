@@ -2,6 +2,9 @@ table {
 	border-collapse: collapse;
 	width: 100%;
 }
+table.subindicator-table {
+	table-layout: fixed;
+}
 .tall {
 	position:relative;
 }
