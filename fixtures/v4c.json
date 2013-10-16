@@ -1,0 +1,520 @@
+[
+{
+    "pk": 1, 
+    "model": "logframe.logframe", 
+    "fields": {
+        "name": "logframe"
+    }
+},
+{
+    "pk": 1, 
+    "model": "logframe.milestone", 
+    "fields": {
+        "name": "Baseline 2013", 
+        "log_frame": 1
+    }
+},
+{
+    "pk": 2, 
+    "model": "logframe.milestone", 
+    "fields": {
+        "name": "Milestone 1 2014", 
+        "log_frame": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "logframe.milestone", 
+    "fields": {
+        "name": "Milestone 2 2015", 
+        "log_frame": 1
+    }
+},
+{
+    "pk": 4, 
+    "model": "logframe.milestone", 
+    "fields": {
+        "name": "Milestone 3 2016", 
+        "log_frame": 1
+    }
+},
+{
+    "pk": 5, 
+    "model": "logframe.milestone", 
+    "fields": {
+        "name": "Target 2017", 
+        "log_frame": 1
+    }
+},
+{
+    "pk": 1, 
+    "model": "logframe.riskrating", 
+    "fields": {
+        "name": "Negligible"
+    }
+},
+{
+    "pk": 2, 
+    "model": "logframe.riskrating", 
+    "fields": {
+        "name": "Low"
+    }
+},
+{
+    "pk": 3, 
+    "model": "logframe.riskrating", 
+    "fields": {
+        "name": "Medium"
+    }
+},
+{
+    "pk": 4, 
+    "model": "logframe.riskrating", 
+    "fields": {
+        "name": "High"
+    }
+},
+{
+    "pk": 1, 
+    "model": "logframe.output", 
+    "fields": {
+        "risk_rating": 2, 
+        "name": "Output 1", 
+        "impact_weighting": 20, 
+        "log_frame": 1, 
+        "assumptions": "<p>Stream level:&nbsp;<br>Changes in the three Streams occur at rates that mean the effects are mutually reinforcing.</p><p>An increasing number of girls are reached as more SS IPs are mobilised and improve in their delivery of the CSAGE package. The 4th year marks the start of the winding down phase.</p>", 
+        "order": 50, 
+        "description": "Adolescent girls and women with improved life skills"
+    }
+},
+{
+    "pk": 2, 
+    "model": "logframe.output", 
+    "fields": {
+        "risk_rating": 3, 
+        "name": "Output 2", 
+        "impact_weighting": 35, 
+        "log_frame": 1, 
+        "assumptions": "<p>V4C has resources to work at a sufficient scale to reaches critical mass to change attitudes in target audiences.</p><p> Girl Hub and other gender programmes’ communications are consistent with V4C’s and there is an additive effect.</p><p> Mainstream media remains relatively free of government control.</p>", 
+        "order": 60, 
+        "description": "Community of people with improved knowledge and attitudes that challenges gender discrimination"
+    }
+},
+{
+    "pk": 3, 
+    "model": "logframe.output", 
+    "fields": {
+        "risk_rating": 3, 
+        "name": "Output 3", 
+        "impact_weighting": 20, 
+        "log_frame": 1, 
+        "assumptions": "<p>Work with boys and men may create some backlash against AGW; however, monitoring and mitigation will be applied.</p><p>Targeted influencers stay relevant in society.</p>", 
+        "order": 38, 
+        "description": "Key influencers, including boys and men, with improved attitudes to girls and women"
+    }
+},
+{
+    "pk": 1, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "<p>A safe space monitoring tool to be developed by Population Council.</p><p> CSAGE biannual field performance survey.</p>", 
+        "output": 1, 
+        "name": "Indicator 1.1", 
+        "description": "Number of girls who receive CSAGE package, across six targeted States in Northern Nigeria"
+    }
+},
+{
+    "pk": 2, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "Safe Space monitoring tool to be developed by V4C", 
+        "output": 1, 
+        "name": "Indicator 1.2", 
+        "description": "Cumulative number of girls (aged 16 – 25 years) who receive innovative V4C direct packagei, across four targeted States"
+    }
+},
+{
+    "pk": 3, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "A Safe Space monitoring tool to be developed jointly with Population Council.", 
+        "output": 1, 
+        "name": "Indicator 1.3", 
+        "description": "Number of AGW who are in the safe space programme demonstrating:</div><div> a. A support network of at least five friends<br /> b. A mentor<br /> c. Knowledge on basic health topics <br /> d. Knowledge of where to receive SRH services in their geographical community <br /> e. Financial literacy<br /> f. Negotiating, influencing and relationship skills including skills specifically for the V4C programme<br /> g. Assertiveness<br /> h. Understanding of social norms/social change processes</div>"
+    }
+},
+{
+    "pk": 4, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "V4C communications campaign survey and follow-up monitoring.", 
+        "output": 2, 
+        "name": "Indicator 2.1", 
+        "description": "Cumulative number of people reached with V4C different key messages"
+    }
+},
+{
+    "pk": 5, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "KAP survey for V4C as indicator 2.3 (below) and follow-up monitoring.", 
+        "output": 2, 
+        "name": "Indicator 2.2", 
+        "description": "Number of people who expect other people’s attitude on key V4C issues to change"
+    }
+},
+{
+    "pk": 6, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "<p>KAP survey for V4C – with some tailoring towards issues on which V4C is working.</p> <p>Survey will be repeated annually in all V4C target locations as well as broader sample areas to give both a picture of trend dynamics in V4C focal areas as well as in broader Nigerian society. </p> <p>V4C-designed 'Continuum of Change' (stages of attitudinal/behavioural change) assessment provides fifteen narrative statements describing different levels of knowledge, attitude, and practice and rates each one 0-5, from which an overall score can be derived. Data will be made available disaggregated in a number of ways (inter alia, by state, sex, and other factors that highlight the stages of knowledge / attitudinal change).</p>",
+        "output": 2, 
+        "name": "Indicator 2.3", 
+        "description": "asdfff"
+    }
+},
+{
+    "pk": 7, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "V4C communications campaign survey and follow-up monitoring.", 
+        "output": 2, 
+        "name": "Indicator 2.4", 
+        "description": "Number of written remarks and statements on the internet and social media supporting issues catalysed by V4C "
+    }
+},
+{
+    "pk": 8, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "Quarterly field performance assessment and reporting by V4C and implementing partners.", 
+        "output": 3, 
+        "name": "Indicator 3.1", 
+        "description": "Number of male social networks supported to challenge discriminatory social norms in V4C communities"
+    }
+},
+{
+    "pk": 9, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "A monitoring tool to be developed.", 
+        "output": 3, 
+        "name": "Indicator 3.2", 
+        "description": "<p>Number of men and boys who are in V4C male peer-to-peer group programme demonstrating:</p> <p>a. Knowledge on the role of male socialisation, masculinity, power, privilege and control as root causes of gender inequality</p> <p>b. Communication skills – to listen to girls and women with attention and compassion, and without judgment, advice or interruptions</p> <p>c. Improved relationship skills  - involving girls and women in decision making</p>"
+    }
+},
+{
+    "pk": 10, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "Survey of key influencers’ attitudes to gender issues implemented as a component within the larger KAP survey.", 
+        "output": 3, 
+        "name": "Indicator 3.3", 
+        "description": "Cumulative number of traditional, religious and political leaders with whom V4C has engaged, who report speaking out, mentoring or taking action regarding the need to improve the status of girls and women."
+    }
+},
+{
+    "pk": 11, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "Survey of key influencers’ attitudes to gender issues implemented as a component within the larger KAP survey.", 
+        "output": 3, 
+        "name": "Indicator 3.4", 
+        "description": "Cumulative number of traditional, religious and political leaders with whom V4C has engaged, who report speaking out, mentoring or taking action regarding the need to improve the status of girls and women"
+    }
+},
+{
+    "pk": 12, 
+    "model": "logframe.indicator", 
+    "fields": {
+        "source": "V4C monitoring endorsements and media watch on named personalities’ public communications.", 
+        "output": 3, 
+        "name": "Indicator 3.5", 
+        "description": "Number of media personalities who endorse the ‘V4C message’ and make at least 1 supportive public communication on AGW issues/year"
+    }
+},
+{
+    "pk": 1, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 1, 
+        "name": "Total"
+    }
+},
+{
+    "pk": 2, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 2, 
+        "name": "Total"
+    }
+},
+{
+    "pk": 3, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 3, 
+        "name": "Population Council Targets (with at least 4/6 skills)"
+    }
+},
+{
+    "pk": 4, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 3, 
+        "name": "V4C Targets (with at least 4/8 skills)"
+    }
+},
+{
+    "pk": 5, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 4, 
+        "name": "Total"
+    }
+},
+{
+    "pk": 6, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 5, 
+        "name": "Total"
+    }
+},
+{
+    "pk": 7, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 6, 
+        "name": "Nigerians have shifted at least X stages alond the knowledge & attitudinal change scale"
+    }
+},
+{
+    "pk": 8, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 7, 
+        "name": "Total"
+    }
+},
+{
+    "pk": 9, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 8, 
+        "name": "Total"
+    }
+},
+{
+    "pk": 10, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 9, 
+        "name": "Total"
+    }
+},
+{
+    "pk": 11, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 10, 
+        "name": "Total"
+    }
+},
+{
+    "pk": 12, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 11, 
+        "name": "Total"
+    }
+},
+{
+    "pk": 13, 
+    "model": "logframe.subindicator", 
+    "fields": {
+        "indicator": 12, 
+        "name": "Total"
+    }
+},
+{
+	"pk": 1,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 1,
+		"milestone": 1,
+		"value": "0"
+	}
+},
+{
+	"pk": 2,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 1,
+		"milestone": 2,
+		"value": "10,000"
+	}
+},
+{
+	"pk": 3,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 1,
+		"milestone": 3,
+		"value": "40,000"
+	}
+},
+{
+	"pk": 4,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 1,
+		"milestone": 4,
+		"value": "80,000"
+	}
+},
+{
+	"pk": 5,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 1,
+		"milestone": 5,
+		"value": "100,000"
+	}
+},
+{
+	"pk": 6,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 2,
+		"milestone": 1,
+		"value": "0"
+	}
+},
+{
+	"pk": 7,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 2,
+		"milestone": 2,
+		"value": "3,000"
+	}
+},
+{
+	"pk": 8,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 2,
+		"milestone": 3,
+		"value": "7,000"
+	}
+},
+{
+	"pk": 9,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 2,
+		"milestone": 4,
+		"value": "14,000"
+	}
+},
+{
+	"pk": 10,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 2,
+		"milestone": 5,
+		"value": "20,000"
+	}
+},
+{
+	"pk": 11,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 3,
+		"milestone": 1,
+		"value": "tbc"
+	}
+},
+{
+	"pk": 12,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 3,
+		"milestone": 2,
+		"value": "10,000"
+	}
+},
+{
+	"pk": 13,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 3,
+		"milestone": 3,
+		"value": "35,000"
+	}
+},
+{
+	"pk": 14,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 3,
+		"milestone": 4,
+		"value": "70,000"
+	}
+},
+{
+	"pk": 15,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 3,
+		"milestone": 5,
+		"value": "72,500"
+	}
+},
+{
+	"pk": 16,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 4,
+		"milestone": 1,
+		"value": "tbc"
+	}
+},
+{
+	"pk": 17,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 4,
+		"milestone": 2,
+		"value": "2,250"
+	}
+},
+{
+	"pk": 18,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 4,
+		"milestone": 3,
+		"value": "5,250"
+	}
+},
+{
+	"pk": 19,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 4,
+		"milestone": 4,
+		"value": "10,500"
+	}
+},
+{
+	"pk": 20,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 4,
+		"milestone": 5,
+		"value": "15,000"
+	}
+}
+]
