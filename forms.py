@@ -45,7 +45,7 @@ class SubIndicatorForm(forms.ModelForm):
     class Meta:
         model = SubIndicator
         widgets = {
-            'name': forms.TextInput(attrs={'placeholder': 'Name'}),
+            'name': forms.Textarea(attrs={'placeholder': 'Name'}),
         }
 
 
