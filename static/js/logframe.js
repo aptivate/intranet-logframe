@@ -228,6 +228,10 @@
 		{
 			replacement[0].dataset.divPlaceholderContent = 'true';
 		}
+		if (textarea.attributes.extraclass)
+		{
+			replacement[0].className = 'textarea-replacement ' + textarea.attributes.extraclass.value;
+		}
 		replacement.replaceAll(textarea);
 
 		addHiddenInputAfterTextarea(replacement, textarea);

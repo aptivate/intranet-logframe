@@ -22,8 +22,12 @@ class OutputForm(forms.ModelForm):
         model = Output
         widgets = {
             'name': forms.TextInput(attrs={'placeholder': 'Output'}),
-            'description': forms.Textarea(attrs={'placeholder': 'Output Description'}),
-            'assumptions': forms.Textarea(attrs={'placeholder': 'Assumptions'}),
+            'description': forms.Textarea(attrs={
+                'placeholder': 'Output Description',
+                'extraclass': 'leave-space-bottom'}),
+            'assumptions': forms.Textarea(attrs={
+                'placeholder': 'Assumptions',
+                'extraclass': 'leave-space-bottom'}),
         }
 
     def __init__(self, **kwargs):

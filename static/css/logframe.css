@@ -139,6 +139,9 @@ input[type='text'], textarea, .textarea-replacement {
 	font: inherit;
 	display: block;
 }
+.leave-space-bottom {
+	margin-bottom: 2em;
+}
 input:focus[type='text'],
 textarea:focus,
 .textarea-replacement:focus {
