@@ -44,6 +44,15 @@ p {
 	background: none;
 	padding: 0;
 }
+.text-ok {
+	color: green;
+}
+.text-warning {
+	color: orange;
+}
+.text-danger {
+	color: red;
+}
 
 /* output page */
 .output.heading {
@@ -204,15 +213,34 @@ input[type='number'], #id_impact_weighting {
 	text-align: center;
 	vertical-align: middle;
 }
+.indicator-title,
+.indicator-manage {
+	color: black;
+	background-color: #eea;
+	text-align: center;
+	vertical-align: middle;
+}
+.budget-title,
+.budget-manage,
+.activities-title,
+.activities-manage {
+	color: black;
+	background-color: white;
+	text-align: center;
+	vertical-align: middle;
+}
 .overview-minmax {
-	font-size: 2em;
+	font-size: 1.5em;
 	padding: 0.3em;
 	width: 4%;
 }
 .overview-title {
 	width: 16%;
 }
-.overview-title > h2 {
+.overview-title > h2,
+.budget-title > h2,
+.activities-title > h2,
+.indicator-title > h2 {
 	margin-bottom: 0px;
 }
 .overview-multiple-targets {
@@ -249,4 +277,46 @@ input[type='number'], #id_impact_weighting {
 	display: block;
 	text-decoration: none;
 	color: white;
+}
+.output-child {
+	/* we start hidden, and can then toggle */
+	display: none;
+}
+.indicator-manage a,
+.budget-manage a,
+.activities-manage a {
+	padding: 3px;
+	border-width: 2px;
+	border-color: black;
+	border-style: solid;
+	margin: 5px;
+}
+.indicator-manage a:link ,
+.indicator-manage a:visited,
+.budget-manage a:link ,
+.budget-manage a:visited,
+.activities-manage a:link ,
+.activities-manage a:visited {
+	display: block;
+	text-decoration: none;
+	color: black;
+}
+.budget-planned,
+.budget-spent,
+.activities-planned,
+.activities-spent {
+	text-align: center;
+	vertical-align: middle;
+}
+.budget-label,
+.activities-label {
+	float: left;
+}
+.budget-amount,
+.activities-amount {
+	font-size: 2em;
+}
+.two-amount {
+	display: inline-block;
+	width: 45%;
 }

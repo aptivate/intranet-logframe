@@ -31,18 +31,22 @@
 	<table>
 		<tbody>
 		<tr>
-			<td class="overview-minmax">>
-			</td>
-			<td class="overview-title"><h2>Impact (Goal)</h2>
-			</td>
-			<td class="overview-target barchart-background" data-percent="40">Target
-			</td>
-			<td class="overview-description status-background" data-status="warning">AGW get improved access to health, education, economic, political opportunities and justice
+			<td class="overview-minmax">▶</td>
+			<td class="overview-title"><h2>Impact (Goal)</h2></td>
+			<td class="overview-target barchart-background" data-percent="40">Target</td>
+			<td colspan="2" class="overview-description status-background" data-status="warning">AGW get improved access to health, education, economic, political opportunities and justice
 			</td>
 			<td class="overview-manage">
 				<a href="#">Edit</a>
 				<a href="#">Monitor</a>
 			</td>
+		</tr>
+		<tr class="output-child">
+			<td></td>
+			<td class="indicator-title"><h2>To be done</h2></td>
+			<td class="indicator-target"></td>
+			<td colspan="2" class="indicator-description"></td>
+			<td></td>
 		</tr>
 		</tbody>
 	</table>
@@ -52,10 +56,8 @@
 	<table>
 		<tbody>
 		<tr>
-			<td class="overview-minmax">>
-			</td>
-			<td class="overview-title"><h2>Outcome</h2>
-			</td>
+			<td class="overview-minmax">▶</td>
+			<td class="overview-title"><h2>Outcome</h2></td>
 			<td class="overview-multiple-targets">
 				<table>
 					<tbody>
@@ -65,12 +67,19 @@
 					</tbody>
 				</table>
 			</td>
-			<td class="overview-description status-background" data-status="danger">The enabling environment for AGWs' empowerment in Nigeria strengthened.
+			<td colspan="2" class="overview-description status-background" data-status="danger">The enabling environment for AGWs' empowerment in Nigeria strengthened.
 			</td>
 			<td class="overview-manage">
 				<a href="#">Edit</a>
 				<a href="#">Monitor</a>
 			</td>
+		</tr>
+		<tr class="output-child">
+			<td></td>
+			<td class="indicator-title"><h2>To be done</h2></td>
+			<td class="indicator-target"></td>
+			<td colspan="2" class="indicator-description"></td>
+			<td></td>
 		</tr>
 		</tbody>
 	</table>
@@ -81,10 +90,9 @@
 	<table>
 		<tbody>
 		<tr>
-			<td class="overview-minmax">>
-			</td>
-			<td class="overview-title"><h2>{{ output.name }}</h2>
-			</td>
+			<!--td class="overview-minmax">∨ > ▶ ▼ </td-->
+			<td class="overview-minmax">▶</td>
+			<td class="overview-title"><h2>{{ output.name }}</h2></td>
 			<td class="overview-multiple-targets">
 				<table>
 					<tbody>
@@ -94,11 +102,46 @@
 					</tbody>
 				</table>
 			</td>
-			<td class="overview-description status-background" data-status="danger">{{ output.description }}
+			<td colspan="2" class="overview-description status-background" data-status="danger">{{ output.description }}
 			</td>
 			<td class="overview-manage">
 				<a href="{% url "logframe-output-update" output.id %}">Edit</a>
 				<a href="#">Monitor</a>
+			</td>
+		</tr>
+		{% for indicator in output.indicator_set.all %}
+		<tr class="output-child">
+			<td></td>
+			<td class="indicator-title"><h2>{{ indicator.name }}</h2></td>
+			<td class="indicator-target barchart-background" data-percent="40">Target</td>
+			<td colspan="2" class="indicator-description">{{ indicator.description|safe }}</td>
+			<td class="indicator-manage">
+				<a href="#">Monitor</a>
+				<a href="#">History</a>
+			</td>
+		</tr>
+		{% endfor %}
+		<tr class="output-child">
+			<td></td>
+			<td class="budget-title"><h2>Budget</h2></td>
+			<td class="budget-target barchart-background" data-percent="60">Budget</td>
+			<td class="budget-planned"><span class="budget-label">Planned: </span> <span class="budget-amount">£500,000</span></td>
+			<td class="budget-spent"><span class="budget-label">Spent: </span> <span class="budget-amount text-ok">£265,500</span></td>
+			<td class="budget-manage">
+				<a href="#">View</a>
+			</td>
+		</tr>
+		<tr class="output-child">
+			<td></td>
+			<td class="activities-title"><h2>Activities</h2></td>
+			<td class="activities-target barchart-background" data-percent="35">Activities</td>
+			<td class="activities-planned"><span class="activities-label">Planned:</span> <span class="activities-amount">25</span></td>
+			<td class="activities-spent">
+				<div class="two-amount"><span class="activities-label">Complete: </span> <span class="activities-amount text-danger">4</span></div>
+				<div class="two-amount"><span class="activities-label">On schedule: </span> <span class="activities-amount text-ok">9</span></div>
+			</td>
+			<td class="activities-manage">
+				<a href="#">View</a>
 			</td>
 		</tr>
 		</tbody>

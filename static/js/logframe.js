@@ -17,6 +17,20 @@
 		}
 	}
 
+	/* do some dynamic background set up on page load */
 	$(".barchart-background").each(backgroundBarChart);
 	$(".status-background").each(setBackgroundByStatus);
+
+	/* bind functions to divs */
+	$(".overview-minmax").click(function() {
+		$this = $(this);
+		$rowsToToggle = $this.closest('table').find('.output-child');
+		if ($rowsToToggle.is(":visible")) {
+			$this.text("▶");
+		}
+		else {
+			$this.text("▼");
+		}
+		$rowsToToggle.toggle();
+	});
 })();
