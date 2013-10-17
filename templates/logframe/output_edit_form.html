@@ -26,6 +26,8 @@
 {% endblock %}
 
 {% block body %}
+	<p><a href="{% url "logframe-overview" output.log_frame.id %}">Back to logframe</a></p>
+
 	<form name="output" method="post">
 		{% csrf_token %}
 		{% if deploy_env == 'dev' %}
@@ -123,6 +125,8 @@
 		</div>
 		{% endif %}
 	</form>
+
+	<p><a href="{% url "logframe-overview" output.log_frame.id %}">Back to logframe</a></p>
 
 <script src="{{ STATIC_URL }}jquery-1.10.2.js"></script>
 <script src="{{ STATIC_URL }}js/logframe.js"></script>
