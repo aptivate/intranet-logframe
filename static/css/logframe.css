@@ -211,8 +211,17 @@ input[type='number'], #id_impact_weighting {
 .overview-title > h2 {
 	margin-bottom: 0px;
 }
+.overview-multiple-targets {
+	padding: 0px;
+	width: 10%;
+}
+.barchart-third {
+	height: 33%;
+}
 .overview-target {
 	width: 10%;
+}
+.barchart-background {
 	vertical-align: middle;
 	text-align: center;
 }
