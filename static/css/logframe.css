@@ -1,3 +1,4 @@
+/* General */
 table {
 	border-collapse: collapse;
 	width: 100%;
@@ -38,6 +39,13 @@ p {
 .heading {
 	padding: 0.2em;
 }
+.errorlist .errorlist {
+	border: none;
+	background: none;
+	padding: 0;
+}
+
+/* output page */
 .output.heading {
 	color: white;
 	background: #007;
@@ -175,8 +183,49 @@ input[type='number'], #id_impact_weighting {
 .output.table td {
 	padding: 0;
 }
-.errorlist .errorlist {
-	border: none;
-	background: none;
-	padding: 0;
+
+/* overview page */
+.result-overview {
+}
+.overview-minmax,
+.overview-title,
+.overview-manage {
+	color: white;
+	background-color: darkblue;
+	text-align: center;
+	vertical-align: middle;
+}
+.overview-minmax {
+	font-size: 2em;
+	padding: 0.3em;
+}
+.overview-title > h2 {
+	margin-bottom: 0px;
+}
+.overview-target {
+	width: 10%;
+	vertical-align: middle;
+	text-align: center;
+	background:-moz-linear-gradient(left center, #CCC 40%, #FFF 40%);
+	background:-o-linear-gradient(left center, #CCC 40%, #FFF 40%);
+	background:-webkit-gradient(linear, left top, right top, color-stop(40%,#CCC), color-stop(40%,#FFF));
+	background:linear-gradient(left center, #CCC 40%, #FFF 40%);
+}
+.overview-description {
+	background-color: #ffcc00;
+	font-size: 1em;
+	padding: 0.5em;
+}
+.overview-manage a {
+	padding: 3px;
+	border-width: 2px;
+	border-color: white;
+	border-style: solid;
+	margin: 5px;
+}
+.overview-manage a:link ,
+.overview-manage a:visited {
+	display: block;
+	text-decoration: none;
+	color: white;
 }
