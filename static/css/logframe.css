@@ -185,7 +185,12 @@ input[type='number'], #id_impact_weighting {
 }
 
 /* overview page */
-.result-overview {
+.impact-overview {
+	padding-bottom: 2em;
+}
+.outcome-overview {
+	padding-top: 2em;
+	padding-bottom: 2em;
 }
 .overview-minmax,
 .overview-title,
@@ -198,6 +203,10 @@ input[type='number'], #id_impact_weighting {
 .overview-minmax {
 	font-size: 2em;
 	padding: 0.3em;
+	width: 4%;
+}
+.overview-title {
+	width: 16%;
 }
 .overview-title > h2 {
 	margin-bottom: 0px;
@@ -210,6 +219,9 @@ input[type='number'], #id_impact_weighting {
 .overview-description {
 	font-size: 1em;
 	padding: 0.5em;
+}
+.overview-manage {
+	width: 10%;
 }
 .overview-manage a {
 	padding: 3px;
