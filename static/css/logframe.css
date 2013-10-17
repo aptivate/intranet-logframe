@@ -190,7 +190,11 @@ input[type='number'], #id_impact_weighting {
 }
 .outcome-overview {
 	padding-top: 2em;
-	padding-bottom: 2em;
+	padding-bottom: 3em;
+}
+.output-overview {
+	padding-top: 1em;
+	padding-bottom: 0.5em;
 }
 .overview-minmax,
 .overview-title,
@@ -227,7 +231,7 @@ input[type='number'], #id_impact_weighting {
 	text-align: center;
 }
 .overview-description {
-	font-size: 1em;
+	font-size: 1.1em;
 	padding: 0.5em;
 }
 .overview-manage {

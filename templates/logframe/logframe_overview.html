@@ -76,6 +76,36 @@
 	</table>
 </div>
 
+{% for output in logframe.output_set.all %}
+<div class="output-overview result-overview">
+	<table>
+		<tbody>
+		<tr>
+			<td class="overview-minmax">>
+			</td>
+			<td class="overview-title"><h2>{{ output.name }}</h2>
+			</td>
+			<td class="overview-multiple-targets">
+				<table>
+					<tbody>
+					<tr><td class="overview-target barchart-background" data-percent="60">Budget</td></tr>
+					<tr><td class="overview-target barchart-background" data-percent="70">Activities</td></tr>
+					<tr><td class="overview-target barchart-background" data-percent="50">Target</td></tr>
+					</tbody>
+				</table>
+			</td>
+			<td class="overview-description status-background" data-status="danger">{{ output.description }}
+			</td>
+			<td class="overview-manage">
+				<a href="{% url "logframe-output-update" output.id %}">Edit</a>
+				<a href="#">Monitor</a>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>
+{% endfor %}
+
 <script src="{{ STATIC_URL }}jquery-1.10.2.js"></script>
 <script src="{{ STATIC_URL }}js/logframe.js"></script>
 {% endblock %}
