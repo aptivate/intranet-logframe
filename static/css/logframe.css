@@ -206,10 +206,6 @@ input[type='number'], #id_impact_weighting {
 	width: 10%;
 	vertical-align: middle;
 	text-align: center;
-	background:-moz-linear-gradient(left center, #CCC 40%, #FFF 40%);
-	background:-o-linear-gradient(left center, #CCC 40%, #FFF 40%);
-	background:-webkit-gradient(linear, left top, right top, color-stop(40%,#CCC), color-stop(40%,#FFF));
-	background:linear-gradient(left center, #CCC 40%, #FFF 40%);
 }
 .overview-description {
 	background-color: #ffcc00;
