@@ -54,6 +54,8 @@ class SubIndicatorForm(forms.ModelForm):
 
 
 class TargetForm(forms.ModelForm):
+    value = forms.IntegerField(localize=True)
+
     class Meta:
         model = Target
         widgets = {
