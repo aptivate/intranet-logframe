@@ -160,7 +160,7 @@ class SubIndicator(models.Model):
 class Target(models.Model):
     sub_indicator = models.ForeignKey(SubIndicator)
     milestone = models.ForeignKey(Milestone)
-    value = models.TextField()
+    value = models.IntegerField()
 
 
 class Donor(models.Model):

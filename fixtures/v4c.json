@@ -358,7 +358,7 @@
 	"fields": {
 		"sub_indicator": 1,
 		"milestone": 1,
-		"value": "0"
+		"value": 0
 	}
 },
 {
@@ -367,7 +367,7 @@
 	"fields": {
 		"sub_indicator": 1,
 		"milestone": 2,
-		"value": "10,000"
+		"value": 10000
 	}
 },
 {
@@ -376,7 +376,7 @@
 	"fields": {
 		"sub_indicator": 1,
 		"milestone": 3,
-		"value": "40,000"
+		"value": 40000
 	}
 },
 {
@@ -385,7 +385,7 @@
 	"fields": {
 		"sub_indicator": 1,
 		"milestone": 4,
-		"value": "80,000"
+		"value": 80000
 	}
 },
 {
@@ -394,7 +394,7 @@
 	"fields": {
 		"sub_indicator": 1,
 		"milestone": 5,
-		"value": "100,000"
+		"value": 100000
 	}
 },
 {
@@ -403,7 +403,7 @@
 	"fields": {
 		"sub_indicator": 2,
 		"milestone": 1,
-		"value": "0"
+		"value": 0
 	}
 },
 {
@@ -412,7 +412,7 @@
 	"fields": {
 		"sub_indicator": 2,
 		"milestone": 2,
-		"value": "3,000"
+		"value": 3000
 	}
 },
 {
@@ -421,7 +421,7 @@
 	"fields": {
 		"sub_indicator": 2,
 		"milestone": 3,
-		"value": "7,000"
+		"value": 7000
 	}
 },
 {
@@ -430,7 +430,7 @@
 	"fields": {
 		"sub_indicator": 2,
 		"milestone": 4,
-		"value": "14,000"
+		"value": 14000
 	}
 },
 {
@@ -439,7 +439,7 @@
 	"fields": {
 		"sub_indicator": 2,
 		"milestone": 5,
-		"value": "20,000"
+		"value": 20000
 	}
 },
 {
@@ -448,7 +448,7 @@
 	"fields": {
 		"sub_indicator": 3,
 		"milestone": 1,
-		"value": "tbc"
+		"value": 0
 	}
 },
 {
@@ -457,7 +457,7 @@
 	"fields": {
 		"sub_indicator": 3,
 		"milestone": 2,
-		"value": "10,000"
+		"value": 10000
 	}
 },
 {
@@ -466,7 +466,7 @@
 	"fields": {
 		"sub_indicator": 3,
 		"milestone": 3,
-		"value": "35,000"
+		"value": 35000
 	}
 },
 {
@@ -475,7 +475,7 @@
 	"fields": {
 		"sub_indicator": 3,
 		"milestone": 4,
-		"value": "70,000"
+		"value": 70000
 	}
 },
 {
@@ -484,7 +484,7 @@
 	"fields": {
 		"sub_indicator": 3,
 		"milestone": 5,
-		"value": "72,500"
+		"value": 72500
 	}
 },
 {
@@ -493,7 +493,7 @@
 	"fields": {
 		"sub_indicator": 4,
 		"milestone": 1,
-		"value": "tbc"
+		"value": 0
 	}
 },
 {
@@ -502,7 +502,7 @@
 	"fields": {
 		"sub_indicator": 4,
 		"milestone": 2,
-		"value": "2,250"
+		"value": 2250
 	}
 },
 {
@@ -511,7 +511,7 @@
 	"fields": {
 		"sub_indicator": 4,
 		"milestone": 3,
-		"value": "5,250"
+		"value": 5250
 	}
 },
 {
@@ -520,7 +520,7 @@
 	"fields": {
 		"sub_indicator": 4,
 		"milestone": 4,
-		"value": "10,500"
+		"value": 10500
 	}
 },
 {
@@ -529,7 +529,7 @@
 	"fields": {
 		"sub_indicator": 4,
 		"milestone": 5,
-		"value": "15,000"
+		"value": 15000
 	}
 }
 ]
