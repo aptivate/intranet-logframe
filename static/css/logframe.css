@@ -53,6 +53,14 @@ p {
 .text-danger {
 	color: red;
 }
+.unselectable {
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
 /* output page */
 .output.heading {
@@ -233,6 +241,7 @@ input[type='number'], #id_impact_weighting {
 	font-size: 1.5em;
 	padding: 0.3em;
 	width: 4%;
+	cursor: pointer;
 }
 .overview-title {
 	width: 16%;

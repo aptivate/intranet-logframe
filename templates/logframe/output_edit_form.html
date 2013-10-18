@@ -63,7 +63,7 @@
 					<td class="indicator-cell">
 						<h3 class="indicator heading">{{ indicator.name }}</h3>
 						{{ indicator.description }}
-						<div class="indicator-del indicator-del-button table-button" title="Delete Indicator">✖ </div>
+						<div class="indicator-del indicator-del-button unselectable table-button" title="Delete Indicator">✖ </div>
 						{{ indicator.id }}
 					</td>
 					<td>
@@ -86,11 +86,11 @@
 								{% for target in subindicator.targets %}
 								<td class="milestone-column">{{ target.value }}</td>
 								{% endfor %}
-								<td class="subindicator-del" title="Delete Subindicator"><span class="table-button subindicator-del-button">✖ </span></td>
+								<td class="subindicator-del" title="Delete Subindicator"><span class="unselectable table-button subindicator-del-button">✖ </span></td>
 							</tr>
 							{% endfor %}{# subindicator #}
 							<tr class="subindicator-add-row">
-								<td colspan="6"><div class="subindicator-add subindicator-add-button table-button" title="Add Subindicator">✚ </div></td>
+								<td colspan="6"><div class="subindicator-add subindicator-add-button unselectable table-button" title="Add Subindicator">✚ </div></td>
 							</tr>
 							<tr class="source">
 								<td colspan="6">Source</td>
@@ -105,7 +105,7 @@
 			</table>
 
 			<div class="indicator-add">
-				<span class="indicator-add-button table-button" title="Add indicator">✚ </span>
+				<span class="indicator-add-button unselectable table-button" title="Add indicator">✚ </span>
 				<span class="indicator-add-label">Add indicator</span>
 			</div>
 		</td>
