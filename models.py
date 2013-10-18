@@ -97,6 +97,10 @@ class SubIndicator(models.Model):
     name = models.CharField(max_length=255, blank=True)
     indicator = models.ForeignKey(Indicator)
 
+    # this is just being put here for now - it should really be multiple
+    # entries in another class
+    current_result = models.IntegerField(default=0)
+
     @property
     def milestones(self):
         return self.indicator.output.log_frame.milestones
