@@ -26,7 +26,9 @@
 {% endblock %}
 
 {% block body %}
+{% if output %}
 	<p><a href="{% url "logframe-overview" output.log_frame.id %}">Back to logframe</a></p>
+{% endif %}
 
 	<form name="output" method="post">
 		{% csrf_token %}
@@ -126,7 +128,9 @@
 		{% endif %}
 	</form>
 
+{% if output %}
 	<p><a href="{% url "logframe-overview" output.log_frame.id %}">Back to logframe</a></p>
+{% endif %}
 
 <script src="{{ STATIC_URL }}jquery-1.10.2.js"></script>
 <script src="{{ STATIC_URL }}js/logframe.js"></script>
