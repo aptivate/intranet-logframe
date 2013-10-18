@@ -136,3 +136,8 @@ class OutputUpdate(OutputBase, UpdateView):
 class Overview(DetailView):
     model = LogFrame
     template_name = 'logframe/logframe_overview.html'
+
+
+class IndicatorMonitor(UpdateView):
+    model = Indicator
+    template_name = 'logframe/indicator_monitor.html'

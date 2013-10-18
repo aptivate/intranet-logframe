@@ -8,6 +8,9 @@ urlpatterns = patterns('',
     url(r'^output/$', views.OutputCreate.as_view(),
         name='logframe-output-create'),
 
-    url(r'^output/(?P<pk>\d+)/?$', views.OutputUpdate.as_view(),
+    url(r'^output/(?P<pk>\d+)/$', views.OutputUpdate.as_view(),
         name='logframe-output-update'),
+
+    url(r'^monitor/indicator/(?P<pk>\d+)/$', views.IndicatorMonitor.as_view(),
+        name='logframe-monitor-indicator'),
 )
