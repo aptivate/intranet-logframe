@@ -102,7 +102,9 @@
 					</tbody>
 				</table>
 			</td>
-			<td colspan="2" class="overview-description status-background" data-status="danger">{{ output.description }}
+			<td colspan="2" class="overview-description status-background"
+				data-status="{% if forloop.first %}ok{% elif forloop.last %}warning{% else %}danger{% endif %}">
+				{{ output.description }}
 			</td>
 			<td class="overview-manage">
 				<a href="{% url "logframe-output-update" output.id %}">Edit</a>
