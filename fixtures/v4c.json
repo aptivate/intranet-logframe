@@ -253,6 +253,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 1, 
+        "current_result": 30000,
         "name": "Total"
     }
 },
@@ -261,6 +262,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 2, 
+        "current_result": 5000,
         "name": "Total"
     }
 },
@@ -269,6 +271,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 3, 
+        "current_result": 50000,
         "name": "Population Council Targets (with at least 4/6 skills)"
     }
 },
@@ -277,6 +280,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 3, 
+        "current_result": 10000,
         "name": "V4C Targets (with at least 4/8 skills)"
     }
 },
@@ -285,6 +289,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 4, 
+        "current_result": 1,
         "name": "Total"
     }
 },
@@ -293,6 +298,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 5, 
+        "current_result": 1,
         "name": "Total"
     }
 },
@@ -301,6 +307,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 6, 
+        "current_result": 1,
         "name": "Nigerians have shifted at least X stages alond the knowledge & attitudinal change scale"
     }
 },
@@ -309,6 +316,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 7, 
+        "current_result": 1,
         "name": "Total"
     }
 },
@@ -317,6 +325,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 8, 
+        "current_result": 1,
         "name": "Total"
     }
 },
@@ -325,6 +334,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 9, 
+        "current_result": 1,
         "name": "Total"
     }
 },
@@ -333,6 +343,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 10, 
+        "current_result": 1,
         "name": "Total"
     }
 },
@@ -341,6 +352,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 11, 
+        "current_result": 1,
         "name": "Total"
     }
 },
@@ -349,6 +361,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 12, 
+        "current_result": 1,
         "name": "Total"
     }
 },
