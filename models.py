@@ -71,6 +71,12 @@ class Output(models.Model):
     activities_complete = models.IntegerField()
     activities_on_schedule = models.IntegerField()
 
+    def budget_percent(self):
+        return int(100 * self.budget_spent / float(self.budget_planned))
+
+    def activities_percent(self):
+        return int(100 * self.activities_on_schedule / float(self.activities_planned))
+
     @python_2_unicode_compatible
     def __str__(self):
         return self.name

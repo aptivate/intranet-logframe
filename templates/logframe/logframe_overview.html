@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load i18n admin_modify %}
+{% load humanize %}
 
 {% block style %}
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/forms.css" />
@@ -95,8 +96,8 @@
 			<td class="overview-multiple-targets">
 				<table>
 					<tbody>
-					<tr><td class="overview-target barchart-background" data-percent="60">Budget</td></tr>
-					<tr><td class="overview-target barchart-background" data-percent="70">Activities</td></tr>
+					<tr><td class="overview-target barchart-background" data-percent="{{ output.budget_percent }}">Budget</td></tr>
+					<tr><td class="overview-target barchart-background" data-percent="{{ output.activities_percent }}">Activities</td></tr>
 					<tr><td class="overview-target barchart-background" data-percent="50">Target</td></tr>
 					</tbody>
 				</table>
@@ -123,9 +124,9 @@
 		<tr class="output-child">
 			<td></td>
 			<td class="budget-title"><h2>Budget</h2></td>
-			<td class="budget-target barchart-background" data-percent="60">Budget</td>
-			<td class="budget-planned"><span class="budget-label">Planned: </span> <span class="budget-amount">£{{ output.budget_planned }}</span></td>
-			<td class="budget-spent"><span class="budget-label">Spent: </span> <span class="budget-amount text-ok">£{{ output.budget_spent }}</span></td>
+			<td class="budget-target barchart-background" data-percent="{{ output.budget_percent }}">Budget</td>
+			<td class="budget-planned"><span class="budget-label">Planned: </span> <span class="budget-amount">£{{ output.budget_planned|intcomma }}</span></td>
+			<td class="budget-spent"><span class="budget-label">Spent: </span> <span class="budget-amount text-ok">£{{ output.budget_spent|intcomma }}</span></td>
 			<td class="budget-manage">
 				<a href="/admin/logframe/output/{{ output.id }}/">View</a>
 			</td>
@@ -133,7 +134,7 @@
 		<tr class="output-child">
 			<td></td>
 			<td class="activities-title"><h2>Activities</h2></td>
-			<td class="activities-target barchart-background" data-percent="35">Activities</td>
+			<td class="activities-target barchart-background" data-percent="{{ output.activities_percent }}">Activities</td>
 			<td class="activities-planned"><span class="activities-label">Planned:</span> <span class="activities-amount">{{ output.activities_planned }}</span></td>
 			<td class="activities-spent">
 				<div class="two-amount"><span class="activities-label">Complete: </span> <span class="activities-amount text-danger">{{ output.activities_complete }}</span></div>

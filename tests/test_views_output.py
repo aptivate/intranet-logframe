@@ -9,7 +9,7 @@ UserModel = get_user_model()
 from django_dynamic_fixture import G
 
 from binder.test_utils import AptivateEnhancedTestCase
-from .models import LogFrame, Milestone, Output, Indicator, SubIndicator
+from ..models import LogFrame, Milestone, Output, Indicator, SubIndicator
 
 
 class LogframeTest(AptivateEnhancedTestCase):
