@@ -7,6 +7,22 @@ from django.utils.functional import cached_property
 # http://djangosnippets.org/snippets/1054/
 
 
+class AverageTargetPercentMixin(object):
+
+    def _calculate_target_percent(self, children):
+        percent_list = [c.target_percent for c in children]
+        if len(percent_list) == 0:
+            return 0
+        return sum(percent_list) / len(percent_list)
+
+    def _calculate_weighted_target_percent(self, children):
+        if len(children) == 0:
+            return 0
+        weighted_percent_list = [c.target_percent * c.impact_weighting for c in children]
+        weighting_list = [c.impact_weighting for c in children]
+        return sum(weighted_percent_list) / sum(weighting_list)
+
+
 class LogFrame(models.Model):
     name = models.CharField(max_length=255, unique=True)
 
@@ -56,7 +72,7 @@ class Result(models.Model):
         abstract = True
 
 
-class Output(models.Model):
+class Output(AverageTargetPercentMixin, models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     order = models.IntegerField()
@@ -80,23 +96,23 @@ class Output(models.Model):
     def activities_percent(self):
         return int(100 * self.activities_on_schedule / float(self.activities_planned))
 
+    @property
+    def target_percent(self):
+        """ average of subindicators """
+        return self._calculate_target_percent(self.indicator_set.all())
+
     @python_2_unicode_compatible
     def __str__(self):
         return self.name
 
 
-class Indicator(models.Model):
+class Indicator(AverageTargetPercentMixin, models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField()
     source = models.TextField()
     output = models.ForeignKey(Output, null=True)
 
-    def _calculate_target_percent(self, subindicators):
-        percent_list = [s.target_percent for s in subindicators]
-        if len(percent_list) == 0:
-            return 0
-        return sum(percent_list) / len(percent_list)
-
+    @property
     def target_percent(self):
         """ average of subindicators """
         return self._calculate_target_percent(self.subindicator_set.all())
@@ -146,6 +162,7 @@ class SubIndicator(models.Model):
         else:
             return target_for_last_milestone.first()
 
+    @property
     def target_percent(self):
         return int(100 * self.current_result / float(self.last_target.value))
 
