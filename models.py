@@ -9,22 +9,40 @@ from django.utils.functional import cached_property
 
 class AverageTargetPercentMixin(object):
 
-    def _calculate_target_percent(self, children):
-        percent_list = [c.target_percent for c in children]
-        if len(percent_list) == 0:
+    def _average_sequence(self, children, attr):
+        value_list = [getattr(c, attr) for c in children]
+        if len(value_list) == 0:
             return 0
-        return sum(percent_list) / len(percent_list)
+        return sum(value_list) / len(value_list)
 
-    def _calculate_weighted_target_percent(self, children):
+    def _calculate_target_percent(self, children):
+        return self._average_sequence(children, 'target_percent')
+
+    def _calculate_weighted_average(self, children, attr, weight_attr):
         if len(children) == 0:
             return 0
-        weighted_percent_list = [c.target_percent * c.impact_weighting for c in children]
-        weighting_list = [c.impact_weighting for c in children]
+        weighted_percent_list = [getattr(c, attr) *
+                                 getattr(c, weight_attr) for c in children]
+        weighting_list = [getattr(c, weight_attr) for c in children]
         return sum(weighted_percent_list) / sum(weighting_list)
 
+    def _calculate_weighted_target_percent(self, children):
+        return self._calculate_weighted_average(children, 'target_percent', 'impact_weighting')
 
-class LogFrame(models.Model):
+
+class LogFrame(AverageTargetPercentMixin, models.Model):
     name = models.CharField(max_length=255, unique=True)
+
+    def average_target_percent(self):
+        return self._calculate_weighted_target_percent(self.output_set.all())
+
+    def average_budget_percent(self):
+        return self._calculate_weighted_average(
+            self.output_set.all(), 'budget_percent', 'impact_weighting')
+
+    def average_activities_percent(self):
+        return self._calculate_weighted_average(
+            self.output_set.all(), 'activities_percent', 'impact_weighting')
 
     @cached_property
     def milestones(self):
@@ -90,9 +108,11 @@ class Output(AverageTargetPercentMixin, models.Model):
     activities_complete = models.IntegerField()
     activities_on_schedule = models.IntegerField()
 
+    @property
     def budget_percent(self):
         return int(100 * self.budget_spent / float(self.budget_planned))
 
+    @property
     def activities_percent(self):
         return int(100 * self.activities_on_schedule / float(self.activities_planned))
 

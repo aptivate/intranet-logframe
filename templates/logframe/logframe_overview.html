@@ -34,7 +34,7 @@
 		<tr>
 			<td class="overview-minmax unselectable">▶</td>
 			<td class="overview-title"><h2>Impact (Goal)</h2></td>
-			<td class="overview-target barchart-background" data-percent="40">Target</td>
+			<td class="overview-target barchart-background" data-percent="{{ logframe.average_target_percent }}">Target</td>
 			<td colspan="2" class="overview-description status-background" data-status="warning">AGW get improved access to health, education, economic, political opportunities and justice
 			</td>
 			<td class="overview-manage">
@@ -62,9 +62,9 @@
 			<td class="overview-multiple-targets">
 				<table>
 					<tbody>
-					<tr><td class="overview-target barchart-background" data-percent="60">Budget</td></tr>
-					<tr><td class="overview-target barchart-background" data-percent="70">Activities</td></tr>
-					<tr><td class="overview-target barchart-background" data-percent="50">Target</td></tr>
+					<tr><td class="overview-target barchart-background" data-percent="{{ logframe.average_budget_percent }}">Budget</td></tr>
+					<tr><td class="overview-target barchart-background" data-percent="{{ logframe.average_activities_percent }}">Activities</td></tr>
+					<tr><td class="overview-target barchart-background" data-percent="{{ logframe.average_target_percent }}">Target</td></tr>
 					</tbody>
 				</table>
 			</td>
@@ -98,7 +98,7 @@
 					<tbody>
 					<tr><td class="overview-target barchart-background" data-percent="{{ output.budget_percent }}">Budget</td></tr>
 					<tr><td class="overview-target barchart-background" data-percent="{{ output.activities_percent }}">Activities</td></tr>
-					<tr><td class="overview-target barchart-background" data-percent="50">Target</td></tr>
+					<tr><td class="overview-target barchart-background" data-percent="{{ output.target_percent }}">Target</td></tr>
 					</tbody>
 				</table>
 			</td>
@@ -113,7 +113,7 @@
 		<tr class="output-child">
 			<td></td>
 			<td class="indicator-title"><h2>{{ indicator.name }}</h2></td>
-			<td class="indicator-target barchart-background" data-percent="40">Target</td>
+			<td class="indicator-target barchart-background" data-percent="{{ indicator.target_percent }}">Target</td>
 			<td colspan="2" class="indicator-description">{{ indicator.description|safe }}</td>
 			<td class="indicator-manage">
 				<a href="{% url "logframe-monitor-indicator" indicator.id %}">Monitor</a>
