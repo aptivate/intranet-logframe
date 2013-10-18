@@ -182,7 +182,7 @@ class SubIndicator(models.Model):
         else:
             return target_for_last_milestone.first()
 
-    @property
+    @cached_property
     def target_percent(self):
         return int(100 * self.current_result / float(self.last_target.value))
 
