@@ -23,6 +23,9 @@ class Milestone(models.Model):
     name = models.CharField(max_length=255)
     log_frame = models.ForeignKey(LogFrame)
 
+    class Meta:
+        ordering = ['id']
+
     def save(self):
         ret = super(Milestone, self).save()
         # TODO use a modified version of cached_property that is reversible
@@ -88,6 +91,16 @@ class Indicator(models.Model):
     source = models.TextField()
     output = models.ForeignKey(Output, null=True)
 
+    def _calculate_target_percent(self, subindicators):
+        percent_list = [s.target_percent for s in subindicators]
+        if len(percent_list) == 0:
+            return 0
+        return sum(percent_list) / len(percent_list)
+
+    def target_percent(self):
+        """ average of subindicators """
+        return self._calculate_target_percent(self.subindicator_set.all())
+
     @python_2_unicode_compatible
     def __str__(self):
         return self.name
@@ -111,18 +124,30 @@ class SubIndicator(models.Model):
         the already existing targets for this SI.  Then go through each
         milestone, and if there isn't an existing target that matches, create
         one. """
-        milestones = self.milestones
-        targets = self.target_set.all()
         targets_by_milestone = dict([
             (target.milestone.id, target)
-            for target in targets
+            for target in self.target_set.all()
         ])
         targets_out = [
+            # use default value of 1 to avoid divide by zero
             targets_by_milestone.get(milestone.id,
-                Target(milestone=milestone, sub_indicator=self))
-            for milestone in milestones
+                Target(milestone=milestone, sub_indicator=self, value=1))
+            for milestone in self.milestones
         ]
         return targets_out
+
+    @property
+    def last_target(self):
+        last_milestone = self.milestones.last()
+        target_for_last_milestone = self.target_set.filter(milestone=last_milestone)
+        if target_for_last_milestone.count() == 0:
+            # use default value of 1 to avoid divide by zero
+            return Target(milestone=last_milestone, sub_indicator=self, value=1)
+        else:
+            return target_for_last_milestone.first()
+
+    def target_percent(self):
+        return int(100 * self.current_result / float(self.last_target.value))
 
     @python_2_unicode_compatible
     def __str__(self):
