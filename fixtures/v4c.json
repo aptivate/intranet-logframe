@@ -84,7 +84,12 @@
         "log_frame": 1, 
         "assumptions": "<p>Stream level:&nbsp;<br>Changes in the three Streams occur at rates that mean the effects are mutually reinforcing.</p><p>An increasing number of girls are reached as more SS IPs are mobilised and improve in their delivery of the CSAGE package. The 4th year marks the start of the winding down phase.</p>", 
         "order": 50, 
-        "description": "Adolescent girls and women with improved life skills"
+        "description": "Adolescent girls and women with improved life skills",
+        "budget_planned": 500000,
+        "budget_spent": 265500,
+        "activities_planned": 25,
+        "activities_complete": 4,
+        "activities_on_schedule": 9
     }
 },
 {
@@ -97,7 +102,12 @@
         "log_frame": 1, 
         "assumptions": "<p>V4C has resources to work at a sufficient scale to reaches critical mass to change attitudes in target audiences.</p><p> Girl Hub and other gender programmes’ communications are consistent with V4C’s and there is an additive effect.</p><p> Mainstream media remains relatively free of government control.</p>", 
         "order": 60, 
-        "description": "Community of people with improved knowledge and attitudes that challenges gender discrimination"
+        "description": "Community of people with improved knowledge and attitudes that challenges gender discrimination",
+        "budget_planned": 350000,
+        "budget_spent": 165000,
+        "activities_planned": 15,
+        "activities_complete": 3,
+        "activities_on_schedule": 7
     }
 },
 {
@@ -110,7 +120,12 @@
         "log_frame": 1, 
         "assumptions": "<p>Work with boys and men may create some backlash against AGW; however, monitoring and mitigation will be applied.</p><p>Targeted influencers stay relevant in society.</p>", 
         "order": 38, 
-        "description": "Key influencers, including boys and men, with improved attitudes to girls and women"
+        "description": "Key influencers, including boys and men, with improved attitudes to girls and women",
+        "budget_planned": 50000,
+        "budget_spent": 16500,
+        "activities_planned": 10,
+        "activities_complete": 1,
+        "activities_on_schedule": 4
     }
 },
 {

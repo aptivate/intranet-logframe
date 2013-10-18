@@ -124,23 +124,23 @@
 			<td></td>
 			<td class="budget-title"><h2>Budget</h2></td>
 			<td class="budget-target barchart-background" data-percent="60">Budget</td>
-			<td class="budget-planned"><span class="budget-label">Planned: </span> <span class="budget-amount">£500,000</span></td>
-			<td class="budget-spent"><span class="budget-label">Spent: </span> <span class="budget-amount text-ok">£265,500</span></td>
+			<td class="budget-planned"><span class="budget-label">Planned: </span> <span class="budget-amount">£{{ output.budget_planned }}</span></td>
+			<td class="budget-spent"><span class="budget-label">Spent: </span> <span class="budget-amount text-ok">£{{ output.budget_spent }}</span></td>
 			<td class="budget-manage">
-				<a href="#">View</a>
+				<a href="/admin/logframe/output/{{ output.id }}/">View</a>
 			</td>
 		</tr>
 		<tr class="output-child">
 			<td></td>
 			<td class="activities-title"><h2>Activities</h2></td>
 			<td class="activities-target barchart-background" data-percent="35">Activities</td>
-			<td class="activities-planned"><span class="activities-label">Planned:</span> <span class="activities-amount">25</span></td>
+			<td class="activities-planned"><span class="activities-label">Planned:</span> <span class="activities-amount">{{ output.activities_planned }}</span></td>
 			<td class="activities-spent">
-				<div class="two-amount"><span class="activities-label">Complete: </span> <span class="activities-amount text-danger">4</span></div>
-				<div class="two-amount"><span class="activities-label">On schedule: </span> <span class="activities-amount text-ok">9</span></div>
+				<div class="two-amount"><span class="activities-label">Complete: </span> <span class="activities-amount text-danger">{{ output.activities_complete }}</span></div>
+				<div class="two-amount"><span class="activities-label">On schedule: </span> <span class="activities-amount text-ok">{{ output.activities_on_schedule }}</span></div>
 			</td>
 			<td class="activities-manage">
-				<a href="#">View</a>
+				<a href="/admin/logframe/output/{{ output.id }}/">View</a>
 			</td>
 		</tr>
 		</tbody>

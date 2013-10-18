@@ -64,6 +64,13 @@ class Output(models.Model):
     risk_rating = models.ForeignKey(RiskRating, null=True, blank=True)
     log_frame = models.ForeignKey(LogFrame)
 
+    # these are here for now - they might move at some point
+    budget_planned = models.IntegerField()
+    budget_spent = models.IntegerField()
+    activities_planned = models.IntegerField()
+    activities_complete = models.IntegerField()
+    activities_on_schedule = models.IntegerField()
+
     @python_2_unicode_compatible
     def __str__(self):
         return self.name
