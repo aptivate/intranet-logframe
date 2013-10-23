@@ -289,7 +289,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 4, 
-        "current_result": 1,
+        "current_result": 3500000,
         "name": "Total"
     }
 },
@@ -298,7 +298,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 5, 
-        "current_result": 1,
+        "current_result": 10000,
         "name": "Total"
     }
 },
@@ -307,7 +307,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 6, 
-        "current_result": 1,
+        "current_result": 1000000,
         "name": "Nigerians have shifted at least X stages alond the knowledge & attitudinal change scale"
     }
 },
@@ -316,7 +316,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 7, 
-        "current_result": 1,
+        "current_result": 70000,
         "name": "Total"
     }
 },
@@ -325,7 +325,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 8, 
-        "current_result": 1,
+        "current_result": 15,
         "name": "Total"
     }
 },
@@ -334,7 +334,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 9, 
-        "current_result": 1,
+        "current_result": 3000,
         "name": "Total"
     }
 },
@@ -343,7 +343,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 10, 
-        "current_result": 1,
+        "current_result": 1200,
         "name": "Total"
     }
 },
@@ -352,7 +352,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 11, 
-        "current_result": 1,
+        "current_result": 57,
         "name": "Total"
     }
 },
@@ -361,7 +361,7 @@
     "model": "logframe.subindicator", 
     "fields": {
         "indicator": 12, 
-        "current_result": 1,
+        "current_result": 8,
         "name": "Total"
     }
 },
@@ -543,6 +543,87 @@
 		"sub_indicator": 4,
 		"milestone": 5,
 		"value": 15000
+	}
+},
+{
+	"pk": 21,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 5,
+		"milestone": 5,
+		"value": 15000000
+	}
+},
+{
+	"pk": 22,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 6,
+		"milestone": 5,
+		"value": 15000
+	}
+},
+{
+	"pk": 23,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 7,
+		"milestone": 5,
+		"value": 2750000
+	}
+},
+{
+	"pk": 24,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 8,
+		"milestone": 5,
+		"value": 100000
+	}
+},
+{
+	"pk": 25,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 9,
+		"milestone": 5,
+		"value": 100
+	}
+},
+{
+	"pk": 26,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 10,
+		"milestone": 5,
+		"value": 7200
+	}
+},
+{
+	"pk": 27,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 11,
+		"milestone": 5,
+		"value": 4000
+	}
+},
+{
+	"pk": 28,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 12,
+		"milestone": 5,
+		"value": 1600
+	}
+},
+{
+	"pk": 29,
+	"model": "logframe.target",
+	"fields": {
+		"sub_indicator": 13,
+		"milestone": 5,
+		"value": 20
 	}
 }
 ]
