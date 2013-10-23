@@ -34,7 +34,7 @@
 		<tr>
 			<td class="overview-minmax unselectable">▶</td>
 			<td class="overview-title"><h2>Impact (Goal)</h2></td>
-			<td class="overview-target barchart-background" data-percent="{{ logframe.average_target_percent }}">Target</td>
+			<td class="overview-target barchart-background"title="Target: {{ logframe.average_target_percent }}%"  data-percent="{{ logframe.average_target_percent }}">Target</td>
 			<td colspan="2" class="overview-description status-background" data-status="warning">AGW get improved access to health, education, economic, political opportunities and justice
 			</td>
 			<td class="overview-manage">
@@ -62,9 +62,9 @@
 			<td class="overview-multiple-targets">
 				<table>
 					<tbody>
-					<tr><td class="overview-target barchart-background" data-percent="{{ logframe.average_budget_percent }}">Budget</td></tr>
-					<tr><td class="overview-target barchart-background" data-percent="{{ logframe.average_activities_percent }}">Activities</td></tr>
-					<tr><td class="overview-target barchart-background" data-percent="{{ logframe.average_target_percent }}">Target</td></tr>
+					<tr><td class="overview-target barchart-background" title="Budget: {{ logframe.average_budget_percent }}%" data-percent="{{ logframe.average_budget_percent }}">Budget</td></tr>
+					<tr><td class="overview-target barchart-background" title="Activities: {{ logframe.average_activities_percent }}%" data-percent="{{ logframe.average_activities_percent }}">Activities</td></tr>
+					<tr><td class="overview-target barchart-background" title="Target: {{ logframe.average_target_percent }}%" data-percent="{{ logframe.average_target_percent }}">Target</td></tr>
 					</tbody>
 				</table>
 			</td>
@@ -96,9 +96,9 @@
 			<td class="overview-multiple-targets">
 				<table>
 					<tbody>
-					<tr><td class="overview-target barchart-background" data-percent="{{ output.budget_percent }}">Budget</td></tr>
-					<tr><td class="overview-target barchart-background" data-percent="{{ output.activities_percent }}">Activities</td></tr>
-					<tr><td class="overview-target barchart-background" data-percent="{{ output.target_percent }}">Target</td></tr>
+					<tr><td class="overview-target barchart-background" title="Budget: {{ output.budget_percent }}%" data-percent="{{ output.budget_percent }}">Budget</td></tr>
+					<tr><td class="overview-target barchart-background" title="Activities: {{ output.activities_percent }}%" data-percent="{{ output.activities_percent }}">Activities</td></tr>
+					<tr><td class="overview-target barchart-background" title="Target: {{ output.target_percent }}%" data-percent="{{ output.target_percent }}">Target</td></tr>
 					</tbody>
 				</table>
 			</td>
@@ -115,7 +115,7 @@
 		<tr class="output-child">
 			<td></td>
 			<td class="indicator-title"><h2>{{ indicator.name }}</h2></td>
-			<td class="indicator-target barchart-background" data-percent="{{ indicator.target_percent }}">Target</td>
+			<td class="indicator-target barchart-background" title="Target: {{ indicator.target_percent }}%" data-percent="{{ indicator.target_percent }}">Target</td>
 			<td colspan="2" class="indicator-description">{{ indicator.description|safe }}</td>
 			<td class="indicator-manage">
 				<a href="{% url "logframe-monitor-indicator" indicator.id %}">Monitor</a>
@@ -126,7 +126,7 @@
 		<tr class="output-child">
 			<td></td>
 			<td class="budget-title"><h2>Budget</h2></td>
-			<td class="budget-target barchart-background" data-percent="{{ output.budget_percent }}">Budget</td>
+			<td class="budget-target barchart-background" title="Budget: {{ output.budget_percent }}%" data-percent="{{ output.budget_percent }}">Budget</td>
 			<td class="budget-planned"><span class="budget-label">Planned: </span> <span class="budget-amount">£{{ output.budget_planned|intcomma }}</span></td>
 			<td class="budget-spent"><span class="budget-label">Spent: </span> <span class="budget-amount text-ok">£{{ output.budget_spent|intcomma }}</span></td>
 			<td class="budget-manage">
@@ -136,7 +136,7 @@
 		<tr class="output-child">
 			<td></td>
 			<td class="activities-title"><h2>Activities</h2></td>
-			<td class="activities-target barchart-background" data-percent="{{ output.activities_percent }}">Activities</td>
+			<td class="activities-target barchart-background" title="Activities: {{ output.activities_percent }}%" data-percent="{{ output.activities_percent }}">Activities</td>
 			<td class="activities-planned"><span class="activities-label">Planned:</span> <span class="activities-amount">{{ output.activities_planned }}</span></td>
 			<td class="activities-spent">
 				<div class="two-amount"><span class="activities-label">Complete: </span> <span class="activities-amount text-danger">{{ output.activities_complete }}</span></div>

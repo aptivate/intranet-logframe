@@ -116,7 +116,7 @@ class Output(AverageTargetPercentMixin, models.Model):
     def activities_percent(self):
         return int(100 * self.activities_on_schedule / float(self.activities_planned))
 
-    @property
+    @cached_property
     def target_percent(self):
         """ average of subindicators """
         return self._calculate_target_percent(self.indicator_set.all())
@@ -132,7 +132,7 @@ class Indicator(AverageTargetPercentMixin, models.Model):
     source = models.TextField()
     output = models.ForeignKey(Output, null=True)
 
-    @property
+    @cached_property
     def target_percent(self):
         """ average of subindicators """
         return self._calculate_target_percent(self.subindicator_set.all())
@@ -182,7 +182,7 @@ class SubIndicator(models.Model):
         else:
             return target_for_last_milestone.first()
 
-    @property
+    @cached_property
     def target_percent(self):
         return int(100 * self.current_result / float(self.last_target.value))
 
