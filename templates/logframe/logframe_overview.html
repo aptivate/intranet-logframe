@@ -35,7 +35,9 @@
 			<td class="overview-minmax unselectable">▶</td>
 			<td class="overview-title"><h2>Impact (Goal)</h2></td>
 			<td class="overview-target barchart-background"title="Target: {{ logframe.average_target_percent }}%"  data-percent="{{ logframe.average_target_percent }}">Target</td>
-			<td colspan="2" class="overview-description status-background" data-status="warning">AGW get improved access to health, education, economic, political opportunities and justice
+			<td colspan="2" class="overview-description status-background"
+				data-status="{{ logframe.summary_status }}">
+				AGW get improved access to health, education, economic, political opportunities and justice
 			</td>
 			<td class="overview-manage">
 				<a href="#">Edit</a>
@@ -68,7 +70,9 @@
 					</tbody>
 				</table>
 			</td>
-			<td colspan="2" class="overview-description status-background" data-status="danger">The enabling environment for AGWs' empowerment in Nigeria strengthened.
+			<td colspan="2" class="overview-description status-background"
+				data-status="{{ logframe.summary_status }}">
+				The enabling environment for AGWs' empowerment in Nigeria strengthened.
 			</td>
 			<td class="overview-manage">
 				<a href="#">Edit</a>
@@ -103,7 +107,7 @@
 				</table>
 			</td>
 			<td colspan="2" class="overview-description status-background"
-				data-status="{% if forloop.first %}ok{% elif forloop.last %}warning{% else %}danger{% endif %}">
+				data-status="{{ output.summary_status }}">
 				{{ output.description }}
 			</td>
 			<td class="overview-manage">

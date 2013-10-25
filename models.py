@@ -8,6 +8,9 @@ from django.utils.functional import cached_property
 
 
 class AverageTargetPercentMixin(object):
+    OK = 'ok'
+    WARNING = 'warning'
+    DANGER = 'danger'
 
     def _average_sequence(self, children, attr):
         value_list = [getattr(c, attr) for c in children]
@@ -29,6 +32,14 @@ class AverageTargetPercentMixin(object):
     def _calculate_weighted_target_percent(self, children):
         return self._calculate_weighted_average(children, 'target_percent', 'impact_weighting')
 
+    def _calculate_summary_status(self, target_percent, budget_percent):
+        if target_percent >= budget_percent:
+            return self.OK
+        elif target_percent < budget_percent - 10:
+            return self.DANGER
+        else:
+            return self.WARNING
+
 
 class LogFrame(AverageTargetPercentMixin, models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -43,6 +54,10 @@ class LogFrame(AverageTargetPercentMixin, models.Model):
     def average_activities_percent(self):
         return self._calculate_weighted_average(
             self.output_set.all(), 'activities_percent', 'impact_weighting')
+
+    def summary_status(self):
+        return self._calculate_summary_status(self.average_target_percent(),
+                                              self.average_budget_percent())
 
     @cached_property
     def milestones(self):
@@ -120,6 +135,10 @@ class Output(AverageTargetPercentMixin, models.Model):
     def target_percent(self):
         """ average of subindicators """
         return self._calculate_target_percent(self.indicator_set.all())
+
+    def summary_status(self):
+        return self._calculate_summary_status(self.target_percent,
+                                              self.budget_percent)
 
     @python_2_unicode_compatible
     def __str__(self):

@@ -50,3 +50,23 @@ class TestAverageTargetPercentMixin(TestCase):
         child1 = self.FakeWeightedChild(45, 20)
         child2 = self.FakeWeightedChild(60, 10)
         self.assertEqual(50, self.testobj._calculate_weighted_target_percent([child1, child2]))
+
+    def test_calculate_summary_status_returns_ok_when_target_gt_budget(self):
+        self.assertEqual(AverageTargetPercentMixin.OK,
+                         self.testobj._calculate_summary_status(53, 52))
+
+    def test_calculate_summary_status_returns_ok_when_target_equals_budget(self):
+        self.assertEqual(AverageTargetPercentMixin.OK,
+                         self.testobj._calculate_summary_status(52, 52))
+
+    def test_calculate_summary_status_returns_warning_when_target_slightly_lt_budget(self):
+        self.assertEqual(AverageTargetPercentMixin.WARNING,
+                         self.testobj._calculate_summary_status(51, 52))
+
+    def test_calculate_summary_status_returns_warning_when_target_10_lt_budget(self):
+        self.assertEqual(AverageTargetPercentMixin.WARNING,
+                         self.testobj._calculate_summary_status(42, 52))
+
+    def test_calculate_summary_status_returns_danger_when_target_11_lt_budget(self):
+        self.assertEqual(AverageTargetPercentMixin.DANGER,
+                         self.testobj._calculate_summary_status(41, 52))
