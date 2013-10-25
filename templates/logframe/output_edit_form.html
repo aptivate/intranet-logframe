@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load i18n admin_modify %}
+{% load waffle_tags %}
 
 {% block style %}
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}admin/css/forms.css" />
@@ -32,18 +33,18 @@
 
 	<form name="output" method="post">
 		{% csrf_token %}
-		{% if deploy_env == 'dev' %}
+		{% switch "save_output" %}
 		<div class="submit-row">
 			<input type="submit" name="save" value="Save" />
 			<input type="button" value="Cancel" onclick="window.history.back(); return false;" />
 		</div>
-		{% endif %}
+		{% endswitch %}
 
 		<div class="form errors box">
 		{{ form.errors }}
-		{% if deploy_env == 'dev' %}
+		{% switch "save_output" %}
 		<pre> {{ indicators.errors }} </pre>
-		{% endif %}
+		{% endswitch %}
 		</div>
 
 		{{ form.log_frame.as_hidden }}
@@ -120,12 +121,12 @@
 </table>
 
 
-		{% if deploy_env == 'dev' %}
+		{% switch "save_output" %}
 		<div class="submit-row">
 			<input type="submit" name="save" value="Save" />
 			<input type="button" value="Cancel" onclick="window.history.back(); return false;" />
 		</div>
-		{% endif %}
+		{% endswitch %}
 	</form>
 
 {% if output %}
