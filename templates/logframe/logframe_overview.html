@@ -122,7 +122,7 @@
 			<td class="indicator-target barchart-background" title="Target: {{ indicator.target_percent }}%" data-percent="{{ indicator.target_percent }}">Target</td>
 			<td colspan="2" class="indicator-description">{{ indicator.description|safe }}</td>
 			<td class="indicator-manage">
-				<a href="{% url "logframe-monitor-indicator" indicator.id %}">Monitor</a>
+				<a href="/admin/logframe/indicator/{{ indicator.id }}/">Monitor</a>
 				<a href="#">History</a>
 			</td>
 		</tr>
